@@ -1,0 +1,61 @@
+body{
+    background-color: #eee7ce;
+}
+
+.card-body,.card{
+    border-radius: 10px;
+}
+.twitter:hover{
+    color: #000;
+}
+
+.youtube:hover{
+    color: red;
+}
+.facebook:hover {
+    color: blue;
+}
+
+.instagram:hover {
+    color: rgb(172, 3, 31);
+}
+.whatsapp:hover {
+    color: green;
+}
+
+
+.dropdown-menu :hover{
+    background-color: #000;
+}
+
+.vertical-nav {
+    height: 100%;
+    border-radius: 15px;
+}
+
+.vertical-nav .nav-link {
+    color: #333;
+    color: white;
+}
+
+.vertical-nav .nav-link.active {
+    font-weight: bold;
+    color: #000;
+}
+
+.nav-item{
+    color: white;
+    padding: 10px;
+}
+
+.nav-item:hover{
+    color: black;
+    background-color: grey;
+    border-bottom: white;
+
+}
+.nav-item:active{
+    font-weight: bold;
+    background-color: grey;
+}
+
