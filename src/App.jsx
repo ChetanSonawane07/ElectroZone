@@ -15,6 +15,7 @@ import Admin_Dashboard from "./pages/Admin_Dashboard";
 import Products from './componants/Products';
 import ProductDetails from "./componants/ProductDetails";
 import AddAddress from "./componants/Add-Address";
+import AddProduct from "./componants/Add-Product";
 function App() {
   return (
     <div>
@@ -28,7 +29,8 @@ function App() {
         <Route path="/Admin-Dashboard" element={<Admin_Dashboard />} />
         <Route path="/Products" element={<Products />} />
         <Route path="/ProductDetails" element={<ProductDetails />} />
-        <Route path="/Add-Address" element={<AddAddress/>} />
+        <Route path="/Add-Address" element={<AddAddress />} />
+        <Route path="/Add-Product" element={<AddProduct/>} />
       </Routes>
       <ToastContainer />
     </div>

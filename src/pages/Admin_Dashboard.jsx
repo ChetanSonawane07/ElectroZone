@@ -4,22 +4,42 @@ import logo from "../images/logo.jpg";
 import { useState } from "react";
 
 function Admin_Dashboard() {
-  const [showAddCategory, setShowAddCategory] = useState(false);
-  const [showAddBrand, setShowAddBrand] = useState(false);
+  const [renderComponent, setRenderComponent] = useState("Home");
+
+  const activeComponent = () => {
+    switch (renderComponent) {
+      case "Home":
+        return (
+          <img
+            className="img-responsive"
+            src={logo}
+            width={1000}
+            height={550}
+            style={{borderRadius:20}}
+          />
+        );
+      case "Add-Category":
+        return <AddCategory />;
+      case "Add-Brand":
+        return <AddBrand />;
+    }
+  };
+
   return (
     <div>
+      {/* Header */}
       <nav className="navbar navbar-expand-lg navbar-light bg-dark text-white">
         {/* <!-- Container wrapper --> */}
         <div className="container-fluid">
           {/* <!-- Collapsible wrapper --> */}
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             {/* <!-- Navbar brand --> */}
-            <a className="navbar-brand mt-2 mt-lg-0" href="#">
-              <img src="../images/logo.jpg" height="15" alt="Logo" />
+            <a className="navbar-brand mt-2 mt-lg-0">
+              <img src={logo} height="35" alt="Logo" />
             </a>
           </div>
-          <div className="navbar-brand mt-2 mt-lg-0 text-center">
-            <h3 className="text-white">Dashboard</h3>
+          <div className="navbar-brand mt-2 mt-lg-0 ">
+            <h3 className="text-white">Admin Dashboard</h3>
           </div>
           {/* <!-- Right elements --> */}
           <div className="d-flex align-items-center">
@@ -50,11 +70,6 @@ function Admin_Dashboard() {
               >
                 <li>
                   <a className="dropdown-item" href="#">
-                    Edit profile
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
                     Logout
                   </a>
                 </li>
@@ -66,70 +81,61 @@ function Admin_Dashboard() {
         {/* <!-- Container wrapper --> */}
       </nav>
       <br />
+
+
       {/* vertical Navigation Bar */}
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-3">
             <div className="vertical-nav bg-dark" style={{ height: 550 }}>
               <ul className="nav flex-column">
-                <li className="nav-item">
-                  <button className="nav-link text-reset btn">Home</button>
+                <li
+                  className="nav-item"
+                  onClick={() => setRenderComponent("Home")}
+                >
+                  <button className="nav-link text-reset">Home</button>
                 </li>
-                <li className="nav-item">
-                  <button
-                    className="nav-link text-reset"
-                    onClick={() => setShowAddCategory(!showAddCategory)}
-                  >
-                    Add Category
-                  </button>
+                <li
+                  className="nav-item"
+                  onClick={() => setRenderComponent("Add-Category")}
+                >
+                  <button className="nav-link text-reset">Add Category</button>
                 </li>
                 <li className="nav-item">
                   <button className="nav-link text-reset">View Category</button>
                 </li>
-                <li className="nav-item">
-                  <button
-                    className="nav-link text-reset"
-                    onClick={() => setShowAddBrand(!showAddBrand)}
-                  >
-                    Add Brand
-                  </button>
+                <li
+                  className="nav-item"
+                  onClick={() => setRenderComponent("Add-Brand")}
+                >
+                  <button className="nav-link text-reset">Add Brand</button>
                 </li>
                 <li className="nav-item">
-                  <button className="nav-link text-reset" href="#">
-                    View Brands
-                  </button>
+                  <button className="nav-link text-reset">View Brands</button>
                 </li>
                 <li className="nav-item">
-                  <button className="nav-link text-reset" href="#">
-                    View Sellers
-                  </button>
+                  <button className="nav-link text-reset">View Sellers</button>
                 </li>
                 <li className="nav-item">
-                  <button className="nav-link text-reset" href="#">
-                    View Users
-                  </button>
+                  <button className="nav-link text-reset">View Users</button>
                 </li>
                 <li className="nav-item">
-                  <button className="nav-link text-reset" href="#">
-                    View Orders
-                  </button>
+                  <button className="nav-link text-reset">View Orders</button>
                 </li>
                 <li className="nav-item">
-                  <button className="nav-link text-reset" href="#">
+                  <button className="nav-link text-reset">
                     View Business Analysis
                   </button>
                 </li>
               </ul>
             </div>
           </div>
-          <div className="col-md-9 col-sm-12">
-            {/* <img className='img-responsive' src={logo} width={1000} height={550}/>  */}
-            {showAddCategory  && <AddCategory />}
-            {showAddBrand && <AddBrand />}
-          </div>
+          <div className="col-md-9 col-sm-12">{activeComponent()}</div>
         </div>
       </div>
       <br />
+
+
       {/* Footer */}
       <footer className="text-center text-lg-start bg-dark text-white">
         {/* <!-- Section: Social media --> */}

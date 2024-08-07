@@ -4,9 +4,14 @@ import CategoryList from "../componants/CategoryList";
 import logo from "../images/logo.jpg";
 import MainPage from "../componants/Main-page";
 import { useState } from "react";
+import Edit_Profile from "../componants/Edit_Profile";
+import AddAddress from "../componants/Add-Address";
+import WishList from "../componants/WishList";
+import Cart from "../componants/Cart";
 
 initMDB({ Dropdown, Collapse });
 function Home() {
+  const [activeComponent, setActiveComponent] = useState("Home");
   const navigate = useNavigate();
   const BecomeSeller = () => {
     navigate("/Seller-Register");
@@ -14,11 +19,21 @@ function Home() {
   const UserLogin = () => {
     navigate("/User-Login");
   };
-  const EditProfile = () => {
-    navigate("/Edit-Profile");
-  };
-  const AddAddress = () => {
-    navigate("/Add-Address");
+
+  const renderComponent = () => {
+    switch (activeComponent) {
+      case "Home":
+        return <MainPage />;
+      case "Edit-Profile":
+        return <Edit_Profile />;
+      case "Add-Address":
+        return <AddAddress />;
+      case "My-WishList":
+        return <WishList />;
+      case "My-Cart":
+        return <Cart />;
+      case "View-Orders":
+    }
   };
 
   return (
@@ -115,39 +130,57 @@ function Home() {
                 aria-labelledby="navbarDropdownMenuAvatar"
               >
                 <li>
-                  <a className="dropdown-item" onClick={UserLogin}>
+                  <button className="dropdown-item" onClick={UserLogin}>
                     Login
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={EditProfile}>
+                  <button
+                    className="dropdown-item"
+                    onClick={() => setActiveComponent("Edit-Profile")}
+                  >
                     Edit profile
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a className="dropdown-item" onClick={AddAddress}>
+                  <button
+                    className="dropdown-item"
+                    onClick={() => setActiveComponent("Add-Address")}
+                  >
                     Add Address
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <button
+                    className="dropdown-item"
+                    onClick={() => setActiveComponent("My-WishList")}
+                  >
                     My Wishlist
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <button
+                    className="dropdown-item"
+                    onClick={() => setActiveComponent("My-Cart")}
+                  >
                     My Cart
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <button
+                    className="dropdown-item"
+                    onClick={() => setActiveComponent("View-Orders")}
+                  >
                     View Orders
-                  </a>
+                  </button>
                 </li>
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <button
+                    className="dropdown-item"
+                    onClick={() => setActiveComponent("Home")}
+                  >
                     Logout
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>
@@ -158,9 +191,11 @@ function Home() {
       </nav>
 
       <CategoryList />
+      {/* <Cart/> */}
+      {renderComponent()}
 
-      <MainPage />
-
+      {/* <MainPage /> */}
+      <br />
       {/* Footer */}
       <footer className="text-center text-lg-start bg-dark text-white">
         {/* <!-- Section: Social media --> */}
@@ -169,7 +204,7 @@ function Home() {
             {/* <!-- Grid row --> */}
             <div className="row mt-3">
               {/* <!-- Grid column --> */}
-              <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+              <div className="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4 text-center">
                 {/* <!-- Content --> */}
                 <h6 className="text-uppercase fw-bold mb-4">
                   <i className="fas fa-gem me-3"></i>Connect With Us

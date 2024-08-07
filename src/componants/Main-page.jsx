@@ -1,50 +1,19 @@
 import BrandList from "./BrandList";
+import SimpleSlider from "./Carousel";
+import Cart from "./Cart";
+import Offers from "./Offers";
+import WishList from "./WishList";
+
 
 function MainPage() {
   return (
     <div>
       <div>
-        <div
-          className="bg-dark col-12 container"
-          style={{
-            height: 400,
-            borderRadius: 20,
-          }}
-        >
-        </div>
-
+        <SimpleSlider />-
         <br />
-
+        <br />
         {/* OFFERS */}
-
-        <div
-          className="card bg-dark col-12 container"
-          style={{
-            height: 150,
-            borderRadius: 20,
-          }}
-        ></div>
-        <br />
-        <div className="container">
-          <div className="row">
-            <div
-              className="card bg-dark col-6 "
-              style={{
-                height: 150,
-                borderRadius: 20,
-              }}
-            ></div>
-
-            <div
-              className="card bg-dark col-6 "
-              style={{
-                height: 150,
-                borderRadius: 20,
-              }}
-            ></div>
-          </div>
-        </div>
-
+        <Offers />
         <BrandList />
       </div>
     </div>

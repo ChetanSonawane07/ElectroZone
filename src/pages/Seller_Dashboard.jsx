@@ -1,7 +1,22 @@
+import { useEffect, useState } from "react";
 import AddProduct from "../componants/Add-Product";
 import MandatoryInfo from "../componants/Seller-Mandatory-Info";
+import logo from '../images/logo.jpg'
+import { useNavigate } from "react-router-dom";
 
 function Seller_Dashboard() {
+  const [renderComponent, setRenderComponent] = useState("Home");
+  const navigate = useNavigate()
+
+  const activeComponent = () => {
+    switch (renderComponent) {
+      case "Home":
+        return <MandatoryInfo />;
+
+      case "Add-Product":
+        return <AddProduct/>
+    }
+  };
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-dark text-white">
@@ -10,8 +25,8 @@ function Seller_Dashboard() {
           {/* <!-- Collapsible wrapper --> */}
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             {/* <!-- Navbar brand --> */}
-            <a className="navbar-brand mt-2 mt-lg-0" href="#">
-              <img src="../images/logo.jpg" height="15" alt="Logo" />
+            <a className="navbar-brand mt-2 mt-lg-0">
+              <img src={logo} height="35" alt="Logo" />
             </a>
           </div>
           <div className="navbar-brand mt-2 mt-lg-0 text-center">
@@ -45,35 +60,10 @@ function Seller_Dashboard() {
                 aria-labelledby="navbarDropdownMenuAvatar"
               >
                 <li>
-                  <a className="dropdown-item">Login</a>
+                  <button className="dropdown-item">Edit profile</button>
                 </li>
                 <li>
-                  <a className="dropdown-item">Edit profile</a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Add Address
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    My Wishlist
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    My Cart
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    View Orders
-                  </a>
-                </li>
-                <li>
-                  <a className="dropdown-item" href="#">
-                    Logout
-                  </a>
+                  <button className="dropdown-item">Logout</button>
                 </li>
               </ul>
             </div>
@@ -89,37 +79,37 @@ function Seller_Dashboard() {
           <div className="col-md-3 ">
             <div className="vertical-nav bg-dark" style={{ height: 300 }}>
               <ul className="nav flex-column">
-                <li className="nav-item">
-                  <a className="nav-link text-reset" href="#">
-                    Home
-                  </a>
+                <li
+                  className="nav-item"
+                  onClick={() => setRenderComponent("Home")}
+                >
+                  <button className="nav-link text-reset">Home</button>
+                </li>
+                <li
+                  className="nav-item"
+                  onClick={() => setRenderComponent("Add-Product")}
+                >
+                  <button className="nav-link text-reset">Add Product</button>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link text-reset" href="#">
-                    Add Products
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link text-reset" href="#">
+                  <button className="nav-link text-reset">
                     View Products
-                  </a>
+                  </button>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link text-reset" href="#">
+                  <button className="nav-link text-reset" href="#">
                     View Orders
-                  </a>
+                  </button>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link text-reset" href="#">
+                  <button className="nav-link text-reset" >
                     View Business Analysis
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>
           </div>
-          <div className="col-md-9">
-            <MandatoryInfo/>
-          </div>
+          <div className="col-md-9">{activeComponent()}</div>
         </div>
       </div>
       <br />

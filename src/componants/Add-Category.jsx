@@ -17,7 +17,6 @@ function AddCategory() {
                     id="form3Example1"
                     className="form-control"
                     placeholder="Enter Name"
-                    
                   />
                 </div>
               </div>
