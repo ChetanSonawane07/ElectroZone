@@ -2,6 +2,11 @@ import AddCategory from "../componants/Add-Category";
 import AddBrand from "../componants/Add-Brand";
 import logo from "../images/logo.jpg";
 import { useState } from "react";
+import AdminCategoryList from "../componants/AdminCategoryList";
+import AdminBrandList from "../componants/AdminBrandList";
+import AdminUserList from "../componants/AdminUserList";
+import AdminSellerList from "../componants/AdminSellerList";
+import AdminOrderList from "../componants/AdminOrderList";
 
 function Admin_Dashboard() {
   const [renderComponent, setRenderComponent] = useState("Home");
@@ -15,13 +20,23 @@ function Admin_Dashboard() {
             src={logo}
             width={1000}
             height={550}
-            style={{borderRadius:20}}
+            style={{ borderRadius: 20 }}
           />
         );
       case "Add-Category":
         return <AddCategory />;
       case "Add-Brand":
         return <AddBrand />;
+      case "AdminCategoryList":
+        return <AdminCategoryList />;
+      case "AdminBrandList":
+        return <AdminBrandList />;
+      case "AdminUserList":
+        return <AdminUserList />;
+      case "AdminSellerList":
+        return <AdminSellerList />;
+      case "AdminOrderList":
+        return <AdminOrderList />;
     }
   };
 
@@ -82,7 +97,6 @@ function Admin_Dashboard() {
       </nav>
       <br />
 
-
       {/* vertical Navigation Bar */}
       <div className="container-fluid">
         <div className="row">
@@ -101,7 +115,10 @@ function Admin_Dashboard() {
                 >
                   <button className="nav-link text-reset">Add Category</button>
                 </li>
-                <li className="nav-item">
+                <li
+                  className="nav-item"
+                  onClick={() => setRenderComponent("AdminCategoryList")}
+                >
                   <button className="nav-link text-reset">View Category</button>
                 </li>
                 <li
@@ -110,16 +127,28 @@ function Admin_Dashboard() {
                 >
                   <button className="nav-link text-reset">Add Brand</button>
                 </li>
-                <li className="nav-item">
+                <li
+                  className="nav-item"
+                  onClick={() => setRenderComponent("AdminBrandList")}
+                >
                   <button className="nav-link text-reset">View Brands</button>
                 </li>
-                <li className="nav-item">
+                <li
+                  className="nav-item"
+                  onClick={() => setRenderComponent("AdminSellerList")}
+                >
                   <button className="nav-link text-reset">View Sellers</button>
                 </li>
-                <li className="nav-item">
+                <li
+                  className="nav-item"
+                  onClick={() => setRenderComponent("AdminUserList")}
+                >
                   <button className="nav-link text-reset">View Users</button>
                 </li>
-                <li className="nav-item">
+                <li
+                  className="nav-item"
+                  onClick={() => setRenderComponent("AdminOrderList")}
+                >
                   <button className="nav-link text-reset">View Orders</button>
                 </li>
                 <li className="nav-item">
@@ -134,7 +163,6 @@ function Admin_Dashboard() {
         </div>
       </div>
       <br />
-
 
       {/* Footer */}
       <footer className="text-center text-lg-start bg-dark text-white">

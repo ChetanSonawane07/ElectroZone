@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import AddProduct from "../componants/Add-Product";
 import MandatoryInfo from "../componants/Seller-Mandatory-Info";
-import logo from '../images/logo.jpg'
+import logo from "../images/logo.jpg";
 import { useNavigate } from "react-router-dom";
+import SellerProductList from "../componants/SellerProductList";
+import SellerOrderList from "../componants/SellerOrderList";
 
 function Seller_Dashboard() {
   const [renderComponent, setRenderComponent] = useState("Home");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const activeComponent = () => {
     switch (renderComponent) {
@@ -14,7 +16,13 @@ function Seller_Dashboard() {
         return <MandatoryInfo />;
 
       case "Add-Product":
-        return <AddProduct/>
+        return <AddProduct />;
+
+      case "SellerProductList":
+        return <SellerProductList />;
+
+      case "SellerOrderList":
+        return <SellerOrderList />;
     }
   };
   return (
@@ -91,18 +99,20 @@ function Seller_Dashboard() {
                 >
                   <button className="nav-link text-reset">Add Product</button>
                 </li>
+                <li
+                  className="nav-item"
+                  onClick={() => setRenderComponent("SellerProductList")}
+                >
+                  <button className="nav-link text-reset">View Products</button>
+                </li>
+                <li
+                  className="nav-item"
+                  onClick={() => setRenderComponent("SellerOrderList")}
+                >
+                  <button className="nav-link text-reset">View Orders</button>
+                </li>
                 <li className="nav-item">
                   <button className="nav-link text-reset">
-                    View Products
-                  </button>
-                </li>
-                <li className="nav-item">
-                  <button className="nav-link text-reset" href="#">
-                    View Orders
-                  </button>
-                </li>
-                <li className="nav-item">
-                  <button className="nav-link text-reset" >
                     View Business Analysis
                   </button>
                 </li>
