@@ -10,7 +10,7 @@ function WishListItem() {
   };
 
   return (
-    <div className="col-3" style={{ display: "inline-block", padding: 10 }}>
+    <div className="col-4" style={{ display: "inline-block", padding: 10 }}>
       <div className="card bg-dark text-white">
         <img
           style={{ height: 300 }}
@@ -22,13 +22,21 @@ function WishListItem() {
           <h5 className="card-title">ABC</h5>
           <p className="card-text">PQR</p>
           <div style={{ fontWeight: 600 }}>XYZ</div>
-          <button
-            onClick={cancelBooking}
-            style={{ position: "absolute", right: 15, bottom: 15 }}
-            className="btn btn-danger"
-          >
-            Remove
-          </button>
+          <br />
+          <div className="col-12">
+            <div className="row">
+              <div className="col-6 text-center">
+                <button onClick={cancelBooking} className="btn btn-success">
+                  Add To Cart
+                </button>
+              </div>
+              <div className="col-6 text-center">
+                <button onClick={cancelBooking} className="btn btn-danger ">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -10,7 +10,7 @@ import Cart from "../componants/Cart";
 import { useNavigate } from "react-router-dom";
 
 initMDB({ Dropdown, Collapse });
-function Home() {
+function WishListPage() {
   const [activeComponent, setActiveComponent] = useState("Home");
   const navigate = useNavigate();
   const BecomeSeller = () => {
@@ -29,9 +29,9 @@ function Home() {
       case "Add-Address":
         return <AddAddress />;
       case "My-WishList":
-        return navigate('/WishList');
+        return navigate("/WishList");
       case "My-Cart":
-        return navigate('/Cart');
+        return navigate("/Cart");
       case "View-Orders":
     }
   };
@@ -193,10 +193,9 @@ function Home() {
       </nav>
 
       <CategoryList />
-      {/* <MainPage /> */}
-      {renderComponent()}
-
       <br />
+      <WishList />
+
       {/* Footer */}
       <footer className="text-center text-lg-start bg-dark text-white">
         {/* <!-- Section: Social media --> */}
@@ -424,4 +423,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default WishListPage;

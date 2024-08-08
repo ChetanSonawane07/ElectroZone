@@ -11,7 +11,7 @@ function CartItem() {
   };
 
   return (
-    <div className="col-3" style={{ display: "inline-block", padding: 10 }}>
+    <div className="col-4" style={{ display: "inline-block", padding: 10 }}>
       <div className="card bg-dark text-white">
         <img
           style={{ height: 300 }}

@@ -12,10 +12,12 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Seller_Dashboard from "./pages/Seller_Dashboard";
 import Admin_Dashboard from "./pages/Admin_Dashboard";
-import Products from './componants/Products';
-import ProductDetails from "./componants/ProductDetails";
 import AddAddress from "./componants/Add-Address";
 import AddProduct from "./componants/Add-Product";
+import ProductPage from "./pages/ProductPage";
+import ProductDetailsPage from "./pages/ProductDetailsPage";
+import CartPage from "./pages/CartPage";
+import WishListPage from "./pages/WishListPage";
 function App() {
   return (
     <div>
@@ -27,10 +29,15 @@ function App() {
         <Route path="/Seller-Login" element={<Seller_Login />} />
         <Route path="/Seller-Dashboard" element={<Seller_Dashboard />} />
         <Route path="/Admin-Dashboard" element={<Admin_Dashboard />} />
-        <Route path="/Products" element={<Products />} />
-        <Route path="/ProductDetails" element={<ProductDetails />} />
+        <Route path="/Products" element={<ProductPage />} />
+        <Route
+          path="/ProductDetails/{ProductName}"
+          element={<ProductDetailsPage />}
+        />
         <Route path="/Add-Address" element={<AddAddress />} />
-        <Route path="/Add-Product" element={<AddProduct/>} />
+        <Route path="/Add-Product" element={<AddProduct />} />
+        <Route path="/Cart" element={<CartPage />} />
+        <Route path="/WishList" element={<WishListPage />} />
       </Routes>
       <ToastContainer />
     </div>

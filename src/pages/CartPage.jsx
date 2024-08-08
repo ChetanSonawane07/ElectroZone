@@ -7,10 +7,11 @@ import Edit_Profile from "../componants/Edit_Profile";
 import AddAddress from "../componants/Add-Address";
 import WishList from "../componants/WishList";
 import Cart from "../componants/Cart";
+import Products from "../componants/Products";
 import { useNavigate } from "react-router-dom";
 
 initMDB({ Dropdown, Collapse });
-function Home() {
+function CartPage() {
   const [activeComponent, setActiveComponent] = useState("Home");
   const navigate = useNavigate();
   const BecomeSeller = () => {
@@ -29,9 +30,9 @@ function Home() {
       case "Add-Address":
         return <AddAddress />;
       case "My-WishList":
-        return navigate('/WishList');
+        return navigate("/WishList");
       case "My-Cart":
-        return navigate('/Cart');
+        return navigate("/Cart");
       case "View-Orders":
     }
   };
@@ -193,9 +194,23 @@ function Home() {
       </nav>
 
       <CategoryList />
-      {/* <MainPage /> */}
-      {renderComponent()}
-
+      <br />
+      <Cart />
+      <div className="container">
+        <div className="row">
+          <button
+            className=" bg-success align-items-center text-white"
+            style={{
+              height: 40,
+              width: "max",
+              textAlign: "center",
+              borderRadius: 10,
+            }}
+          >
+            Place Order
+          </button>
+        </div>
+      </div>
       <br />
       {/* Footer */}
       <footer className="text-center text-lg-start bg-dark text-white">
@@ -424,4 +439,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default CartPage;

@@ -1,4 +1,12 @@
+import { useNavigate } from "react-router-dom";
+
 function ProductDetails() {
+
+  const navigate = useNavigate()
+  const goToCart = () => {
+    navigate("/Cart");
+  }
+
   return (
     <div>
       <div className="container">
@@ -44,6 +52,7 @@ function ProductDetails() {
               textAlign: "center",
               borderRadius: 10,
             }}
+            onClick={goToCart}
           >
             Go To Cart
           </button>

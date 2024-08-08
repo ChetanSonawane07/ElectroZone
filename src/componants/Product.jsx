@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Product() {
   return (
     <div>
-      <Link to={'/ProductDetails'}>
+      <Link to={"/ProductDetails/{ProductName}"}>
         <div
           className="card bg-dark text-white"
           style={{ width: 300, height: 300 }}

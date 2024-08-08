@@ -7,10 +7,11 @@ import Edit_Profile from "../componants/Edit_Profile";
 import AddAddress from "../componants/Add-Address";
 import WishList from "../componants/WishList";
 import Cart from "../componants/Cart";
+import Products from "../componants/Products";
 import { useNavigate } from "react-router-dom";
 
 initMDB({ Dropdown, Collapse });
-function Home() {
+function ProductPage() {
   const [activeComponent, setActiveComponent] = useState("Home");
   const navigate = useNavigate();
   const BecomeSeller = () => {
@@ -29,9 +30,9 @@ function Home() {
       case "Add-Address":
         return <AddAddress />;
       case "My-WishList":
-        return navigate('/WishList');
+        return navigate("/WishList");
       case "My-Cart":
-        return navigate('/Cart');
+        return navigate("/Cart");
       case "View-Orders":
     }
   };
@@ -193,10 +194,9 @@ function Home() {
       </nav>
 
       <CategoryList />
-      {/* <MainPage /> */}
-      {renderComponent()}
-
       <br />
+      <Products />
+
       {/* Footer */}
       <footer className="text-center text-lg-start bg-dark text-white">
         {/* <!-- Section: Social media --> */}
@@ -424,4 +424,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default ProductPage;
