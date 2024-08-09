@@ -1,12 +1,16 @@
+import { Dropdown, Collapse, initMDB } from "mdb-ui-kit";
+import CategoryList from "../componants/CategoryList";
 import { useState } from "react";
 import logo from "../images/logo.jpg";
 import MainPage from "../componants/Main-page";
 import Edit_Profile from "../componants/Edit_Profile";
 import AddAddress from "../componants/Add-Address";
-
 import { useNavigate } from "react-router-dom";
+import OrderItem from "../componants/OrderItem";
+import OrderItems from "../componants/OrderItems";
 
-function CheckoutPage() {
+initMDB({ Dropdown, Collapse });
+function OrdersPage() {
   const [activeComponent, setActiveComponent] = useState("Home");
   const navigate = useNavigate();
   const BecomeSeller = () => {
@@ -29,9 +33,10 @@ function CheckoutPage() {
       case "My-Cart":
         return navigate("/Cart");
       case "View-Orders":
-        return navigate("/Orders");
+        return navigate('/Orders')
     }
   };
+
   return (
     <div>
       {/* <!-- Navbar --> */}
@@ -189,200 +194,10 @@ function CheckoutPage() {
         {/* <!-- Container wrapper --> */}
       </nav>
 
+      <CategoryList />
       <br />
-        {/* Main Content */}
-      <div className="container">
-        <div className="row">
-          <div className="col-6 ">
-            <div className="card">
-              <h3 className="text-center">Select Address</h3>
-              <div></div>
-            </div>
-          </div>
-          <div className="col-6">
-            <div className="card">
-              <h3 className="text-center">Select Payment Method</h3>
-              <div>
-                <div class="accordion" id="accordionExample">
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
-                      <button
-                        class="accordion-button"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#collapseOne"
-                        aria-expanded="true"
-                        aria-controls="collapseOne"
-                      >
-                        Credit / Debit / ATM Card
-                      </button>
-                    </h2>
-                    <div
-                      id="collapseOne"
-                      class="accordion-collapse collapse show"
-                      data-bs-parent="#accordionExample"
-                    >
-                      <div class="accordion-body">
-                        <div className="row">
-                          <div className="col-12">
-                            <label htmlFor="">Card Number :</label>{" "}
-                            <input
-                              type="number"
-                              name="paymentInfo"
-                              id="cardNo"
-                              className="form-control"
-                            />
-                          </div>
-                        </div>
-                        <div className="row">
-                          <div className="col-5">
-                            <label htmlFor="">Valid Till :</label>{" "}
-                            <input
-                              type="date"
-                              name="paymentInfo"
-                              id="validity"
-                              className="form-control"
-                            />
-                          </div>
-                          <div className="col-7">
-                            <label htmlFor="">CVV :</label> <br />
-                            <input
-                              type="number"
-                              name="paymentInfo"
-                              id="cvv"
-                              minLength={3}
-                              maxLength={3}
-                              className="form-control"
-                            />
-                          </div>
-                        </div>
-                        <div className="row">
-                          <button className="btn btn-success form-control">
-                            Pay
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
-                      <button
-                        class="accordion-button collapsed"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#collapseTwo"
-                        aria-expanded="false"
-                        aria-controls="collapseTwo"
-                      >
-                        Net Banking
-                      </button>
-                    </h2>
-                    <div
-                      id="collapseTwo"
-                      class="accordion-collapse collapse"
-                      data-bs-parent="#accordionExample"
-                    >
-                      <div class="accordion-body">
-                        <div
-                          className="form-control"
-                          style={{
-                            justifyContent: "space-between",
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                        >
-                          <label htmlFor="">HDFC Bank</label>
-                          <button
-                            className="btn btn-success"
-                            style={{ marginLeft: "auto" }}
-                          >
-                            Pay : $Amount
-                          </button>
-                        </div>
-                        <div
-                          className="form-control"
-                          style={{
-                            justifyContent: "space-between",
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                        >
-                          <label htmlFor="">ICICI Bank</label>
-                          <button className="btn btn-success">
-                            Pay : $Amount
-                          </button>
-                        </div>
-                        <div
-                          className="form-control"
-                          style={{
-                            justifyContent: "space-between",
-                            display: "flex",
-                            alignItems: "center",
-                          }}
-                        >
-                          <label htmlFor="">State Bank of India</label>
-                          <button className="btn btn-success">
-                            Pay : $Amount
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="accordion-item">
-                    <h2 class="accordion-header">
-                      <button
-                        class="accordion-button collapsed"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#collapseThree"
-                        aria-expanded="false"
-                        aria-controls="collapseThree"
-                      >
-                        UPI
-                      </button>
-                    </h2>
-                    <div
-                      id="collapseThree"
-                      class="accordion-collapse collapse"
-                      data-bs-parent="#accordionExample"
-                    >
-                      <div class="accordion-body">
-                        <div className="row">
-                          <div
-                            className="input-group mb-3"
-                            style={{ alignItems: "center" }}
-                          >
-                            <label htmlFor="">UPI ID : </label> <br />
-                            <input
-                              type="text"
-                              className="form-control"
-                              placeholder="Enter UPI ID"
-                            />
-                            <button
-                              class="btn btn-primary"
-                              type="button"
-                              id="button-addon2"
-                            >
-                              Verify
-                            </button>
-                          </div>
-                        </div>
-                        <div className="row">
-                          <button className="btn btn-success form-control">
-                            Pay
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <OrderItems/>
       <br />
-
       {/* Footer */}
       <footer className="text-center text-lg-start bg-dark text-white">
         {/* <!-- Section: Social media --> */}
@@ -610,4 +425,4 @@ function CheckoutPage() {
   );
 }
 
-export default CheckoutPage;
+export default OrdersPage;

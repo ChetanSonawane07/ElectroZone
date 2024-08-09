@@ -18,6 +18,8 @@ import ProductPage from "./pages/ProductPage";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import CartPage from "./pages/CartPage";
 import WishListPage from "./pages/WishListPage";
+import CheckoutPage from "./pages/CheckoutPage";
+import OrdersPage from "./pages/OrdersPage";
 function App() {
   return (
     <div>
@@ -38,6 +40,8 @@ function App() {
         <Route path="/Add-Product" element={<AddProduct />} />
         <Route path="/Cart" element={<CartPage />} />
         <Route path="/WishList" element={<WishListPage />} />
+        <Route path="/Checkout" element={<CheckoutPage />} />
+        <Route path="/Orders" element={<OrdersPage />} />
       </Routes>
       <ToastContainer />
     </div>

@@ -34,8 +34,13 @@ function CartPage() {
       case "My-Cart":
         return navigate("/Cart");
       case "View-Orders":
+        return navigate("/Orders");
     }
   };
+
+  const Checkout = () => {
+    navigate('/Checkout')
+  }
   return (
     <div>
       {/* <!-- Navbar --> */}
@@ -196,19 +201,35 @@ function CartPage() {
       <CategoryList />
       <br />
       <Cart />
-      <div className="container">
+      <div
+        className="container bg-white text-dark align-middle card border"
+        style={{ height: 60, borderRadius: 10 }}
+      >
         <div className="row">
-          <button
-            className=" bg-success align-items-center text-white"
-            style={{
-              height: 40,
-              width: "max",
-              textAlign: "center",
-              borderRadius: 10,
-            }}
+          <div
+            className="col-3"
+            style={{ verticalAlign: "middle", marginTop: 10 }}
           >
-            Place Order
-          </button>
+            Grand Total :
+          </div>
+          <div className="col-7"></div>
+          <div className="col-2">
+            <button
+              className="text-white bg-success"
+              onClick={Checkout}
+              style={{
+                height: 40,
+                width: "max",
+                textAlign: "center",
+                borderRadius: 10,
+                verticalAlign: "middle",
+                marginTop: 10,
+                
+              }}
+            >
+              Proceed to Checkout
+            </button>
+          </div>
         </div>
       </div>
       <br />

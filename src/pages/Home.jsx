@@ -33,6 +33,7 @@ function Home() {
       case "My-Cart":
         return navigate('/Cart');
       case "View-Orders":
+        return navigate("/Orders");
     }
   };
   return (
