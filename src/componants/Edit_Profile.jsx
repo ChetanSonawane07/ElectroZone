@@ -1,68 +1,89 @@
-import { Link } from "react-router-dom";
 function Edit_Profile() {
   return (
     <div>
-      <section >
-        <div className="container py-5">
-          <div className="row d-flex justify-content-center align-items-center h-100">
-            <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+      <section>
+        <div className="container">
+          <div className="row justify-content-center align-items-center h-100">
+            <div className="col-9">
               <div className="card shadow-2-strong">
                 <div className="card-body p-5 text-center bg-dark text-white">
-                  <h3 className="mb-5">Edit Profile</h3>
+                  <h4 className="mb-5">Edit Profile</h4>
+                  
+                  <div className="col-12">
+                    <div className="row">
+                      <div className="col-6">
+                        <div data-mdb-input-init className="form-outline mb-4">
+                          <input
+                            type="text"
+                            id="typeNameX-2"
+                            className="form-control form-control-lg"
+                            placeholder="Enter First Name"
+                          />
+                        </div>
+                      </div>
 
-                  <div data-mdb-input-init className="form-outline mb-4">
-                    <input
-                      type="text"
-                      id="typeNameX-2"
-                      className="form-control form-control-lg"
-                      placeholder="Enter First Name"
-                    />
+                      <div className="col-6">
+                        <div data-mdb-input-init className="form-outline mb-4">
+                          <input
+                            type="text"
+                            id="typeNameX-2"
+                            className="form-control form-control-lg"
+                            placeholder="Enter Last Name"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  <div data-mdb-input-init className="form-outline mb-4">
-                    <input
-                      type="text"
-                      id="typeNameX-2"
-                      className="form-control form-control-lg"
-                      placeholder="Enter Last Name"
-                    />
+                  <div className="col-12">
+                    <div className="row">
+                      <div className="col-6">
+                        <div data-mdb-input-init className="form-outline mb-4">
+                          <input
+                            type="email"
+                            id="typeEmailX-2"
+                            className="form-control form-control-lg"
+                            value="Email from session storage"
+                            disabled
+                          />
+                        </div>
+                      </div>
+                      <div className="col-6">
+                        <div data-mdb-input-init className="form-outline mb-4">
+                          <input
+                            type="tel"
+                            id="typePhoneX-2"
+                            className="form-control form-control-lg"
+                            placeholder="Enter Phone Number"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  <div data-mdb-input-init className="form-outline mb-4">
-                    <input
-                      type="email"
-                      id="typeEmailX-2"
-                      className="form-control form-control-lg"
-                      value="Email from session storage"
-                      disabled
-                    />
-                  </div>
-
-                  <div data-mdb-input-init className="form-outline mb-4">
-                    <input
-                      type="password"
-                      id="typePasswordX-2"
-                      className="form-control form-control-lg"
-                      placeholder="Enter Password"
-                    />
-                  </div>
-
-                  <div data-mdb-input-init className="form-outline mb-4">
-                    <input
-                      type="password"
-                      id="typePasswordX-2"
-                      className="form-control form-control-lg"
-                      placeholder="Confirm Password"
-                    />
-                  </div>
-
-                  <div data-mdb-input-init className="form-outline mb-4">
-                    <input
-                      type="tel"
-                      id="typePhoneX-2"
-                      className="form-control form-control-lg"
-                      placeholder="Enter Phone Number"
-                    />
+                  <div className="col-12">
+                    <div className="row">
+                      <div className="col-6">
+                        <div data-mdb-input-init className="form-outline mb-4">
+                          <input
+                            type="password"
+                            id="typePasswordX-2"
+                            className="form-control form-control-lg"
+                            placeholder="Enter Password"
+                          />
+                        </div>
+                      </div>
+                      <div className="col-6">
+                        <div data-mdb-input-init className="form-outline mb-4">
+                          <input
+                            type="password"
+                            id="typePasswordX-2"
+                            className="form-control form-control-lg"
+                            placeholder="Confirm Password"
+                          />
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
                   <button

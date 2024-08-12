@@ -5,7 +5,6 @@ import Edit_Profile from "../componants/Edit_Profile";
 import AddAddress from "../componants/Add-Address";
 
 import { useNavigate } from "react-router-dom";
-import PaymentApi from "../services/Paymentapi";
 
 function CheckoutPage() {
   const [activeComponent, setActiveComponent] = useState("Home");
@@ -191,7 +190,7 @@ function CheckoutPage() {
       </nav>
 
       <br />
-      {/* Main Content */}
+        {/* Main Content */}
       <div className="container">
         <div className="row">
           <div className="col-6 ">
@@ -203,16 +202,180 @@ function CheckoutPage() {
           <div className="col-6">
             <div className="card">
               <h3 className="text-center">Select Payment Method</h3>
-              <div className="form-control">
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>Payment Method</option>
-                  <option value="1">Credit / Debit / ATM Card</option>
-                  <option value="2">Net Banking</option>
-                  <option value="3">UPI</option>
-                </select>
-              </div>
-              <div className="form-control text-center">
-                <PaymentApi />
+              <div>
+                <div class="accordion" id="accordionExample">
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button
+                        class="accordion-button"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseOne"
+                        aria-expanded="true"
+                        aria-controls="collapseOne"
+                      >
+                        Credit / Debit / ATM Card
+                      </button>
+                    </h2>
+                    <div
+                      id="collapseOne"
+                      class="accordion-collapse collapse show"
+                      data-bs-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <div className="row">
+                          <div className="col-12">
+                            <label htmlFor="">Card Number :</label>{" "}
+                            <input
+                              type="number"
+                              name="paymentInfo"
+                              id="cardNo"
+                              className="form-control"
+                            />
+                          </div>
+                        </div>
+                        <div className="row">
+                          <div className="col-5">
+                            <label htmlFor="">Valid Till :</label>{" "}
+                            <input
+                              type="date"
+                              name="paymentInfo"
+                              id="validity"
+                              className="form-control"
+                            />
+                          </div>
+                          <div className="col-7">
+                            <label htmlFor="">CVV :</label> <br />
+                            <input
+                              type="number"
+                              name="paymentInfo"
+                              id="cvv"
+                              minLength={3}
+                              maxLength={3}
+                              className="form-control"
+                            />
+                          </div>
+                        </div>
+                        <div className="row">
+                          <button className="btn btn-success form-control">
+                            Pay
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseTwo"
+                        aria-expanded="false"
+                        aria-controls="collapseTwo"
+                      >
+                        Net Banking
+                      </button>
+                    </h2>
+                    <div
+                      id="collapseTwo"
+                      class="accordion-collapse collapse"
+                      data-bs-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <div
+                          className="form-control"
+                          style={{
+                            justifyContent: "space-between",
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <label htmlFor="">HDFC Bank</label>
+                          <button
+                            className="btn btn-success"
+                            style={{ marginLeft: "auto" }}
+                          >
+                            Pay : $Amount
+                          </button>
+                        </div>
+                        <div
+                          className="form-control"
+                          style={{
+                            justifyContent: "space-between",
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <label htmlFor="">ICICI Bank</label>
+                          <button className="btn btn-success">
+                            Pay : $Amount
+                          </button>
+                        </div>
+                        <div
+                          className="form-control"
+                          style={{
+                            justifyContent: "space-between",
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <label htmlFor="">State Bank of India</label>
+                          <button className="btn btn-success">
+                            Pay : $Amount
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="accordion-item">
+                    <h2 class="accordion-header">
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapseThree"
+                        aria-expanded="false"
+                        aria-controls="collapseThree"
+                      >
+                        UPI
+                      </button>
+                    </h2>
+                    <div
+                      id="collapseThree"
+                      class="accordion-collapse collapse"
+                      data-bs-parent="#accordionExample"
+                    >
+                      <div class="accordion-body">
+                        <div className="row">
+                          <div
+                            className="input-group mb-3"
+                            style={{ alignItems: "center" }}
+                          >
+                            <label htmlFor="">UPI ID : </label> <br />
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder="Enter UPI ID"
+                            />
+                            <button
+                              class="btn btn-primary"
+                              type="button"
+                              id="button-addon2"
+                            >
+                              Verify
+                            </button>
+                          </div>
+                        </div>
+                        <div className="row">
+                          <button className="btn btn-success form-control">
+                            Pay
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
