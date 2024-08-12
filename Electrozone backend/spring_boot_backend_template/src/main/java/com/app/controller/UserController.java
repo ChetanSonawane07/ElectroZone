@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.app.dto.ApiResponse;
 import com.app.dto.LoginDTO;
 import com.app.dto.UserDTO;
 import com.app.service.UserService;
@@ -13,6 +14,7 @@ import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin
 public class UserController {
 
     @Autowired
@@ -32,10 +34,10 @@ public class UserController {
         return ResponseEntity.ok(userDto);
     }
 
-    @PostMapping
-    public ResponseEntity<UserDTO> addUser(@Valid @RequestBody UserDTO userDto) {
+    @PostMapping("/register")
+    public ResponseEntity<?> addUser(@Valid @RequestBody UserDTO userDto) {
         UserDTO createdUser = userService.addUser(userDto);
-        return ResponseEntity.status(201).body(createdUser);
+        return ResponseEntity.status(201).body(new ApiResponse("Success"));
     }
 
     @PutMapping("/{id}")

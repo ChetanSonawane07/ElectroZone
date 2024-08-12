@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { register } from "../services/user";
 
 function User_Register() {
   const [name, setName] = useState("");
@@ -9,17 +10,32 @@ function User_Register() {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
 
-  const onRegister = () => {
-    if (name.length == 0) {
+  const navigate = useNavigate()
+
+  const onRegister = async () => {
+    console.log("onregister")
+    if (name.length === 0) {
       toast.warning("Name is mandatory");
-    } else if (email.length == 0) {
+    } else if (email.length === 0) {
       toast.warning("Email is mandatory");
-    } else if (phoneNumber.length == 0) {
+    } else if (phoneNumber.length === 0) {
       toast.warning("Phone Number is mandatory");
-    } else if (password.length == 0) {
+    } else if (password.length === 0) {
       toast.warning("Password is mandatory");
-    } else if (confirmpassword.length == password.length) {
+    } else if (confirmpassword.length !== password.length) {
       toast.warning("Password should be same");
+    } else {
+      const result = await register(
+        name,
+        email,
+        phoneNumber,
+        password
+      );
+      if (result.status === 201) {
+        toast.success("Registeration Successful")
+      } else {
+        toast.error("Failed to register the user");
+      }
     }
   };
   return (
@@ -46,14 +62,13 @@ function User_Register() {
                       <h3>Register</h3>
                     </div>
                     <br />
-                    <form>
                       {/* <!-- 2 column grid layout with text inputs for the first and last names --> */}
                       <div className="row">
                         <div className="col-md-12 mb-4">
                           <div data-mdb-input-init className="form-outline">
                             <input
                               type="text"
-                              id="form3Example1"
+                              id="username"
                               className="form-control"
                               placeholder="Enter Name"
                               onChange={(e) => setName(e.target.value)}
@@ -66,7 +81,7 @@ function User_Register() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="email"
-                          id="form3Example3"
+                          id="useremail"
                           className="form-control"
                           placeholder="Enter Email"
                           onChange={(e) => setEmail(e.target.value)}
@@ -77,7 +92,7 @@ function User_Register() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="tel"
-                          id="form3Example3"
+                          id="userphoneno"
                           className="form-control"
                           placeholder="Enter Phone Number"
                           onChange={(e) => setPhoneNumber(e.target.value)}
@@ -88,7 +103,7 @@ function User_Register() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="password"
-                          id="form3Example4"
+                          id="userpassword"
                           className="form-control"
                           placeholder="Enter Password"
                           onChange={(e) => setPassword(e.target.value)}
@@ -98,7 +113,7 @@ function User_Register() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="password"
-                          id="form3Example4"
+                          id="confirmpassword"
                           className="form-control"
                           placeholder="Confirm Password"
                           onChange={(e) => setConfirmPassword(e.target.value)}
@@ -114,7 +129,6 @@ function User_Register() {
 
                       {/* <!-- Submit button --> */}
                       <button
-                        type="submit"
                         data-mdb-button-init
                         data-mdb-ripple-init
                         className="btn btn-success btn-block mb-4 align-items-center"
@@ -122,7 +136,6 @@ function User_Register() {
                       >
                         Register
                       </button>
-                    </form>
                   </div>
                 </div>
               </div>
