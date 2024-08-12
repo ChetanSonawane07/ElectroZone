@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { login } from "../services/user";
-function User_Login() {
+import { login } from "../services/admin";
+function AdminLogin() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,8 +17,8 @@ function User_Login() {
     }else {
       const result = await login(email,password)
       if(result){
-        sessionStorage.setItem('id',result['id'])
-        navigate("/")
+        sessionStorage.setItem('adminId',result['id'])
+        navigate("/Admin-Dashboard")
       }else{
         setLoginFailed(true)
       }
@@ -73,13 +73,6 @@ function User_Login() {
                     </label>
                   </div>
 
-                  <div>
-                    <p>
-                      Not Registered Yet ?{" "}
-                      <Link to={"/User-Register"}>Register Here</Link>
-                    </p>
-                  </div>
-
                   {
                     loginfailed && 
                     <div>
@@ -108,4 +101,4 @@ function User_Login() {
   );
 }
 
-export default User_Login;
+export default AdminLogin;

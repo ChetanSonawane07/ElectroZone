@@ -19,10 +19,10 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+ 
     @GetMapping("/{id}")
-    public ResponseEntity<UserDTO> findById(@PathVariable Long id) {
-        UserDTO userDto = userService.findById(id);
+    public ResponseEntity<UserDTO> findById(@PathVariable String id) {
+        UserDTO userDto = userService.findById(Long.valueOf(id));
         return ResponseEntity.ok(userDto);
     }
 
@@ -40,9 +40,9 @@ public class UserController {
         return ResponseEntity.status(201).body(new ApiResponse("Success"));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @Valid @RequestBody UserDTO userDto) {
-        UserDTO updatedUser = userService.updateUser(id, userDto);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<UserDTO> updateUser(@PathVariable String id, @Valid @RequestBody UserDTO userDto) {
+        UserDTO updatedUser = userService.updateUser(Long.valueOf(id), userDto);
         return ResponseEntity.ok(updatedUser);
     }
 

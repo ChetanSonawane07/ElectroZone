@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { addaddress, fetchSavedAddresses } from "../services/user";
+import AddressList from "./AddressList";
 
 function AddAddress() {
   const [name,setName] = useState('')
@@ -9,6 +12,41 @@ function AddAddress() {
   const [city,setCity] = useState('')
   const [state,setState] = useState('')
   const [pincode,setPincode] = useState('')
+  const [addresses, setAddresses] = useState([]);
+
+  useEffect(() => {
+    const loadAddresses = async () => {
+      try {
+        const result = await fetchSavedAddresses(sessionStorage.getItem('id'));
+        setAddresses(result.data);
+      } catch (error) {
+        toast.error("Failed to load saved addresses");
+      }
+    };
+    loadAddresses();
+  }, []);
+
+  const onSubmit = async () => {
+    if(name.length === 0){
+      toast.warning('Name is mandatory')
+    }else if(phoneNo.length === 0){
+      toast.warning('Name is mandatory')
+    }else if(addressLine1.length === 0){
+      toast.warning('Name is mandatory')
+    }else if(city.length === 0){
+      toast.warning('Name is mandatory')
+    }else if(pincode.length === 0){
+      toast.warning('Name is mandatory')
+    }else if(state.length === 0){
+      toast.warning('Name is mandatory')
+    }else{
+      const result = await addaddress(sessionStorage['id'],name,phoneNo,addressLine1,addressLine2,landmark,city,state,pincode)
+      if (result.status === 201) {
+        toast.success("Address Added")
+        setAddresses([...addresses, result.data]);
+      }
+    }
+  }
   return (
     <div>
       <section>
@@ -25,7 +63,7 @@ function AddAddress() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="text"
-                          id="typeNameX-2"
+                          id="name"
                           className="form-control form-control-lg"
                           placeholder="Enter Name"
                           onChange={(e) => setName(e.target.value)}
@@ -35,7 +73,7 @@ function AddAddress() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="tel"
-                          id="typeNameX-2"
+                          id="phone"
                           className="form-control form-control-lg"
                           placeholder="Enter Phone Number"
                           onChange={(e) => setPhoneNo(e.target.value)}
@@ -45,7 +83,7 @@ function AddAddress() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="text"
-                          id="typeNameX-2"
+                          id="line1"
                           className="form-control form-control-lg"
                           placeholder="Enter Address Line 1"
                           onChange={(e) => setAddressLine1(e.target.value)}
@@ -55,7 +93,7 @@ function AddAddress() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="text"
-                          id="typeEmailX-2"
+                          id="line2"
                           className="form-control form-control-lg"
                           placeholder="Enter Address Line 2"
                           onChange={(e) => setAddressLine2(e.target.value)}
@@ -65,7 +103,7 @@ function AddAddress() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="text"
-                          id="typeEmailX-2"
+                          id="landmark"
                           className="form-control form-control-lg"
                           placeholder="Enter Landmark"
                           onChange={(e) => setLandmark(e.target.value)}
@@ -75,7 +113,7 @@ function AddAddress() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="text"
-                          id="typePasswordX-2"
+                          id="city"
                           className="form-control form-control-lg"
                           placeholder="Enter City"
                           onChange={(e) => setCity(e.target.value)}
@@ -85,7 +123,7 @@ function AddAddress() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="text"
-                          id="typePasswordX-2"
+                          id="state"
                           className="form-control form-control-lg"
                           placeholder="Enter State"
                           onChange={(e) => setState(e.target.value)}
@@ -95,7 +133,7 @@ function AddAddress() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="number"
-                          id="typePhoneX-2"
+                          id="pincode"
                           className="form-control form-control-lg"
                           placeholder="Enter Pin Code"
                           onChange={(e) => setPincode(e.target.value)}
@@ -107,6 +145,7 @@ function AddAddress() {
                         data-mdb-ripple-init
                         className="btn btn-success btn-lg btn-block"
                         type="submit"
+                        onClick={onSubmit}
                       >
                         Submit
                       </button>
@@ -114,6 +153,7 @@ function AddAddress() {
                     <div className="col-lg-6">
                       <h4>Saved Addresses</h4>
                       <hr />
+                      <AddressList addresses={addresses} />
                     </div>
                   </div>
                 </div>
