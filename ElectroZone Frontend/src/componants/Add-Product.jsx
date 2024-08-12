@@ -1,4 +1,14 @@
+import { useState } from "react";
+
 function AddProduct() {
+  const [name,setName] = useState('')
+  const [description,setDescription] = useState('')
+  const [category,setCategory] = useState('')
+  const [brand,setBrand] = useState('')
+  const [mrp,setMrp] = useState('')
+  const [discount,setDiscount] = useState('')
+  const [quantity,setQuantity] = useState('')
+  const [warranty,setWarranty] = useState('')
   return (
     <div className="col-lg-12 mb-5 mb-lg-0">
       <div className="card">
@@ -17,6 +27,7 @@ function AddProduct() {
                     id="form3Example1"
                     className="form-control"
                     placeholder="Enter Product Name"
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
               </div>
@@ -29,6 +40,7 @@ function AddProduct() {
                 id="form3Example3"
                 className="form-control"
                 placeholder="Enter Description"
+                onChange={(e) => setDescription(e.target.value)}
               />
             </div>
 
@@ -39,6 +51,7 @@ function AddProduct() {
                 className="form-control text-black"
                 name="category"
                 required
+                onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="1" selected>
                   Select Category
@@ -55,6 +68,7 @@ function AddProduct() {
                 className="form-control text-black"
                 name="brand"
                 required
+                onChange={(e) => setBrand(e.target.value)}
               >
                 <option value="1" selected>
                   Select Brand
@@ -70,6 +84,7 @@ function AddProduct() {
                 id="form3Example4"
                 className="form-control"
                 placeholder="Enter Maximum Retail Price"
+                onChange={(e) => setMrp(e.target.value)}
               />
             </div>
 
@@ -79,6 +94,7 @@ function AddProduct() {
                 id="form3Example4"
                 className="form-control"
                 placeholder="Enter Discount price"
+                onChange={(e) => setDiscount(e.target.value)}
               />
             </div>
 
@@ -88,6 +104,7 @@ function AddProduct() {
                 id="form3Example4"
                 className="form-control"
                 placeholder="Enter Quantity"
+                onChange={(e) => setQuantity(e.target.value)}
               />
             </div>
 
@@ -97,6 +114,7 @@ function AddProduct() {
                 id="form3Example4"
                 className="form-control"
                 placeholder="Enter Warranty (in months)"
+                onChange={(e) => setWarranty(e.target.value)}
               />
             </div>
 

@@ -1,4 +1,11 @@
+import { useState } from "react";
+
 function Edit_Profile() {
+  const [firstName,setFirstName] = useState('')
+  const [lastName,setLastName] = useState('')
+  const [phoneNo,setPhoneNo] = useState('')
+  const [password,setPassword] = useState('')
+  const [confirmPassword,setConfirmPassword] = useState('')
   return (
     <div>
       <section>
@@ -18,6 +25,7 @@ function Edit_Profile() {
                             id="typeNameX-2"
                             className="form-control form-control-lg"
                             placeholder="Enter First Name"
+                            onChange={(e) => setFirstName(e.target.value)}
                           />
                         </div>
                       </div>
@@ -29,6 +37,7 @@ function Edit_Profile() {
                             id="typeNameX-2"
                             className="form-control form-control-lg"
                             placeholder="Enter Last Name"
+                            onChange={(e) => setLastName(e.target.value)}
                           />
                         </div>
                       </div>
@@ -55,6 +64,7 @@ function Edit_Profile() {
                             id="typePhoneX-2"
                             className="form-control form-control-lg"
                             placeholder="Enter Phone Number"
+                            onChange={(e) => setPhoneNo(e.target.value)}
                           />
                         </div>
                       </div>
@@ -70,6 +80,7 @@ function Edit_Profile() {
                             id="typePasswordX-2"
                             className="form-control form-control-lg"
                             placeholder="Enter Password"
+                            onChange={(e) => setPassword(e.target.value)}
                           />
                         </div>
                       </div>
@@ -80,6 +91,7 @@ function Edit_Profile() {
                             id="typePasswordX-2"
                             className="form-control form-control-lg"
                             placeholder="Confirm Password"
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                           />
                         </div>
                       </div>

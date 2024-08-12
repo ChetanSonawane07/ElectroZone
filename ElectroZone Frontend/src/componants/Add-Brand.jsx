@@ -1,4 +1,8 @@
+import { useState } from "react";
+
 function AddBrand() {
+  const [name,setName] = useState('')
+  const [image,setImage] = useState('')
   return (
     <div className="col-lg-12 mb-5 mb-lg-0">
       <div className="card">
@@ -17,6 +21,7 @@ function AddBrand() {
                     id="form3Example1"
                     className="form-control"
                     placeholder="Enter Name"
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
               </div>
@@ -29,6 +34,7 @@ function AddBrand() {
                 id="form3Example3"
                 className="form-control"
                 placeholder="Upload File"
+                onChange={(e) => setImage(e.target.value)}
               />
             </div>
 
