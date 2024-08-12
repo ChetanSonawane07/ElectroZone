@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { register } from "../services/user";
 
 function User_Register() {
   const [name, setName] = useState("");
@@ -9,18 +10,35 @@ function User_Register() {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
 
-  const onRegister = () => {
-    if (name.length == 0) {
+  const navigate = useNavigate()
+
+  const onRegister = async () => {
+    if (name.length === 0) {
       toast.warning("Name is mandatory");
-    } else if (email.length == 0) {
+    } else if (email.length === 0) {
       toast.warning("Email is mandatory");
-    } else if (phoneNumber.length == 0) {
+    } else if (phoneNumber.length === 0) {
       toast.warning("Phone Number is mandatory");
-    } else if (password.length == 0) {
+    } else if (password.length === 0) {
       toast.warning("Password is mandatory");
-    } else if (confirmpassword.length == password.length) {
+    } else if (confirmpassword.length !== password.length) {
       toast.warning("Password should be same");
+    } else {
+      const result = await register(
+        name,
+        email,
+        phoneNumber,
+        password
+      );
+      if (result["status"] === "success") {
+        alert("successfully registered a user");
+        navigate("/login");
+      } else {
+        alert("Failed to register the user");
+      }
     }
+
+    
   };
   return (
     <div>
