@@ -1,4 +1,12 @@
+import { useState } from "react";
+
 function MandatoryInfo() {
+  const [GSTINNo,setGSTINNo] = useState('')
+  const [bankAccount,setBankAccount] = useState('')
+  const [IFSCode,setIFSCode] = useState('')
+  const [branch,setBranch] = useState('')
+  const [address,setAddress] = useState('')
+
   return (
     <div className="col-lg-12 mb-5 mb-lg-0">
       <div className="card">
@@ -17,6 +25,7 @@ function MandatoryInfo() {
                     id="form3Example1"
                     className="form-control"
                     placeholder="Enter GSTIN Number"
+                    onChange={(e) => setGSTINNo(e.target.value)}
                   />
                 </div>
               </div>
@@ -28,6 +37,7 @@ function MandatoryInfo() {
                 id="form3Example3"
                 className="form-control"
                 placeholder="Enter Bank Account Number"
+                onChange={(e) => setBankAccount(e.target.value)}
               />
             </div>
 
@@ -37,6 +47,7 @@ function MandatoryInfo() {
                 id="form3Example4"
                 className="form-control"
                 placeholder="Enter IFSC Number"
+                onChange={(e) => setIFSCode(e.target.value)}
               />
             </div>
 
@@ -46,6 +57,7 @@ function MandatoryInfo() {
                 id="form3Example4"
                 className="form-control"
                 placeholder="Enter Branch Name"
+                onChange={(e) => setBranch(e.target.value)}
               />
             </div>
 
@@ -55,6 +67,7 @@ function MandatoryInfo() {
                 id="form3Example4"
                 className="form-control"
                 placeholder="Enter Address"
+                onChange={(e) => setAddress(e.target.value)}
               />
             </div>
 

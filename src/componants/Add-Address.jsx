@@ -1,4 +1,14 @@
+import { useState } from "react";
+
 function AddAddress() {
+  const [name,setName] = useState('')
+  const [phoneNo,setPhoneNo] = useState('')
+  const [addressLine1,setAddressLine1] = useState('')
+  const [addressLine2,setAddressLine2] = useState('')
+  const [landmark,setLandmark] = useState('')
+  const [city,setCity] = useState('')
+  const [state,setState] = useState('')
+  const [pincode,setPincode] = useState('')
   return (
     <div>
       <section>
@@ -18,6 +28,7 @@ function AddAddress() {
                           id="typeNameX-2"
                           className="form-control form-control-lg"
                           placeholder="Enter Name"
+                          onChange={(e) => setName(e.target.value)}
                         />
                       </div>
 
@@ -27,6 +38,7 @@ function AddAddress() {
                           id="typeNameX-2"
                           className="form-control form-control-lg"
                           placeholder="Enter Phone Number"
+                          onChange={(e) => setPhoneNo(e.target.value)}
                         />
                       </div>
 
@@ -36,6 +48,7 @@ function AddAddress() {
                           id="typeNameX-2"
                           className="form-control form-control-lg"
                           placeholder="Enter Address Line 1"
+                          onChange={(e) => setAddressLine1(e.target.value)}
                         />
                       </div>
 
@@ -45,6 +58,17 @@ function AddAddress() {
                           id="typeEmailX-2"
                           className="form-control form-control-lg"
                           placeholder="Enter Address Line 2"
+                          onChange={(e) => setAddressLine2(e.target.value)}
+                        />
+                      </div>
+
+                      <div data-mdb-input-init className="form-outline mb-4">
+                        <input
+                          type="text"
+                          id="typeEmailX-2"
+                          className="form-control form-control-lg"
+                          placeholder="Enter Landmark"
+                          onChange={(e) => setLandmark(e.target.value)}
                         />
                       </div>
 
@@ -54,6 +78,7 @@ function AddAddress() {
                           id="typePasswordX-2"
                           className="form-control form-control-lg"
                           placeholder="Enter City"
+                          onChange={(e) => setCity(e.target.value)}
                         />
                       </div>
 
@@ -63,6 +88,7 @@ function AddAddress() {
                           id="typePasswordX-2"
                           className="form-control form-control-lg"
                           placeholder="Enter State"
+                          onChange={(e) => setState(e.target.value)}
                         />
                       </div>
 
@@ -72,6 +98,7 @@ function AddAddress() {
                           id="typePhoneX-2"
                           className="form-control form-control-lg"
                           placeholder="Enter Pin Code"
+                          onChange={(e) => setPincode(e.target.value)}
                         />
                       </div>
 

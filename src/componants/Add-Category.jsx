@@ -1,4 +1,9 @@
+import { useState } from "react";
+
 function AddCategory() {
+  const [name,setName] = useState('')
+  const [description,setDescription] = useState('')
+  const [image,setImage] = useState('')
   return (
     <div className="col-lg-12 mb-5 mb-lg-0">
       <div className="card">
@@ -17,6 +22,7 @@ function AddCategory() {
                     id="form3Example1"
                     className="form-control"
                     placeholder="Enter Name"
+                    onChange={(e) => setName(e.target.value)}
                   />
                 </div>
               </div>
@@ -24,11 +30,12 @@ function AddCategory() {
 
             {/* <!-- Email input --> */}
             <div data-mdb-input-init className="form-outline mb-4">
-              <input
+              <textarea
                 type="text"
                 id="form3Example3"
                 className="form-control"
                 placeholder="Enter description"
+                onChange={(e) => setDescription(e.target.value)}
                 
               />
             </div>
@@ -40,7 +47,7 @@ function AddCategory() {
                 id="form3Example3"
                 className="form-control"
                 placeholder="Upload File"
-                
+                onChange={(e) => setImage(e.target.value)} 
               />
             </div>
 
