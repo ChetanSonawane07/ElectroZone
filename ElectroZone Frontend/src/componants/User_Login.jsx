@@ -1,21 +1,27 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { login } from "../services/user";
 function User_Login() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginfailed,setLoginFailed] = useState(false)
   const navigate = useNavigate();
 
-  const onLogin = () => {
-    if (email.length == 0) {
+  const onLogin = async () => {
+    if (email.length === 0) {
       toast.warning("Email is mandatory");
-    } else if (password.length == 0) {
+    } else if (password.length === 0) {
       toast.warning("Password is mandatory");
+    }else {
+      const result = await login(email,password)
+      if(result){
+        navigate("/")
+      }else{
+        setLoginFailed(true)
+      }
     }
-  };
-  const Home = () => {
-    navigate("/");
   };
 
   return (
@@ -73,12 +79,21 @@ function User_Login() {
                     </p>
                   </div>
 
+                  {
+                    loginfailed && 
+                    <div>
+                      <p>
+                        Invalid Email or Password
+                      </p>
+                  </div>
+                  }
+
                   <button
                     data-mdb-button-init
                     data-mdb-ripple-init
                     className="btn btn-success btn-lg btn-block"
                     type="submit"
-                    onClick={Home}
+                    onClick={onLogin}
                   >
                     Login
                   </button>

@@ -5,15 +5,15 @@ export async function register(name, email, phoneNumber, password) {
   const body = {
     name,
     email,
-    phoneNumber,
+    phoneNo:phoneNumber,
     password,
   }
 
   // make API call
-  const response = await axios.post(``, body)
+  const response = await axios.post(`http://localhost:8080/api/users/register`, body)
 
   // read JSON data (response)
-  return response.data
+  return response
 }
 
 export async function login(email, password) {
@@ -24,7 +24,7 @@ export async function login(email, password) {
   }
 
   // make API call
-  const response = await axios.post(``, body)
+  const response = await axios.post(`http://localhost:8080/api/users/login`, body)
 
   // read JSON data (response)
   return response.data
