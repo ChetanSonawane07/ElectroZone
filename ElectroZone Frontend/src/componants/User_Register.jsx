@@ -13,6 +13,7 @@ function User_Register() {
   const navigate = useNavigate()
 
   const onRegister = async () => {
+    console.log("onregister")
     if (name.length === 0) {
       toast.warning("Name is mandatory");
     } else if (email.length === 0) {
@@ -30,15 +31,12 @@ function User_Register() {
         phoneNumber,
         password
       );
-      if (result["status"] === "success") {
-        alert("successfully registered a user");
-        navigate("/login");
+      if (result.status === 201) {
+        toast.success("Registeration Successful")
       } else {
-        alert("Failed to register the user");
+        toast.error("Failed to register the user");
       }
     }
-
-    
   };
   return (
     <div>
@@ -64,14 +62,13 @@ function User_Register() {
                       <h3>Register</h3>
                     </div>
                     <br />
-                    <form>
                       {/* <!-- 2 column grid layout with text inputs for the first and last names --> */}
                       <div className="row">
                         <div className="col-md-12 mb-4">
                           <div data-mdb-input-init className="form-outline">
                             <input
                               type="text"
-                              id="form3Example1"
+                              id="username"
                               className="form-control"
                               placeholder="Enter Name"
                               onChange={(e) => setName(e.target.value)}
@@ -84,7 +81,7 @@ function User_Register() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="email"
-                          id="form3Example3"
+                          id="useremail"
                           className="form-control"
                           placeholder="Enter Email"
                           onChange={(e) => setEmail(e.target.value)}
@@ -95,7 +92,7 @@ function User_Register() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="tel"
-                          id="form3Example3"
+                          id="userphoneno"
                           className="form-control"
                           placeholder="Enter Phone Number"
                           onChange={(e) => setPhoneNumber(e.target.value)}
@@ -106,7 +103,7 @@ function User_Register() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="password"
-                          id="form3Example4"
+                          id="userpassword"
                           className="form-control"
                           placeholder="Enter Password"
                           onChange={(e) => setPassword(e.target.value)}
@@ -116,7 +113,7 @@ function User_Register() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="password"
-                          id="form3Example4"
+                          id="confirmpassword"
                           className="form-control"
                           placeholder="Confirm Password"
                           onChange={(e) => setConfirmPassword(e.target.value)}
@@ -132,7 +129,6 @@ function User_Register() {
 
                       {/* <!-- Submit button --> */}
                       <button
-                        type="submit"
                         data-mdb-button-init
                         data-mdb-ripple-init
                         className="btn btn-success btn-block mb-4 align-items-center"
@@ -140,7 +136,6 @@ function User_Register() {
                       >
                         Register
                       </button>
-                    </form>
                   </div>
                 </div>
               </div>

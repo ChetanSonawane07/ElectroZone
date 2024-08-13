@@ -5,11 +5,13 @@ import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
 import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.app.dto.BrandDTO;
 import com.app.dto.CategoryDTO;
 import com.app.dto.ProductDTO;
+import com.app.dto.ProductResponseDTO;
 import com.app.dto.SellerDTO;
 
 import com.app.service.ImageHandlingServiceProduct;
@@ -35,6 +38,7 @@ import com.app.service.ProductService;
 
 @RestController
 @RequestMapping("/products")
+@CrossOrigin
 public class ProductController {
 	@Autowired
 	private ProductService productService;
@@ -78,13 +82,15 @@ public ProductController() {
 		return ResponseEntity.ok(imageService.serveImage(productId));
 	}
 
-	 @GetMapping("/category/{categoryId}")
-	    public ResponseEntity<?> getProductsByCategory(@PathVariable Long categoryId) {
-	        CategoryDTO category = new CategoryDTO();
-	        category.setId(categoryId);
-	        return ResponseEntity.ok(productService.getAllProductsByCategory(category));
-	       
-	    }
+	@GetMapping("/category/{categoryId}")
+	public ResponseEntity<?> getProductsByCategory(@PathVariable Long categoryId) {
+	    CategoryDTO categoryDTO = new CategoryDTO();
+	    categoryDTO.setId(categoryId);
+	    List<ProductResponseDTO> products = productService.getAllProductsByCategory(categoryDTO);
+
+	    return ResponseEntity.ok(products);
+	}
+
 
 	    @GetMapping("/seller/{sellerId}")
 	    public ResponseEntity<?> getProductsBySeller(@PathVariable Long sellerId) {

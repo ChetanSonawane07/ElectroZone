@@ -21,6 +21,7 @@ import com.app.dto.ApiResponse;
 import com.app.dto.BrandDTO;
 import com.app.dto.CategoryDTO;
 import com.app.dto.ProductDTO;
+import com.app.dto.ProductResponseDTO;
 import com.app.dto.SellerDTO;
 import com.app.entities.Brand;
 import com.app.entities.Category;
@@ -139,13 +140,33 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDTO> getAllProductsByCategory(CategoryDTO categorydto) {
-    	Category category=mapper.map(categorydto, Category.class);
-        return productDao.findByCategory(category)
-        		.stream() 
-				.map(product -> mapper.map(product, ProductDTO.class)) 
-				.collect(Collectors.toList());
+    public List<ProductResponseDTO> getAllProductsByCategory(CategoryDTO categoryDTO) {
+        Category category = new Category();
+        category.setId(categoryDTO.getId());
+        List<Product> products = productDao.findByCategory(category);
+        return products.stream().map(product -> {
+            ProductResponseDTO dto = new ProductResponseDTO();
+            dto.setId(product.getId());
+            dto.setName(product.getName());
+            dto.setMrp(product.getMrp());
+            dto.setDiscount(product.getDiscount());
+            try {
+                byte[] image = imgHandlingService.serveImage(category.getId());
+                dto.setImage(image);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            dto.setDescription(product.getDescription());
+            dto.setQuantity(product.getQuantity());
+            dto.setWarranty(product.getWarranty());
+            dto.setActive(product.isActive());
+            dto.setBrandName(product.getBrand().getName()); // Adjust according to your actual model
+            dto.setCategoryName(product.getCategory().getTitle()); // Adjust according to your actual model
+            dto.setSellerName(product.getSeller().getName()); // Adjust according to your actual model
+            return dto;
+        }).collect(Collectors.toList());
     }
+
 
     @Override
     public List<ProductDTO> getAllProductsBySeller(SellerDTO sellerdto) {

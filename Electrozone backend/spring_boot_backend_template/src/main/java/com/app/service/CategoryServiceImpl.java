@@ -1,7 +1,11 @@
 package com.app.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import com.app.dto.CategoryDTO;
+import com.app.dto.CategoryResponseDTO;
+
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -13,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.dao.CategoryDao;
 import com.app.dto.ApiResponse;
-import com.app.dto.CategoryDTO;
 
 import com.app.entities.Category;
 
@@ -29,18 +32,33 @@ public class CategoryServiceImpl implements CategoryService {
 	private ImageHandlingServiceCategory imgHandlingService;
 	
 	@Override
-	public List<CategoryDTO> getAllCategories() {
-		return categoryDao.findAll()
-				.stream() 
-				.map(category -> mapper.map(category, CategoryDTO.class)) 
-				.collect(Collectors.toList());
-	}
-	
+	public List<CategoryResponseDTO> getAllCategories() {
+        List<Category> categories = categoryDao.findAll();
+        List<CategoryResponseDTO> categoryResponseDTOs = new ArrayList<>();
+
+        for (Category category : categories) {
+            CategoryResponseDTO dto = new CategoryResponseDTO();
+            dto.setId(category.getId());
+            dto.setTitle(category.getTitle());
+            dto.setDescription(category.getDescription());
+            dto.setActive(category.isActive());
+
+            try {
+                byte[] image = imgHandlingService.serveImage(category.getId());
+                dto.setImage(image);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            categoryResponseDTOs.add(dto);
+        }
+
+        return categoryResponseDTOs;
+    }
+
 	 @Override
 	    public CategoryDTO addCategory(CategoryDTO dto) throws IOException {
-
 				Category category= mapper.map(dto, Category.class);
-				
 				category = imgHandlingService.uploadImage(category, dto.getImage());
 				Category savedCategory = categoryDao.save(category);
 				return mapper.map(savedCategory, CategoryDTO.class);

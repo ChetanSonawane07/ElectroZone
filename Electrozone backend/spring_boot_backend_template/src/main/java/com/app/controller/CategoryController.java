@@ -19,9 +19,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-
 @RestController
 @RequestMapping("/categories")
+@CrossOrigin
 public class CategoryController {
 
     @Autowired
@@ -30,7 +30,7 @@ public class CategoryController {
     @Autowired
 	private ImageHandlingServiceCategory imageService;
  
-    @GetMapping
+    @GetMapping("/view")
     public ResponseEntity<?> viewCategories() {
     	return ResponseEntity.ok
 				(categoryService.getAllCategories());
@@ -54,12 +54,13 @@ public class CategoryController {
 	            return ResponseEntity.ok(updatedCategory);
 	     }
 	
-	@GetMapping(value = "/images/{categorytId}", 
-			produces = 
-		{ IMAGE_GIF_VALUE, IMAGE_JPEG_VALUE, IMAGE_PNG_VALUE })
-	public ResponseEntity<?> downloadImage(@PathVariable long categoryId) throws IOException {
-		return ResponseEntity.ok(imageService.serveImage(categoryId));
-	}
+	 @GetMapping(value = "/images/{categoryId}", 
+			    produces = 
+			    { IMAGE_GIF_VALUE, IMAGE_JPEG_VALUE, IMAGE_PNG_VALUE })
+			public ResponseEntity<?> downloadImage(@PathVariable long categoryId) throws IOException {
+			    return ResponseEntity.ok(imageService.serveImage(categoryId));
+			}
+
 
     @GetMapping("/{title}")
     public ResponseEntity<?> getCategoryByTitle(@PathVariable String title) {

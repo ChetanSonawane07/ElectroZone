@@ -50,7 +50,7 @@ function Seller_Register() {
                       <h3>Register</h3>
                     </div>
                     <br />
-                    <form>
+                    
                       {/* <!-- 2 column grid layout with text inputs for the first and last names --> */}
                       <div className="row">
                         <div className="col-md-12 mb-4">
@@ -126,7 +126,6 @@ function Seller_Register() {
                       >
                         Register
                       </button>
-                    </form>
                   </div>
                 </div>
               </div>

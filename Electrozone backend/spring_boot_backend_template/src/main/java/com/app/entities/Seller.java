@@ -35,21 +35,15 @@ public class Seller extends BaseEntity{
 	
 	@Column(unique = true)
 	@Length(min = 15)
-	@NotBlank(message = "Gst no Should not be blank")
 	private String gstNo;
 	
 	@Column(unique = true)
-	@NotBlank(message = "Bank Account Number Should not be blank")
 	private String bankAccountNo;
 	
-	
-	@NotBlank(message = "IFSC Number Should not be blank")
 	private String ifscNumber;
 	
-	@NotBlank(message = "Branch Should not be blank")
 	private String branch;
 	
-	@NotBlank(message = "Address Should not be blank")
 	private String address;
 	
 	private String role = "SELLER"; 
