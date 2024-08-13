@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getProductById, addReview, getReviewsByProduct, getAverageRating } from '../services/product';
-import { addProductToWishlist } from '../services/wishlist'; // Import the wishlist service
-import { FaStar, FaRegStar } from 'react-icons/fa'; // Import star icons
+import { addProductToWishlist } from '../services/wishlist';
+import { FaStar, FaRegStar } from 'react-icons/fa';
 
 function ProductDetails() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [quantity, setQuantity] = useState(1); // Initial quantity set to 1
-  const [rating, setRating] = useState(0); // Initial rating set to 0
+  const [quantity, setQuantity] = useState(1);
+  const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState('');
   const [reviews, setReviews] = useState([]);
   const [averageRating, setAverageRating] = useState(0);
-  const [isInWishlist, setIsInWishlist] = useState(false); // New state for wishlist status
-  const [isInCart, setIsInCart] = useState(false); // New state for cart status
+  const [isInWishlist, setIsInWishlist] = useState(false);
+  const [isInCart, setIsInCart] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +21,12 @@ function ProductDetails() {
     fetchReviews(id);
     fetchAverageRating(id);
   }, [id]);
+
+  useEffect(() => {
+    if (product) {
+      magnify("myimage", 1.3);
+    }
+  }, [product]);
 
   const fetchProduct = async (id) => {
     try {
@@ -66,7 +72,7 @@ function ProductDetails() {
         rating,
         description: reviewText,
         productId: id,
-        userId: 1, // Assuming user ID is 1 for now, you need to replace this with actual user ID
+        userId: 1, // Replace with actual user ID
       });
       setReviewText('');
       setRating(0);
@@ -80,10 +86,10 @@ function ProductDetails() {
     try {
       const wishlistDTO = {
         productId: id,
-        userId: 1, // Assuming user ID is 1 for now, you need to replace this with actual user ID
+        userId: 1, // Replace with actual user ID
       };
       await addProductToWishlist(wishlistDTO);
-      setIsInWishlist(true); // Update the state to indicate the product is in the wishlist
+      setIsInWishlist(true);
       alert('Product added to wishlist!');
     } catch (error) {
       console.error('Failed to add product to wishlist:', error);
@@ -91,21 +97,17 @@ function ProductDetails() {
     }
   };
 
-
-
-  const addToCart = () => {
-    // Simulate adding to cart
+  const addToCart = async () => {
     try {
-      const wishlistDTO = {
+      const cartDTO = {
         productId: id,
-        userId: 1, // Assuming user ID is 1 for now, you need to replace this with actual user ID
+        userId: 1, // Replace with actual user ID
         quantity: quantity,
       };
-
-      setIsInCart(true); // Update the state to indicate the product is in the cart
+      // Add product to cart logic here (e.g., API call)
+      setIsInCart(true);
       alert('Product added to cart!');
-    }
-    catch (error) {
+    } catch (error) {
       console.error('Failed to add product to cart:', error);
       alert('Failed to add product to cart.');
     }
@@ -121,91 +123,131 @@ function ProductDetails() {
     ))
   );
 
+  const magnify = (imgID, zoom) => {
+    const img = document.getElementById(imgID);
+    if (!img) return;
+
+    const glass = document.createElement("DIV");
+    glass.setAttribute("class", "img-magnifier-glass");
+
+    img.parentElement.insertBefore(glass, img);
+
+    glass.style.backgroundImage = "url('" + img.src + "')";
+    glass.style.backgroundRepeat = "no-repeat";
+    glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
+
+    const bw = 3;
+    const w = glass.offsetWidth / 2;
+    const h = glass.offsetHeight / 2;
+
+    const moveMagnifier = (e) => {
+      e.preventDefault();
+      const pos = getCursorPos(e);
+      let x = pos.x;
+      let y = pos.y;
+
+      if (x > img.width - (w / zoom)) x = img.width - (w / zoom);
+      if (x < w / zoom) x = w / zoom;
+      if (y > img.height - (h / zoom)) y = img.height - (h / zoom);
+      if (y < h / zoom) y = h / zoom;
+
+      glass.style.left = (x - w) + "px";
+      glass.style.top = (y - h) + "px";
+      glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + bw) + "px";
+    };
+
+    const getCursorPos = (e) => {
+      let a, x = 0, y = 0;
+      e = e || window.event;
+      a = img.getBoundingClientRect();
+      x = e.pageX - a.left;
+      y = e.pageY - a.top;
+      x = x - window.pageXOffset;
+      y = y - window.pageYOffset;
+      return { x: x, y: y };
+    };
+
+    glass.addEventListener("mousemove", moveMagnifier);
+    img.addEventListener("mousemove", moveMagnifier);
+    glass.addEventListener("touchmove", moveMagnifier);
+    img.addEventListener("touchmove", moveMagnifier);
+  };
+
   if (!product) return <p>Loading...</p>;
 
   return (
     <div className="container mt-5">
       <div className="row">
         <div className="col-md-12 mb-4 d-flex">
-          <div className="card border-0 shadow rounded flex-fill d-flex align-items-center">
+          <div className="border-0 img-magnifier-container rounded flex-fill d-flex align-items-center">
             <img
+              id="myimage"
               src={product.image || 'path/to/default-image.jpg'}
               className="card-img-top rounded"
               alt={product.name}
               style={{ height: '100%', objectFit: 'cover', width: '100%' }}
             />
           </div>
-        
 
-        <div className="col-md-6 d-flex flex-column">
-          <div className="card border-0 shadow rounded p-4 flex-fill d-flex flex-column" style={{ height: '100%' }}>
-            <div className="flex-grow-1">
-              <h2 className="mb-3">{product.name}</h2>
-              <h4 className="text-muted">
-                <strike>${product.mrp}</strike>
-              </h4>
-              <h3 className="text-success">${product.mrp - product.discount}</h3>
-              <p className="mb-3">{product.description}</p>
-              <p className="text-muted mb-4">Warranty: {product.warranty} months</p>
-            </div>
 
-            <div className="d-flex align-items-center mb-3">
-              <button className="btn btn-secondary" onClick={decreaseQuantity}>-</button>
-              <input
-                type="text"
-                className="form-control mx-2 text-center"
-                value={quantity}
-                readOnly
-                style={{ width: '60px' }}
-              />
-              <button className="btn btn-secondary" onClick={increaseQuantity}>+</button>
-            </div>
+          <div className="col-md-6 d-flex flex-column">
+            <div className="card border-0 shadow rounded p-4 flex-fill d-flex flex-column" style={{ height: '100%' }}>
+              <div className="flex-grow-1">
+                <h2 className="mb-3">{product.name}</h2>
+                <h4 className="text-muted">
+                  <strike>${product.mrp}</strike>
+                </h4>
+                <h3 className="text-success">${product.mrp - product.discount}</h3>
+                <p className="mb-3">{product.description}</p>
+                <p className="text-muted mb-4">Warranty: {product.warranty} months</p>
+              </div>
 
-            <div className="text-center mb-3">
-              {isInWishlist ? (
-                <button 
-                  className="btn btn-outline-primary mx-2" 
-                  onClick={() => navigate('/wishlist')}
-                >
-                  Go to Wishlist
-                </button>
-              ) : (
-                <button 
-                  className="btn btn-outline-success mx-2" 
-                  onClick={addToWishlist}
-                >
-                  Add to WishList
-                </button>
-              )}
-              {isInCart ? (
-                <button 
-                  className="btn btn-success" 
-                  onClick={() => navigate('/cart')}
-                >
-                  Go to Cart
-                </button>
-              ) : (
-                <button 
-                  className="btn btn-success" 
-                  onClick={addToCart}
-                >
-                  Add to Cart
-                </button>
-              )}
+              <div className="d-flex align-items-center mb-3">
+                <button className="btn btn-secondary" onClick={decreaseQuantity}>-</button>
+                <input
+                  type="text"
+                  className="form-control mx-2 text-center"
+                  value={quantity}
+                  readOnly
+                  style={{ width: '60px' }}
+                />
+                <button className="btn btn-secondary" onClick={increaseQuantity}>+</button>
+              </div>
+
+              <div className="text-center mb-3">
+                {isInWishlist ? (
+                  <button
+                    className="btn btn-outline-primary mx-2"
+                    onClick={() => navigate('/wishlist')}
+                  >
+                    Go to Wishlist
+                  </button>
+                ) : (
+                  <button
+                    className="btn btn-outline-success mx-2"
+                    onClick={addToWishlist}
+                  >
+                    Add to Wishlist
+                  </button>
+                )}
+                {isInCart ? (
+                  <button
+                    className="btn btn-success"
+                    onClick={() => navigate('/cart')}
+                  >
+                    Go to Cart
+                  </button>
+                ) : (
+                  <button
+                    className="btn btn-success"
+                    onClick={addToCart}
+                  >
+                    Add to Cart
+                  </button>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-        </div>
-      </div>
-
-      <div className="row mt-4">
-        <div className="col text-center">
-          <button
-            className="btn btn-success text-white rounded-pill px-4 py-2"
-            onClick={() => navigate("/Cart")}
-          >
-            Go To Cart
-          </button>
         </div>
       </div>
 

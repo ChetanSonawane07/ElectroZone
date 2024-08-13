@@ -4,11 +4,9 @@ import { Link } from 'react-router-dom';
 function Category({ id, title, image }) {
   return (
     <div style={{ display: "inline-block" }}>
-
       <Link to={`/category/${id}`}>
-
         <div
-          className="card bg-dark text-white text-center category"
+          className="card bg-dark text-white text-center category-card"
           style={{ height: 100, width: 100, margin: 10, borderRadius: 20 }}
         >
           <div className="card-body">

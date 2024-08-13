@@ -1,17 +1,20 @@
-body{
+body {
     background-color: #eee7ce;
 }
 
-.card-body,.card{
+.card-body,
+.card {
     border-radius: 10px;
 }
-.twitter:hover{
+
+.twitter:hover {
     color: #000;
 }
 
-.youtube:hover{
+.youtube:hover {
     color: red;
 }
+
 .facebook:hover {
     color: blue;
 }
@@ -19,12 +22,13 @@ body{
 .instagram:hover {
     color: rgb(172, 3, 31);
 }
+
 .whatsapp:hover {
     color: green;
 }
 
 
-.dropdown-menu :hover{
+.dropdown-menu :hover {
     background-color: #000;
 }
 
@@ -43,49 +47,126 @@ body{
     color: #000;
 }
 
-.nav-item{
+.nav-item {
     color: white;
     padding: 10px;
 }
 
-.nav-item:hover{
+.nav-item:hover {
     color: black;
     background-color: grey;
     border-bottom: white;
 
 }
-.nav-item:active{
+
+.nav-item:active {
     font-weight: bold;
     background-color: grey;
 }
 
 .review-table-container {
-    max-height: 400px; /* Adjust this height as needed */
+    max-height: 400px;
+    /* Adjust this height as needed */
     overflow-y: auto;
-    border: 1px solid #ddd; /* Optional border for better visibility */
-  }
-  
-  .review-table {
+    border: 1px solid #ddd;
+    /* Optional border for better visibility */
+}
+
+.review-table {
     width: 100%;
     border-collapse: collapse;
-  }
-  
-  .review-table th, .review-table td {
+}
+
+.review-table th,
+.review-table td {
     padding: 8px;
     text-align: left;
-  }
-  
-  .review-table th {
-    background-color: #f8f9fa; /* Light background for the header */
-  }
-  
+}
 
-  .text-warning {
-    color: gold; /* Golden color for stars */
-  }
-  
-  .table-responsive {
-    max-height: 400px; /* Maximum height for the table */
-    overflow-y: auto; /* Enable vertical scrolling */
-  }
-  
+.review-table th {
+    background-color: #f8f9fa;
+    /* Light background for the header */
+}
+
+
+.text-warning {
+    color: gold;
+    /* Golden color for stars */
+}
+
+.table-responsive {
+    max-height: 400px;
+    /* Maximum height for the table */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+}
+
+/* Add this to your CSS file or a global stylesheet */
+* {
+    box-sizing: border-box;
+}
+
+.img-magnifier-container {
+    position: relative;
+    overflow: hidden;
+    /* Ensure no content spills out */
+    transition: transform 0.3s ease;
+    /* Smooth transition for zoom effect */
+}
+
+.img-magnifier-container:hover {
+    transform: scale(1.05);
+    /* Slightly zoom in the image container */
+}
+
+.img-magnifier-glass {
+    position: absolute;
+    border: 3px solid #000;
+    border-radius: 50%;
+    cursor: none;
+    width: 100px;
+    height: 100px;
+    visibility: hidden;
+    /* Hide magnifier glass initially */
+    pointer-events: none;
+    /* Prevent interaction with magnifier glass */
+}
+
+.img-magnifier-container:hover .img-magnifier-glass {
+    visibility: visible;
+    /* Show magnifier glass on hover */
+}
+
+/* Specific styles for product cards */
+.product-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #ddd;
+    /* Optional: to ensure a visible border */
+    border-radius: 10px;
+    /* Optional: to round the corners of the card */
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+    /* Zoom effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Adds a shadow effect */
+}
+
+/* Ensures the card content remains inside the card on hover */
+.product-card .card-img-top {
+    border-top-left-radius: 10px;
+    /* Optional: to match card border-radius */
+    border-top-right-radius: 10px;
+    /* Optional: to match card border-radius */
+}
+/* Specific styles for category cards */
+.category-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #ddd; /* Optional: to ensure a visible border */
+}
+
+.category-card:hover {
+  transform: scale(1.1); /* Zoom effect */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Adds a shadow effect */
+}
