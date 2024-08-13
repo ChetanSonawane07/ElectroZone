@@ -19,7 +19,7 @@ import com.app.service.AddressService;
 @RestController
 @RequestMapping("/user/address")
 @Validated
-
+@CrossOrigin
 public class AddressController {
     
     @Autowired
