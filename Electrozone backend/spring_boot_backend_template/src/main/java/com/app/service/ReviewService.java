@@ -1,11 +1,13 @@
 package com.app.service;
 
+import com.app.dto.ApiResponse;
+import com.app.dto.ReviewDTO;
+import com.app.dto.ReviewResponseDTO;
+
 import java.util.List;
 
-import com.app.dto.ReviewDTO;
-import com.app.entities.Review;
-
 public interface ReviewService {
-    Review postReview(String description, int rating, Long productId, Long userId);
-    List<ReviewDTO> getReviewsByProductId(Long productId);
+    ApiResponse addReview(ReviewDTO reviewDTO);
+    List<ReviewResponseDTO> getReviewsByProduct(Long productId);
+    Double getAverageRating(Long productId);
 }

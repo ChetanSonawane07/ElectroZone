@@ -59,3 +59,33 @@ body{
     background-color: grey;
 }
 
+.review-table-container {
+    max-height: 400px; /* Adjust this height as needed */
+    overflow-y: auto;
+    border: 1px solid #ddd; /* Optional border for better visibility */
+  }
+  
+  .review-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .review-table th, .review-table td {
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .review-table th {
+    background-color: #f8f9fa; /* Light background for the header */
+  }
+  
+
+  .text-warning {
+    color: gold; /* Golden color for stars */
+  }
+  
+  .table-responsive {
+    max-height: 400px; /* Maximum height for the table */
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
+  
