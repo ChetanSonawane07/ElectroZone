@@ -2,7 +2,7 @@ package com.app.service;
 
 import java.io.IOException;
 import java.util.List;
-
+import java.util.Optional;
 
 import com.app.dto.ApiResponse;
 import com.app.dto.BrandDTO;
@@ -34,6 +34,8 @@ public interface ProductService {
 	ProductDTO addProduct(ProductDTO productDTO) throws IOException;
 
 	ProductDTO updateProduct(Long productId, ProductDTO dto) throws IOException;
+
+	ProductResponseDTO getProductById(String id);
 
 	
 

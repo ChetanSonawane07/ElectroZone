@@ -1,28 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getProductByName } from '../services/product';
+import { getProductById } from '../services/product';
 
 function ProductDetails() {
-  const { productName } = useParams();
+  const {id} = useParams();
   const [product, setProduct] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const result = await getProductByName(productName);
-        if (result) {
-          setProduct(result);
-        } else {
-          console.error('Failed to load product details:', result.message);
-        }
-      } catch (error) {
-        console.error('Failed to load product details:', error);
-      }
-    };
-    fetchProduct();
-  }, [productName]);
+    fetchProduct(id);
+  }, [id]);
+  const fetchProduct = async (id) => {
+    try {
+      const result = await getProductById(id);
+      console.log(result)
+      if (result) {
 
+        const productWithImage = {
+          ...result,
+          image: result.image ? `data:image/${result.imageFormat || 'jpeg'};base64,${result.image}` : null,
+        };        
+        
+        setProduct(productWithImage );
+      } else {
+        console.error('Failed to load product details:', result.message);
+      }
+    } catch (error) {
+      console.error('Failed to load product details:', error);
+    }
+  };
   const goToCart = () => {
     navigate('/Cart');
   };
@@ -33,17 +39,18 @@ function ProductDetails() {
     <div>
       <div className="container">
         <div className="row">
-          <div
-            className="card bg-dark col-6"
+        <div
+            className="card col-6"
             style={{ height: 400, borderRadius: 20 }}
           >
             <img
-              src={product.image ? `data:image/jpeg;base64,${product.image}` : 'path/to/default-image.jpg'}
+              src={product.image || 'path/to/default-image.jpg'}
               className="card-img-top"
               alt={product.name}
               style={{ borderRadius: 20, height: '100%' }}
             />
           </div>
+
           <div className="card col-6 border-white">
             <div>
               <h3>{product.name}</h3>

@@ -12,7 +12,17 @@ export const getProducts = async () => {
 
 export const getProductByName = async (id) => {
     try {
-        const response = await axios.get(`/products/category/${id}`);
+        const response = await axios.get(`http://localhost:8080/products/category/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching product details:', error);
+        return null;
+    }
+};
+
+export const getProductById = async (id) => {
+    try {
+        const response = await axios.get(`http://localhost:8080/products/${id}`);
         return response.data;
     } catch (error) {
         console.error('Error fetching product details:', error);
