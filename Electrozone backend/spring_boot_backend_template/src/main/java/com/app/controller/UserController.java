@@ -34,18 +34,12 @@ public class UserController {
         return ResponseEntity.ok(userDto);
     }
 
-<<<<<<< HEAD
     @PostMapping
-    public ResponseEntity<?> addUser(@Valid @RequestBody UserDTO userDto) {
+    public ResponseEntity<UserDTO> addUser(@Valid @RequestBody UserDTO userDto) {
         UserDTO createdUser = userService.addUser(userDto);
-        return ResponseEntity.status(201).body(new ApiResponse("User Registed Successfull"));
-=======
-    @PostMapping("/register")
-    public ResponseEntity<?> addUser(@Valid @RequestBody UserDTO userDto) {
-        UserDTO createdUser = userService.addUser(userDto);
-        return ResponseEntity.status(201).body(new ApiResponse("Success"));
->>>>>>> main
+        return ResponseEntity.status(201).body(createdUser);
     }
+
 
     @PutMapping("/update/{id}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable String id, @Valid @RequestBody UserDTO userDto) {
