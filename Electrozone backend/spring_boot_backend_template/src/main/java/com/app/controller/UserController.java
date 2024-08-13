@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.app.dto.ApiResponse;
 import com.app.dto.LoginDTO;
 import com.app.dto.UserDTO;
 import com.app.service.UserService;
@@ -33,9 +34,9 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<UserDTO> addUser(@Valid @RequestBody UserDTO userDto) {
+    public ResponseEntity<?> addUser(@Valid @RequestBody UserDTO userDto) {
         UserDTO createdUser = userService.addUser(userDto);
-        return ResponseEntity.status(201).body(createdUser);
+        return ResponseEntity.status(201).body(new ApiResponse("User Registed Successfull"));
     }
 
     @PutMapping("/{id}")
