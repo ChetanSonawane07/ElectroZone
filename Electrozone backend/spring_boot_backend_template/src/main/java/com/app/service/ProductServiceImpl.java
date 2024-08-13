@@ -151,7 +151,7 @@ public class ProductServiceImpl implements ProductService {
             dto.setMrp(product.getMrp());
             dto.setDiscount(product.getDiscount());
             try {
-                byte[] image = imgHandlingService.serveImage(category.getId());
+                byte[] image = imgHandlingService.serveImage(product.getId());
                 dto.setImage(image);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -178,13 +178,35 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductDTO> getAllProductsByBrand(BrandDTO branddto) {
-    	 Brand brand = mapper.map(branddto, Brand.class);
-         return productDao.findByBrand(brand)
-        		.stream() 
- 				.map(product -> mapper.map(product, ProductDTO.class)) 
- 				.collect(Collectors.toList());
+    public List<ProductResponseDTO> getAllProductsByBrand(BrandDTO brandDTO) {
+        Brand brand = new Brand();
+        brand.setId(brandDTO.getId());
+
+        List<Product> products = productDao.findByBrand(brand);
+
+        return products.stream().map(product -> {
+            ProductResponseDTO dto = new ProductResponseDTO();
+            dto.setId(product.getId());
+            dto.setName(product.getName());
+            dto.setMrp(product.getMrp());
+            dto.setDiscount(product.getDiscount());
+            try {
+                byte[] image = imgHandlingService.serveImage(product.getId());
+                dto.setImage(image);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            dto.setDescription(product.getDescription());
+            dto.setQuantity(product.getQuantity());
+            dto.setWarranty(product.getWarranty());
+            dto.setActive(product.isActive());
+            dto.setBrandName(product.getBrand().getName()); // Adjust according to your actual model
+            dto.setCategoryName(product.getCategory().getTitle()); // Adjust according to your actual model
+            dto.setSellerName(product.getSeller().getName()); // Adjust according to your actual model
+            return dto;
+        }).collect(Collectors.toList());
     }
+
 
 
     @Override
