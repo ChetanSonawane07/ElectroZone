@@ -48,3 +48,33 @@ export async function login(email, password) {
     // read JSON data (response)
     return response
   }
+
+  export const fetchBrands = async () => {
+    try {
+      const response = await axios.get(`http://localhost:8080/brands`);
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching brands', error);
+      throw error;
+    }
+  };
+  
+  export const deleteBrand = async (brandId) => {
+    try {
+      const response = await axios.delete(`http://localhost:8080/brands/delete/${brandId}`);
+      return response.status;
+    } catch (error) {
+      console.error('Error deleting brand', error);
+      throw error;
+    }
+  };
+  
+  export const updateBrand = async (brandId, brandData) => {
+    try {
+      const response = await axios.put(`http://localhost:8080/brands/update/${brandId}`, brandData);
+      return response.data;
+    } catch (error) {
+      console.error('Error updating brand', error);
+      throw error;
+    }
+  };
