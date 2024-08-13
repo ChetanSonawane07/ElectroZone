@@ -1,19 +1,37 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { login } from "../services/seller";
 function Seller_Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginfailed,setLoginFailed] = useState(false)
   const navigate = useNavigate();
 
-  const onLogin = () => {
+  const onLogin = async () => {
     if (email.length == 0) {
       toast.warning("Email is mandatory");
     } else if (password.length == 0) {
       toast.warning("Password is mandatory");
+    }else{
+      try {
+          const result = await login(email,password)
+        if(result.status === 200){
+          sessionStorage.setItem('sellerId',result.data['id'])
+          console.log(result)
+          navigate("/Seller-Dashboard");
+        }else if(result.data = "Invalid email or password"){
+          toast.error("Invalid email or password")
+        }
+        else{
+          setLoginFailed(true)
+        }
+      } catch (error) {
+        toast.error("Invalid email or password")
+      }
     }
 
-    navigate("/Seller-Dashboard");
+    
   };
   return (
     <div>
@@ -28,7 +46,7 @@ function Seller_Login() {
                   <div data-mdb-input-init className="form-outline mb-4">
                     <input
                       type="email"
-                      id="typeEmailX-2"
+                      id="selleremail"
                       className="form-control form-control-lg"
                       placeholder="Enter Email"
                       onChange={(e) => setEmail(e.target.value)}
@@ -38,7 +56,7 @@ function Seller_Login() {
                   <div data-mdb-input-init className="form-outline mb-4">
                     <input
                       type="password"
-                      id="typePasswordX-2"
+                      id="password"
                       className="form-control form-control-lg"
                       placeholder="Enter Password"
                       onChange={(e) => setPassword(e.target.value)}
@@ -69,6 +87,15 @@ function Seller_Login() {
                       <Link to={"/Seller-Register"}>Register Here</Link>
                     </p>
                   </div>
+
+                  {
+                    loginfailed && 
+                    <div>
+                      <p>
+                        Invalid Email or Password
+                      </p>
+                  </div>
+                  }
 
                   <button
                     data-mdb-button-init

@@ -188,63 +188,64 @@ function ProductDetails() {
               style={{ height: '100%', objectFit: 'cover', width: '100%' }}
             />
           </div>
-        </div>
 
-        <div className="col-md-6 d-flex flex-column">
-          <div className="card border-0 shadow rounded p-4 flex-fill d-flex flex-column" style={{ height: '100%' }}>
-            <div className="flex-grow-1">
-              <h2 className="mb-3">{product.name}</h2>
-              <h4 className="text-muted">
-                <strike>${product.mrp}</strike>
-              </h4>
-              <h3 className="text-success">${product.mrp - product.discount}</h3>
-              <p className="mb-3">{product.description}</p>
-              <p className="text-muted mb-4">Warranty: {product.warranty} months</p>
-            </div>
 
-            <div className="d-flex align-items-center mb-3">
-              <button className="btn btn-secondary" onClick={decreaseQuantity}>-</button>
-              <input
-                type="text"
-                className="form-control mx-2 text-center"
-                value={quantity}
-                readOnly
-                style={{ width: '60px' }}
-              />
-              <button className="btn btn-secondary" onClick={increaseQuantity}>+</button>
-            </div>
+          <div className="col-md-6 d-flex flex-column">
+            <div className="card border-0 shadow rounded p-4 flex-fill d-flex flex-column" style={{ height: '100%' }}>
+              <div className="flex-grow-1">
+                <h2 className="mb-3">{product.name}</h2>
+                <h4 className="text-muted">
+                  <strike>${product.mrp}</strike>
+                </h4>
+                <h3 className="text-success">${product.mrp - product.discount}</h3>
+                <p className="mb-3">{product.description}</p>
+                <p className="text-muted mb-4">Warranty: {product.warranty} months</p>
+              </div>
 
-            <div className="text-center mb-3">
-              {isInWishlist ? (
-                <button
-                  className="btn btn-outline-primary mx-2"
-                  onClick={() => navigate('/wishlist')}
-                >
-                  Go to Wishlist
-                </button>
-              ) : (
-                <button
-                  className="btn btn-outline-success mx-2"
-                  onClick={addToWishlist}
-                >
-                  Add to Wishlist
-                </button>
-              )}
-              {isInCart ? (
-                <button
-                  className="btn btn-success"
-                  onClick={() => navigate('/cart')}
-                >
-                  Go to Cart
-                </button>
-              ) : (
-                <button
-                  className="btn btn-success"
-                  onClick={addToCart}
-                >
-                  Add to Cart
-                </button>
-              )}
+              <div className="d-flex align-items-center mb-3">
+                <button className="btn btn-secondary" onClick={decreaseQuantity}>-</button>
+                <input
+                  type="text"
+                  className="form-control mx-2 text-center"
+                  value={quantity}
+                  readOnly
+                  style={{ width: '60px' }}
+                />
+                <button className="btn btn-secondary" onClick={increaseQuantity}>+</button>
+              </div>
+
+              <div className="text-center mb-3">
+                {isInWishlist ? (
+                  <button
+                    className="btn btn-outline-primary mx-2"
+                    onClick={() => navigate('/wishlist')}
+                  >
+                    Go to Wishlist
+                  </button>
+                ) : (
+                  <button
+                    className="btn btn-outline-success mx-2"
+                    onClick={addToWishlist}
+                  >
+                    Add to Wishlist
+                  </button>
+                )}
+                {isInCart ? (
+                  <button
+                    className="btn btn-success"
+                    onClick={() => navigate('/cart')}
+                  >
+                    Go to Cart
+                  </button>
+                ) : (
+                  <button
+                    className="btn btn-success"
+                    onClick={addToCart}
+                  >
+                    Add to Cart
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>

@@ -200,7 +200,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDTO> getAllProductsBySeller(SellerDTO sellerdto) {
     	  Seller seller = mapper.map(sellerdto, Seller.class);
-          return productDao.findBySeller(seller)
+          return productDao.findBySellerAndIsActiveTrue(seller)
         		 .stream() 
   				.map(product -> mapper.map(product, ProductDTO.class)) 
   				.collect(Collectors.toList());

@@ -6,9 +6,12 @@ import org.springframework.web.bind.annotation.*;
 
 import com.app.dto.ApiResponse;
 import com.app.dto.LoginDTO;
+import com.app.dto.SellerDTO;
 import com.app.dto.UserDTO;
 import com.app.service.UserService;
 import com.app.util.PasswordUtil;
+
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -51,5 +54,11 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
+    }
+    
+    @GetMapping("/all")
+    public ResponseEntity<?> findAllUsers() {
+        List<UserDTO> alluser = userService.findAll();
+        return ResponseEntity.ok(alluser);
     }
 }

@@ -7,19 +7,24 @@ import AdminBrandList from "../componants/AdminBrandList";
 import AdminUserList from "../componants/AdminUserList";
 import AdminSellerList from "../componants/AdminSellerList";
 import AdminOrderList from "../componants/AdminOrderList";
+import { useNavigate } from "react-router-dom";
 
 function Admin_Dashboard() {
   const [renderComponent, setRenderComponent] = useState("Home");
+  const navigate = useNavigate()
+
+  const Logout = () => {
+    sessionStorage.removeItem('email')
+    navigate('/Admin-Login')
+  } 
 
   const activeComponent = () => {
     switch (renderComponent) {
       case "Home":
         return (
           <img
-            className="img-responsive"
+            className="img-responsive col-12"
             src={logo}
-            width={1000}
-            height={550}
             style={{ borderRadius: 20 }}
           />
         );
@@ -84,9 +89,9 @@ function Admin_Dashboard() {
                 aria-labelledby="navbarDropdownMenuAvatar"
               >
                 <li>
-                  <a className="dropdown-item" href="#">
+                  <button className="dropdown-item" onClick={Logout}>
                     Logout
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>
