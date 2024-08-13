@@ -3,9 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { getProductsByCategoryId, getProductsByBrandId } from '../services/product';
 
 function ProductList() {
-  const { categoryId, brandId } = useParams(); // Assuming you may have both in the URL
+  const { categoryId, brandId } = useParams();
   const [products, setProducts] = useState([]);
-  const navigate = useNavigate(); // Initialize the navigate function
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (categoryId) {
@@ -18,7 +18,6 @@ function ProductList() {
   const loadProductsByCategory = async (categoryId) => {
     try {
       const result = await getProductsByCategoryId(categoryId);
-      console.log(result);
       if (result) {
         const productsWithImages = result.map(product => ({
           ...product,
@@ -36,7 +35,6 @@ function ProductList() {
   const loadProductsByBrand = async (brandId) => {
     try {
       const result = await getProductsByBrandId(brandId);
-      console.log(result);
       if (result) {
         const productsWithImages = result.map(product => ({
           ...product,
@@ -56,11 +54,11 @@ function ProductList() {
   };
 
   return (
-    <div className="row">
+    <div className="row product-list">
       {products.length > 0 ? (
         products.map(product => (
           <div key={product.id} className="col-md-4 mb-4">
-            <div className="card" onClick={() => handleProductClick(product.id)} style={{ cursor: 'pointer' }}>
+            <div className="product-card card" onClick={() => handleProductClick(product.id)} style={{ cursor: 'pointer' }}>
               <img
                 src={product.image}
                 className="card-img-top"
