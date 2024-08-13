@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,7 +15,7 @@ import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.dao.BrandDao;
 import com.app.dto.ApiResponse;
 import com.app.dto.BrandDTO;
-
+import com.app.dto.BrandResponseDTO;
 import com.app.entities.Brand;
 
 
@@ -29,12 +30,29 @@ public class BrandServiceImpl implements BrandService {
 	 private ImageHandlingServiceBrand imgHandlingService;
 
 	 @Override
-	    public List<BrandDTO> getAllBrands() {
-	        return brandDao.findAll()
-	        .stream() 
-			.map(brand -> mapper.map(brand, BrandDTO.class)) 
-			.collect(Collectors.toList());
-	    }
+	 public List<BrandResponseDTO> getAllBrands() {
+	     List<Brand> brands = brandDao.findAll();
+	     List<BrandResponseDTO> brandResponseDTOs = new ArrayList<>();
+
+	     for (Brand brand : brands) {
+	         BrandResponseDTO dto = new BrandResponseDTO();
+	         dto.setId(brand.getId());
+	         dto.setName(brand.getName());
+	         dto.setActive(brand.isActive());
+
+	         try {
+	             byte[] image = imgHandlingService.serveImage(brand.getId());
+	             dto.setImage(image);
+	         } catch (IOException e) {
+	             e.printStackTrace();
+	         }
+
+	         brandResponseDTOs.add(dto);
+	     }
+
+	     return brandResponseDTOs;
+	 }
+
 	 
 	 @Override
 	    public BrandDTO addBrand(BrandDTO dto) throws IOException {

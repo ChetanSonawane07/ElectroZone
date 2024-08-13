@@ -60,10 +60,10 @@ public class ImageHandlingServiceBrandImpl implements ImageHandlingServiceBrand 
 			
 			@Override
 			public byte[] serveImage(Long brandId) throws IOException {
-			Brand brand = brandDao.findById(brandId).orElseThrow(() -> new ResourceNotFoundException("Invalid brand ID!!!!"));	
+			Brand brand = brandDao.findById(brandId)
+					.orElseThrow(() -> new ResourceNotFoundException("Invalid brand ID!!!!"));	
 				String path = brand.getImagePath();
 				if (path != null) {
-					// path ---> File --> byte[]
 					return readFileToByteArray(new File(path));
 				} else
 					throw new ApiException("Image not yet assigned !!!!");

@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/cart")
+@CrossOrigin
 @Validated
 public class CartController {
 

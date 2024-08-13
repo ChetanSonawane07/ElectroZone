@@ -30,7 +30,7 @@ public class BrandController {
 
     public BrandController() {}
    
-    @GetMapping
+    @GetMapping("/viewBrands")
     public ResponseEntity<?> viewBrands() {
     	return ResponseEntity.ok
 				(brandService.getAllBrands());

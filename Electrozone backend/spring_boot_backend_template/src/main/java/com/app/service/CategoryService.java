@@ -6,10 +6,11 @@ import java.util.List;
 
 import com.app.dto.ApiResponse;
 import com.app.dto.CategoryDTO;
+import com.app.dto.CategoryResponseDTO;
 
 
 public interface CategoryService {
-	List<CategoryDTO> getAllCategories();
+	List<CategoryResponseDTO> getAllCategories();
 
 	ApiResponse deleteCategoryById(Long id);
 

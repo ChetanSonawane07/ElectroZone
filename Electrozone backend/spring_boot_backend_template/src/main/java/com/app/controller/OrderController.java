@@ -15,6 +15,7 @@ import com.app.service.UserService;
 
 @RestController
 @RequestMapping("/order")
+@CrossOrigin
 @Validated 
 public class OrderController {
 

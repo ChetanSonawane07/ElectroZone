@@ -5,10 +5,11 @@ import java.util.List;
 
 import com.app.dto.ApiResponse;
 import com.app.dto.BrandDTO;
+import com.app.dto.BrandResponseDTO;
 
 
 public interface BrandService {
-	List<BrandDTO> getAllBrands();
+	List<BrandResponseDTO> getAllBrands();
 	ApiResponse deleteBrandById(Long id);
 	BrandDTO getBrandByName(String name);
 	BrandDTO addBrand(BrandDTO dto) throws IOException;

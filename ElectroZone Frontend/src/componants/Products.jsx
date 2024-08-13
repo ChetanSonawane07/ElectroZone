@@ -19,7 +19,7 @@ function Products() {
       <div className="container">
         <div className="row">
           <div className="col-md-3 ">
-            <div className="vertical-nav bg-dark" style={{height:170}}>
+            <div className="vertical-nav bg-dark" style={{ height: 170 }}>
               <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item">
                   <h2 class="accordion-header">
@@ -110,7 +110,7 @@ function Products() {
         </div>
       </div>
       <div className="container-fluid">
-        <BrandList/>
+        <BrandList />
       </div>
     </div>
   );

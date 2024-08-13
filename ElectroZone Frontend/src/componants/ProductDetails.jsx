@@ -1,11 +1,33 @@
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getProductByName } from '../services/product';
 
 function ProductDetails() {
+  const { productName } = useParams();
+  const [product, setProduct] = useState(null);
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const result = await getProductByName(productName);
+        if (result) {
+          setProduct(result);
+        } else {
+          console.error('Failed to load product details:', result.message);
+        }
+      } catch (error) {
+        console.error('Failed to load product details:', error);
+      }
+    };
+    fetchProduct();
+  }, [productName]);
+
   const goToCart = () => {
-    navigate("/Cart");
-  }
+    navigate('/Cart');
+  };
+
+  if (!product) return <p>Loading...</p>;
 
   return (
     <div>
@@ -13,31 +35,32 @@ function ProductDetails() {
         <div className="row">
           <div
             className="card bg-dark col-6"
-            style={{
-              height: 400,
-              borderRadius: 20,
-            }}
-          ></div>
+            style={{ height: 400, borderRadius: 20 }}
+          >
+            <img
+              src={product.image ? `data:image/jpeg;base64,${product.image}` : 'path/to/default-image.jpg'}
+              className="card-img-top"
+              alt={product.name}
+              style={{ borderRadius: 20, height: '100%' }}
+            />
+          </div>
           <div className="card col-6 border-white">
             <div>
-              <h3>Name</h3>
-              <h3>
-                <strike>MRP</strike>
-              </h3>
-              <h3>MRP - Discount</h3>
-              <p>Description</p>
-              <p>Warranty</p>
-              <select name="" id="" className="btn">
-                <option value="">1</option>
-                <option value="">2</option>
+              <h3>{product.name}</h3>
+              <h3><strike>${product.mrp}</strike></h3>
+              <h3>${product.mrp - product.discount}</h3>
+              <p>{product.description}</p>
+              <p>Warranty: {product.warranty} months</p>
+              <select className="btn">
+                <option value="1">1</option>
+                <option value="2">2</option>
               </select>
             </div>
             <div className="text-center">
               <button className="btn btn-outline-success">
                 Add to WishList
               </button>
-              <br />
-              <br />
+              <br /><br />
               <button className="btn btn-success">Add to Cart</button>
             </div>
           </div>
@@ -45,11 +68,11 @@ function ProductDetails() {
         <br />
         <div className="row">
           <button
-            className=" bg-success align-items-center text-white"
+            className="bg-success align-items-center text-white"
             style={{
               height: 40,
-              width: "max",
-              textAlign: "center",
+              width: 'max',
+              textAlign: 'center',
               borderRadius: 10,
             }}
             onClick={goToCart}
@@ -57,19 +80,16 @@ function ProductDetails() {
             Go To Cart
           </button>
         </div>
-
         <br />
-
-        <div className="row ">
+        <div className="row">
           <div className="col-6 card border-white">
             <h3 className="text-center">Review Product</h3>
             <form>
               <div className="row">
                 <div className="col-md-12 mb-4">
-                  <div data-mdb-input-init className="form-outline">
+                  <div className="form-outline">
                     <input
                       type="text"
-                      id="form3Example1"
                       className="form-control"
                       placeholder="Enter Name"
                     />
@@ -78,10 +98,8 @@ function ProductDetails() {
               </div>
               <div className="row">
                 <div className="col-md-12 mb-4">
-                  <div data-mdb-input-init className="form-outline">
+                  <div className="form-outline">
                     <textarea
-                      type="text"
-                      id="form3Example1"
                       className="form-control"
                       placeholder="Enter Review"
                     />
@@ -90,23 +108,21 @@ function ProductDetails() {
               </div>
               <div className="row">
                 <div className="col-md-3 mb-4 btn">
-                  <div data-mdb-input-init className="form-outline">
+                  <div className="form-outline">
                     <input
                       type="submit"
-                      id="form3Example1"
                       className="form-control"
-                      value={"Submit"}
+                      value="Submit"
                     />
                   </div>
                 </div>
                 <div className="col-md-4 mb-4"></div>
                 <div className="col-md-3 mb-4 btn">
-                  <div data-mdb-input-init className="form-outline">
+                  <div className="form-outline">
                     <input
                       type="submit"
-                      id="form3Example1"
                       className="form-control"
-                      value={"Cancel"}
+                      value="Cancel"
                     />
                   </div>
                 </div>
@@ -121,4 +137,5 @@ function ProductDetails() {
     </div>
   );
 }
+
 export default ProductDetails;
