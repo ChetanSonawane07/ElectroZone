@@ -50,13 +50,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO addUser(UserDTO userDto) {
         User user = modelMapper.map(userDto, User.class);
-        user.setActive(true); // Set isActive to true by default
-        
+        user.setActive(true); // Set isActive to true by defaults
         String hashedPassword = PasswordUtil.hashPassword(userDto.getPassword());
         user.setPassword(hashedPassword);
-
-
-        
         User savedUser = userDao.save(user);
         return modelMapper.map(savedUser, UserDTO.class);
     }

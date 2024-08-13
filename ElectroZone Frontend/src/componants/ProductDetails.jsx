@@ -1,41 +1,73 @@
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getProductById } from '../services/product';
 
 function ProductDetails() {
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const navigate = useNavigate();
 
-  const navigate = useNavigate()
+  useEffect(() => {
+    fetchProduct(id);
+  }, [id]);
+
+  const fetchProduct = async (id) => {
+    try {
+      const result = await getProductById(id);
+      console.log(result);
+      if (result) {
+        const productWithImage = {
+          ...result,
+          image: result.image
+            ? `data:image/${result.imageFormat || 'jpeg'};base64,${result.image}`
+            : null,
+        };
+        setProduct(productWithImage);
+      } else {
+        console.error('Failed to load product details:', result.message);
+      }
+    } catch (error) {
+      console.error('Failed to load product details:', error);
+    }
+  };
+
   const goToCart = () => {
     navigate("/Cart");
-  }
+  };
+
+  if (!product) return <p>Loading...</p>;
 
   return (
     <div>
       <div className="container">
         <div className="row">
-          <div
-            className="card bg-dark col-6"
-            style={{
-              height: 400,
-              borderRadius: 20,
-            }}
-          ></div>
+          <div className="card col-6" style={{ height: 400, borderRadius: 20 }}>
+            <img
+              src={product.image || 'path/to/default-image.jpg'}
+              className="card-img-top"
+              alt={product.name}
+              style={{ borderRadius: 20, height: '100%' }}
+            />
+          </div>
+
+          
+
           <div className="card col-6 border-white">
             <div>
-              <h3>Name</h3>
+              <h3>{product.name}</h3>
               <h3>
-                <strike>MRP</strike>
+                <strike>${product.mrp}</strike>
               </h3>
-              <h3>MRP - Discount</h3>
-              <p>Description</p>
-              <p>Warranty</p>
-              <select name="" id="" className="btn">
-                <option value="">1</option>
-                <option value="">2</option>
+              <h3>${product.mrp - product.discount}</h3>
+              <p>{product.description}</p>
+              <p>Warranty: {product.warranty} months</p>
+              <select className="btn">
+                <option value="1">1</option>
+                <option value="2">2</option>
               </select>
             </div>
             <div className="text-center">
-              <button className="btn btn-outline-success">
-                Add to WishList
-              </button>
+              <button className="btn btn-outline-success">Add to WishList</button>
               <br />
               <br />
               <button className="btn btn-success">Add to Cart</button>
@@ -45,7 +77,7 @@ function ProductDetails() {
         <br />
         <div className="row">
           <button
-            className=" bg-success align-items-center text-white"
+            className="bg-success align-items-center text-white"
             style={{
               height: 40,
               width: "max",
@@ -57,10 +89,8 @@ function ProductDetails() {
             Go To Cart
           </button>
         </div>
-
         <br />
-
-        <div className="row ">
+        <div className="row">
           <div className="col-6 card border-white">
             <h3 className="text-center">Review Product</h3>
             <form>
@@ -121,4 +151,5 @@ function ProductDetails() {
     </div>
   );
 }
+
 export default ProductDetails;

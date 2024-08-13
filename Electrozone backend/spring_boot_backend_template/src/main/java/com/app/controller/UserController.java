@@ -34,11 +34,12 @@ public class UserController {
         return ResponseEntity.ok(userDto);
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> addUser(@Valid @RequestBody UserDTO userDto) {
+    @PostMapping
+    public ResponseEntity<UserDTO> addUser(@Valid @RequestBody UserDTO userDto) {
         UserDTO createdUser = userService.addUser(userDto);
-        return ResponseEntity.status(201).body(new ApiResponse("Success"));
+        return ResponseEntity.status(201).body(createdUser);
     }
+
 
     @PutMapping("/update/{id}")
     public ResponseEntity<UserDTO> updateUser(@PathVariable String id, @Valid @RequestBody UserDTO userDto) {
