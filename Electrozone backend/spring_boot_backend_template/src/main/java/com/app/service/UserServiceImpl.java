@@ -78,7 +78,7 @@ public class UserServiceImpl implements UserService {
     public UserDTO findByEmailAndPassword(String email, String password) {
     	
 
-         User user = userDao.findByEmailAndPassword(email, password)
+         User user = userDao.findByEmailAndPasswordAndIsActiveTrue(email, password)
             .orElseThrow(() -> new ResourceNotFoundException(password));
         return modelMapper.map(user, UserDTO.class);
     }

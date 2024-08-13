@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
-import { fetchSellerProducts, updateProduct, deleteProduct } from "../services/seller"; 
+import { fetchSellerProducts, deleteProduct } from "../services/seller"; 
+import Update from '../images/pencil-square.svg'
+import Delete from '../images/trash3-fill.svg'
+import UpdateProduct from "./Update-Product";
 
 function SellerProductList() {
   const [products, setProducts] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -25,15 +29,8 @@ function SellerProductList() {
     }
   };
 
-  const handleUpdate = async (productId, updatedData) => {
-    try {
-      const response = await updateProduct(productId, updatedData);
-      setProducts(products.map(product => 
-        product.id === productId ? response.data : product
-      ));
-    } catch (error) {
-      console.error("Error updating product:", error);
-    }
+  const handleUpdateClick = (product) => {
+    setSelectedProduct(product); // Set the selected product to be updated
   };
 
   return (
@@ -62,7 +59,7 @@ function SellerProductList() {
                   <td>{product.description}</td>
                   <td>
                     <img
-                      src={product.image}
+                      src={product.image ? `data:image/${product.imageFormat || 'jpeg'};base64,${product.image}` : 'path/to/default-image.jpg'}
                       alt={product.name}
                       style={{ width: "100px", height: "auto" }}
                     />
@@ -72,8 +69,8 @@ function SellerProductList() {
                   <td>{product.quantity}</td>
                   <td>{product.warranty}</td>
                   <td>
-                    <button className="btn btn-warning" onClick={() => handleUpdate(product.id, {/* updated data */})}>Edit</button>
-                    <button className="btn btn-danger" onClick={() => handleDelete(product.id)}>Delete</button>
+                    <button className="btn btn-warning" onClick={() => handleUpdateClick(product)}><img src={Update} height="25" alt="Update" /></button>
+                    <button className="btn btn-danger" onClick={() => handleDelete(product.id)}><img src={Delete} height="25" alt="Delete" /></button>
                   </td>
                 </tr>
               ))
@@ -85,6 +82,7 @@ function SellerProductList() {
           </tbody>
         </table>
       </div>
+      {selectedProduct && <UpdateProduct product={selectedProduct} />}
     </div>
   );
 }

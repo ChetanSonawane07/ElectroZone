@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { fetchUsers, deleteUser, updateUser } from "../services/admin";
 import { toast } from "react-toastify";
+import Delete from '../images/trash3-fill.svg'
 
 function AdminUserList() {
   const [users, setUsers] = useState([]);
@@ -23,13 +24,6 @@ function AdminUserList() {
     }
   };
 
-  const handleUpdate = async (id) => {
-    // You can navigate to an update form or open a modal
-    // For now, we'll just log the user id
-    console.log(`Update user with ID: ${id}`);
-    // Optionally, navigate to an update page:
-    // window.location.href = `/update-user/${id}`;
-  };
 
   return (
     <div>
@@ -56,7 +50,7 @@ function AdminUserList() {
                     className="btn btn-danger mx-2"
                     onClick={() => handleDelete(user.id)}
                   >
-                    Delete
+                    <img src={Delete} height="25" alt="Delete" />
                   </button>
                 </td>
               </tr>

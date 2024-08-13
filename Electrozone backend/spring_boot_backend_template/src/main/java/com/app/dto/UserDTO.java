@@ -29,7 +29,7 @@ public class UserDTO {
     
     private String role;
 
-    private boolean isActive;
+    private boolean isActive = true;
 
     // Getters and Setters
 }

@@ -42,6 +42,6 @@ public class SellerDTO {
     
     private String role;
 
-    private boolean isActive;
+    private boolean isActive = true;
 
 }
