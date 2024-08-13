@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.app.entities.Seller;
 
 public interface SellerDao extends JpaRepository<Seller, Long> {
-    Optional<Seller> findByEmailAndPassword(String email, String password);
+    Optional<Seller> findByEmailAndPasswordAndIsActiveTrue(String email, String password);
     Optional<Seller> findById(Long id);
     void deleteById(Long id);
     List<Seller> findAllByIsActive(Boolean isActive);

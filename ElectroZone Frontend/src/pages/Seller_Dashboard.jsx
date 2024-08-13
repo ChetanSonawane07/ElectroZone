@@ -7,6 +7,7 @@ import SellerProductList from "../componants/SellerProductList";
 import SellerOrderList from "../componants/SellerOrderList";
 import { toast } from "react-toastify";
 import { additionalInfo, fetchSeller } from "../services/seller";
+import EditSellerProfile from "../componants/EditSellerProfile";
 
 function Seller_Dashboard() {
   const [renderComponent, setRenderComponent] = useState("Home");
@@ -143,6 +144,8 @@ function Seller_Dashboard() {
         return <SellerProductList />;
       case "SellerOrderList":
         return <SellerOrderList />;
+      case "EditProfile":
+        return <EditSellerProfile/>
       default:
         return null;
     }
@@ -195,7 +198,7 @@ function Seller_Dashboard() {
                 aria-labelledby="navbarDropdownMenuAvatar"
               >
                 <li>
-                  <button className="dropdown-item">Edit profile</button>
+                  <button className="dropdown-item" onClick={() => setRenderComponent('EditProfile')}>Edit profile</button>
                 </li>
                 <li>
                   <button className="dropdown-item" onClick={Logout}>Logout</button>

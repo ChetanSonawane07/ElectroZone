@@ -12,6 +12,6 @@ public interface UserDao extends JpaRepository<User, Long> {
     void deleteById(Long id);
     List<User> findAllByIsActiveTrue();
     Optional<User> findByIdAndIsActiveTrue(Long id);
-    Optional<User> findByEmailAndPassword(String email, String password);
+    Optional<User> findByEmailAndPasswordAndIsActiveTrue(String email, String password);
 
 }

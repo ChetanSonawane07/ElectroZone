@@ -47,9 +47,9 @@ public class BrandController {
 	
 	 @PutMapping("/update/{brandId}")
 	    public ResponseEntity<BrandDTO> updateBrand(
-	            @PathVariable Long brandId,
+	            @PathVariable String brandId,
 	            @ModelAttribute BrandDTO brandDTO) throws IOException {  
-	            BrandDTO updatedBrand = brandService.updateBrand(brandId, brandDTO);
+	            BrandDTO updatedBrand = brandService.updateBrand(Long.valueOf(brandId), brandDTO);
 	            
 	            return ResponseEntity.ok(updatedBrand);
 	        }

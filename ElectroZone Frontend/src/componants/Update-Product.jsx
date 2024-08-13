@@ -1,31 +1,30 @@
 import { useEffect, useState } from "react";
 import { fetchBrands, fetchCategories } from "../services/admin";
 import { toast } from "react-toastify";
-import { addProduct } from "../services/seller";
+import { updateProduct } from "../services/seller"; // Import the updateProduct function
 
-function AddProduct() {
-  const [name,setName] = useState('')
-  const [description,setDescription] = useState('')
-  const [category,setCategory] = useState('')
-  const [brand,setBrand] = useState('')
-  const [mrp,setMrp] = useState('')
-  const [discount,setDiscount] = useState('')
-  const [quantity,setQuantity] = useState('')
-  const [warranty,setWarranty] = useState('')
-  const [brands, setBrands] = useState([])
-  const [image,setImage] = useState(null)
+function UpdateProduct({ product }) {
+    console.log(product)
+  const [name, setName] = useState(product.name || '');
+  const [description, setDescription] = useState(product.description || '');
+  const [category, setCategory] = useState(product.category || '');
+  const [brand, setBrand] = useState(product.brand || '');
+  const [mrp, setMrp] = useState(product.mrp || '');
+  const [discount, setDiscount] = useState(product.discount || '');
+  const [quantity, setQuantity] = useState(product.quantity || '');
+  const [warranty, setWarranty] = useState(product.warranty || '');
+  const [brands, setBrands] = useState([]);
+  const [image, setImage] = useState(null);
+  const [categories, setCategories] = useState([]);
 
   const handleFileChange = (e) => {
-    setImage(e.target.files[0]); // Get the selected file
+    setImage(e.target.files[0]);
   };
-  
-  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const getCategories = async () => {
       const response = await fetchCategories();
-      //console.log(response) // Fetch the list of categories from the backend
-      setCategories(response.data); 
+      setCategories(response.data);
     };
     getCategories();
   }, []);
@@ -34,17 +33,16 @@ function AddProduct() {
     const getBrands = async () => {
       try {
         const response = await fetchBrands();
-        //console.log(response)
-        setBrands(response); // Assuming response.data contains the array of brands
+        setBrands(response);
       } catch (error) {
         console.error("Error fetching brands:", error);
-        setBrands([]); // Optionally set to an empty array in case of error
+        setBrands([]);
       }
     };
     getBrands();
   }, []);
 
-  const InsertProduct = async () =>{
+  const handleUpdateProduct = async () => {
     if(name.length === 0){
       toast.warning("Product Name is Mandatory")
     }else if(description.length === 0){
@@ -62,22 +60,27 @@ function AddProduct() {
     }else if(warranty.length === 0){
       toast.warning("Product Warranty is Mandatory")
     }else{
-      const result = await addProduct(sessionStorage.sellerId,name,description,image,category,brand,mrp,discount,quantity,warranty)
-      if(result.status == 201){
-        toast.success("Product added successfully")
+      const updatedData = { name, description, image, category, brand, mrp, discount, quantity, warranty };
+      try {
+        const result = await updateProduct(sessionStorage.sellerId, product.id, updatedData);
+        console.log(result)
+        if(result.status === 200){
+          toast.success("Product updated successfully");
+        }
+      } catch (error) {
+        toast.error("Error updating product");
       }
     }
-  }
+  };
 
   return (
     <div className="col-lg-12 mb-5 mb-lg-0">
       <div className="card">
         <div className="card-body py-5 px-md-5 bg-dark text-white justify-content-center">
           <div style={{ textAlign: "center" }}>
-            <h3>Add Product</h3>
+            <h3>Update Product</h3>
           </div>
           <br />
-            {/* <!-- 2 column grid layout with text inputs for the first and last names --> */}
             <div className="row">
               <div className="col-md-12 mb-4">
                 <div data-mdb-input-init className="form-outline">
@@ -86,19 +89,20 @@ function AddProduct() {
                     id="name"
                     className="form-control"
                     placeholder="Enter Product Name"
+                    value={name}
                     onChange={(e) => setName(e.target.value)}
                   />
                 </div>
               </div>
             </div>
 
-            {/* <!-- Email input --> */}
             <div data-mdb-input-init className="form-outline mb-4">
               <textarea
                 type="text"
                 id="desc"
                 className="form-control"
                 placeholder="Enter Description"
+                value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
             </div>
@@ -121,6 +125,7 @@ function AddProduct() {
                 className="form-control text-black"
                 name="category"
                 required
+                value={category}
                 onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="" selected>
@@ -143,6 +148,7 @@ function AddProduct() {
                 className="form-control text-black"
                 name="brand"
                 required
+                value={brand}
                 onChange={(e) => setBrand(e.target.value)}
               >
                 <option value="" selected>
@@ -164,6 +170,7 @@ function AddProduct() {
                 id="mrp"
                 className="form-control"
                 placeholder="Enter Maximum Retail Price"
+                value={mrp}
                 onChange={(e) => setMrp(e.target.value)}
               />
             </div>
@@ -174,6 +181,7 @@ function AddProduct() {
                 id="discount"
                 className="form-control"
                 placeholder="Enter Discount price"
+                value={discount}
                 onChange={(e) => setDiscount(e.target.value)}
               />
             </div>
@@ -184,6 +192,7 @@ function AddProduct() {
                 id="quantity"
                 className="form-control"
                 placeholder="Enter Quantity"
+                value={quantity}
                 onChange={(e) => setQuantity(e.target.value)}
               />
             </div>
@@ -194,6 +203,7 @@ function AddProduct() {
                 id="warranty"
                 className="form-control"
                 placeholder="Enter Warranty (in months)"
+                value={warranty}
                 onChange={(e) => setWarranty(e.target.value)}
               />
             </div>
@@ -204,9 +214,9 @@ function AddProduct() {
               data-mdb-button-init
               data-mdb-ripple-init
               className="btn btn-success btn-block mb-4 align-items-center"
-              onClick={InsertProduct}
+              onClick={handleUpdateProduct}
             >
-              Add Product
+              Update Product
             </button>
         </div>
       </div>
@@ -214,4 +224,4 @@ function AddProduct() {
   );
 }
 
-export default AddProduct;
+export default UpdateProduct;
