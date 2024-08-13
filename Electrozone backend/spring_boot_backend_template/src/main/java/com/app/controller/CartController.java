@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import com.app.dto.CartDTO;
 import com.app.service.CartService;
 
+import java.util.List;
+
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -32,8 +34,11 @@ public class CartController {
     }
 
     @PutMapping("/update")
-    public ResponseEntity<?> updateProductQuantity(@RequestBody @Valid CartDTO cartDTO) {
-        cartService.updateProductQuantity(cartDTO);
+    public ResponseEntity<?> updateProductQuantity(@RequestBody @Valid List<CartDTO> cartDTOs) {
+    	
+    		
+    		cartService.updateProductQuantity(cartDTOs);
+    
         return ResponseEntity.ok("Product quantity updated successfully");
     }
 

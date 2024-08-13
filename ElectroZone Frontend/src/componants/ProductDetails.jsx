@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getProductById, addReview, getReviewsByProduct, getAverageRating } from '../services/product';
 import { addProductToWishlist } from '../services/wishlist';
 import { FaStar, FaRegStar } from 'react-icons/fa';
+import { addProductToCart } from '../services/cart';
 
 function ProductDetails() {
   const { id } = useParams();
@@ -90,7 +91,7 @@ function ProductDetails() {
       };
       await addProductToWishlist(wishlistDTO);
       setIsInWishlist(true);
-      alert('Product added to wishlist!');
+      
     } catch (error) {
       console.error('Failed to add product to wishlist:', error);
       alert('Failed to add product to wishlist.');
@@ -104,9 +105,9 @@ function ProductDetails() {
         userId: 1, // Replace with actual user ID
         quantity: quantity,
       };
-      // Add product to cart logic here (e.g., API call)
+      await addProductToCart(cartDTO);
       setIsInCart(true);
-      alert('Product added to cart!');
+    
     } catch (error) {
       console.error('Failed to add product to cart:', error);
       alert('Failed to add product to cart.');
