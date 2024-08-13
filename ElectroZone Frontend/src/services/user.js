@@ -27,7 +27,7 @@ export async function login(email, password) {
   const response = await axios.post(`http://localhost:8080/api/users/login`, body)
 
   // read JSON data (response)
-  return response.data
+  return response
 }
 
 export async function fetchProfileData(id) {

@@ -6,11 +6,18 @@ function AdminBrandList() {
 
   useEffect(() => {
     const getBrands = async () => {
-      const response = await fetchBrands(); // Fetch the list of brands from the backend
-      setBrands(response.data); // Assuming response.data contains the array of brands
+      try {
+        const response = await fetchBrands();
+        console.log(response)
+        setBrands(response); // Assuming response.data contains the array of brands
+      } catch (error) {
+        console.error("Error fetching brands:", error);
+        setBrands([]); // Optionally set to an empty array in case of error
+      }
     };
     getBrands();
   }, []);
+  
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this brand?");
@@ -44,7 +51,7 @@ function AdminBrandList() {
                 <td>{index + 1}</td>
                 <td>{brand.name}</td>
                 <td>
-                  <img src={brand.imagePath} alt={brand.name} style={{ width: "50px", height: "50px" }} />
+                  <img src={brand.image} alt={brand.name} style={{ width: "50px", height: "50px" }} />
                 </td>
                 <td>
                   <button className="btn btn-warning me-2" onClick={() => handleUpdate(brand.id)}>
