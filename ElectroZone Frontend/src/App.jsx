@@ -22,6 +22,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import OrdersPage from "./pages/OrdersPage";
 import AboutUs from "./pages/AboutUs";
 import AdminLogin from "./componants/AdminLogin";
+
 function App() {
   return (
     <div>
@@ -35,11 +36,9 @@ function App() {
         <Route path="/Seller-Dashboard" element={<Seller_Dashboard />} />
         <Route path="/Admin-Dashboard" element={<Admin_Dashboard />} />
         <Route path="/Products" element={<ProductPage />} />
-        <Route
-          path="/ProductDetails/{ProductName}"
-          element={<ProductDetailsPage />}
-        />
-        <Route path="/Products/category/*" element={<ProductPage />} />
+        <Route path="/ProductDetails/:id" element={<ProductDetailsPage />} />
+        <Route path="/category/:categoryId" element={<ProductPage />} />
+        <Route path="/brand/:brandId" element={<ProductPage />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/Add-Address" element={<AddAddress />} />
         <Route path="/Add-Product" element={<AddProduct />} />

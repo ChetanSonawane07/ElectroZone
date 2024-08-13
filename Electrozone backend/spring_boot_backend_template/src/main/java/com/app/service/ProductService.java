@@ -2,7 +2,7 @@ package com.app.service;
 
 import java.io.IOException;
 import java.util.List;
-
+import java.util.Optional;
 
 import com.app.dto.ApiResponse;
 import com.app.dto.BrandDTO;
@@ -25,7 +25,7 @@ public interface ProductService {
 	ApiResponse deleteProductById(Long id);
 
 	 List<ProductDTO>getAllProductsBySeller(SellerDTO seller);
-	 List<ProductDTO>getAllProductsByBrand(BrandDTO brand);
+	 List<ProductResponseDTO> getAllProductsByBrand(BrandDTO brandDTO);
 
 	 List<ProductDTO> getAllProductsByName(String name);
 
@@ -34,6 +34,8 @@ public interface ProductService {
 	ProductDTO addProduct(ProductDTO productDTO) throws IOException;
 
 	ProductDTO updateProduct(Long productId, ProductDTO dto) throws IOException;
+
+	ProductResponseDTO getProductById(String id);
 
 	
 

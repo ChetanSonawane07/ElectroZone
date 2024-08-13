@@ -8,6 +8,6 @@ import com.app.entities.Product;
 import com.app.entities.Review;
 
 public interface ReviewDao extends JpaRepository<Review, Long>{
-
-	List<Review> findByProduct(Product p);
+	List<Review> findByProductId(Long productId);
+    Double findAverageRatingByProductId(Long productId);
 }

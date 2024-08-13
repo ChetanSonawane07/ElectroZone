@@ -10,6 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewDTO {
-    private String description;
     private int rating;
+    private String description;
+    private Long productId;
+    private Long userId;
 }

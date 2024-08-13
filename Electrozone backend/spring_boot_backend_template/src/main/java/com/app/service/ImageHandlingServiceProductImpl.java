@@ -25,6 +25,7 @@ import com.app.entities.Product;
 public class ImageHandlingServiceProductImpl implements ImageHandlingServiceProduct {
 	@Autowired
 	private ProductDao productDao;
+	
 	@Value("${file.upload.location}") 
 	private String uploadFolder;
 

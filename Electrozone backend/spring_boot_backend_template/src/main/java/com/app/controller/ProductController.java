@@ -75,9 +75,7 @@ public ProductController() {
             return ResponseEntity.ok(updatedProduct);        		
         }            		
             		
-	@GetMapping(value = "/images/{productId}", 
-			produces = 
-		{ IMAGE_GIF_VALUE, IMAGE_JPEG_VALUE, IMAGE_PNG_VALUE })
+	@GetMapping(value = "/images/{productId}", produces = { IMAGE_GIF_VALUE, IMAGE_JPEG_VALUE, IMAGE_PNG_VALUE })
 	public ResponseEntity<?> downloadImage(@PathVariable long productId) throws IOException {
 		return ResponseEntity.ok(imageService.serveImage(productId));
 	}
@@ -90,6 +88,16 @@ public ProductController() {
 
 	    return ResponseEntity.ok(products);
 	}
+	
+	
+	@GetMapping("/{productId}")
+	public ResponseEntity<?> getProductsByCategory(@PathVariable String productId) {
+	    
+	    ProductResponseDTO product = productService.getProductById(productId);
+
+	    return ResponseEntity.ok(product);
+	}
+
 
 
 	    @GetMapping("/{sellerId}")
@@ -100,12 +108,12 @@ public ProductController() {
 	        
 	    }
 
-	    @GetMapping("/brand/{brandId}")
-	    public ResponseEntity<?> getProductsByBrand(@PathVariable Long brandId) {
-	        BrandDTO brand = new BrandDTO();
-	        brand.setId(brandId);
-	        return ResponseEntity.ok(productService.getAllProductsByBrand(brand));
-	    }
+    @GetMapping("/brand/{brandId}")
+    public ResponseEntity<?> getProductsByBrand(@PathVariable Long brandId) {
+        BrandDTO brand = new BrandDTO();
+        brand.setId(brandId);
+        return ResponseEntity.ok(productService.getAllProductsByBrand(brand));
+    }
 	
 	
 	

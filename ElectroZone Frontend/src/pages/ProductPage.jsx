@@ -21,6 +21,10 @@ function ProductPage() {
     navigate("/User-Login");
   };
 
+  const navigateToAboutUs = () => {
+    navigate("/AboutUs");
+  };
+
   const renderComponent = () => {
     switch (activeComponent) {
       case "Home":
@@ -30,9 +34,9 @@ function ProductPage() {
       case "Add-Address":
         return <AddAddress />;
       case "My-WishList":
-        return navigate("/WishList");
+        return navigate('/WishList');
       case "My-Cart":
-        return navigate("/Cart");
+        return navigate('/Cart');
       case "View-Orders":
         return navigate("/Orders");
     }
@@ -82,6 +86,14 @@ function ProductPage() {
             {/* <!-- Left links --> */}
           </div>
           {/* <!-- Collapsible wrapper --> */}
+
+          <span
+            className="nav-link text-white fw-bold"
+            onClick={navigateToAboutUs}
+            style={{ cursor: "pointer", textDecoration: "underline", marginRight: "10px" }}
+          >
+            About Us
+          </span>
 
           <button
             className="btn btn-outline-success"

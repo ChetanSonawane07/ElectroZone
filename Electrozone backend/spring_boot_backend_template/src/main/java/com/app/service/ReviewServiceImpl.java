@@ -1,58 +1,77 @@
+
 package com.app.service;
-
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.app.dao.ProductDao;
 import com.app.dao.ReviewDao;
 import com.app.dao.UserDao;
+import com.app.dto.ApiResponse;
 import com.app.dto.ReviewDTO;
+import com.app.dto.ReviewResponseDTO;
 import com.app.entities.Product;
 import com.app.entities.Review;
 import com.app.entities.User;
-import com.app.custom_exceptions.ResourceNotFoundException;
+
+import com.app.service.ReviewService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-@Transactional
 public class ReviewServiceImpl implements ReviewService {
 
     @Autowired
-    private ReviewDao reviewDao;
+    private ReviewDao reviewRepository;
 
     @Autowired
-    private ProductDao productDao;
+    private ProductDao productRepository;
 
     @Autowired
-    private UserDao userDao;
+    private UserDao userRepository;
 
     @Override
-    public Review postReview(String description, int rating, Long productId, Long userId) {
-        Product product = productDao.findById(productId)
-            .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
-        
-        User user = userDao.findById(userId)
-            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        
+    public ApiResponse addReview(ReviewDTO reviewDTO) {
+        Product product = productRepository.findById(reviewDTO.getProductId())
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+        User user = userRepository.findById(reviewDTO.getUserId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
         Review review = new Review();
-        review.setDescription(description);
-        review.setRating(rating);
+        review.setRating(reviewDTO.getRating());
+        review.setDescription(reviewDTO.getDescription());
         review.setProduct(product);
         review.setUser(user);
-        return reviewDao.save(review);
+
+        Review savedReview = reviewRepository.save(review);
+
+        return new ApiResponse("Review Added Successfully");
+        }
+
+    @Override
+    public List<ReviewResponseDTO> getReviewsByProduct(Long productId) {
+        List<Review> reviews = reviewRepository.findByProductId(productId);
+        return reviews.stream().map(review -> new ReviewResponseDTO(
+                review.getId(),
+                review.getRating(),
+                review.getDescription(),
+                review.getProduct().getName(),
+                review.getUser().getName()
+        )).collect(Collectors.toList());
     }
 
     @Override
-    public List<ReviewDTO> getReviewsByProductId(Long productId) {
-        Product product = productDao.findById(productId)
-            .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
-
-        List<Review> reviews = reviewDao.findByProduct(product);
-        return reviews.stream()
-                      .map(review -> new ReviewDTO(review.getDescription(), review.getRating()))
-                      .collect(Collectors.toList());
+    public Double getAverageRating(Long productId) {
+    	
+    	Double avgRating = 0.0;
+    	
+    	List<Review> reviews = reviewRepository.findByProductId(productId);
+    	
+    	for(Review r :reviews)
+    	{
+    		avgRating += r.getRating();
+    	}
+    	
+        return avgRating/reviews.size();
     }
 }
