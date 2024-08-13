@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getProductsByCategoryId, getProductsByBrandId } from '../services/product';
 
 function ProductList() {
   const { categoryId, brandId } = useParams(); // Assuming you may have both in the URL
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate(); // Initialize the navigate function
 
   useEffect(() => {
     if (categoryId) {
@@ -50,12 +51,16 @@ function ProductList() {
     }
   };
 
+  const handleProductClick = (productId) => {
+    navigate(`/ProductDetails/${productId}`);
+  };
+
   return (
     <div className="row">
       {products.length > 0 ? (
         products.map(product => (
           <div key={product.id} className="col-md-4 mb-4">
-            <div className="card">
+            <div className="card" onClick={() => handleProductClick(product.id)} style={{ cursor: 'pointer' }}>
               <img
                 src={product.image}
                 className="card-img-top"

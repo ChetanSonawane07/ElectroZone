@@ -35,10 +35,7 @@ function App() {
         <Route path="/Seller-Dashboard" element={<Seller_Dashboard />} />
         <Route path="/Admin-Dashboard" element={<Admin_Dashboard />} />
         <Route path="/Products" element={<ProductPage />} />
-        <Route
-          path="/ProductDetails/{ProductName}"
-          element={<ProductDetailsPage />}
-        />
+        <Route path="/ProductDetails/:id" element={<ProductDetailsPage />} />
         <Route path="/category/:categoryId" element={<ProductPage />} />
         <Route path="/brand/:brandId" element={<ProductPage />} />
         <Route path="/AboutUs" element={<AboutUs />} />
