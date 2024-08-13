@@ -46,6 +46,7 @@ public class ProductServiceImpl implements ProductService {
     
     @Autowired
     private CategoryDao categoryDao;
+    
     @Autowired
     private ImageHandlingServiceProduct imgHandlingService;
     

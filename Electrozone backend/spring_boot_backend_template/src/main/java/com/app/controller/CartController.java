@@ -26,8 +26,8 @@ public class CartController {
         return ResponseEntity.status(201).body("Product added to cart successfully");
     }
 
-    @GetMapping("/{userId}/products")
-    public ResponseEntity<?> getProductsInCart(@PathVariable @NotNull Long userId) {
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> getCartByUserId(@PathVariable Long userId) {
         return ResponseEntity.ok(cartService.getProductsInCart(userId));
     }
 

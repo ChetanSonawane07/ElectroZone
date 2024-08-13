@@ -49,9 +49,6 @@ function ProductDetails() {
               style={{ borderRadius: 20, height: '100%' }}
             />
           </div>
-
-          
-
           <div className="card col-6 border-white">
             <div>
               <h3>{product.name}</h3>
