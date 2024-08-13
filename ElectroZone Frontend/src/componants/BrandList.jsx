@@ -47,7 +47,7 @@ function BrandList() {
         {brands.length > 0 ? (
           brands.map((brand) => (
             <Brand
-              key={brand.id}
+              id={brand.id}
               name={brand.name}
               image={brand.image}
             />

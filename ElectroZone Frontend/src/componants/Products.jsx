@@ -1,30 +1,22 @@
+// src/components/Products.jsx
 import { Dropdown, Collapse, initMDB } from "mdb-ui-kit";
 import ProductList from "./ProductList";
-import BrandList from "./BrandList"
+import BrandList from "./BrandList";
 
 initMDB({ Dropdown, Collapse });
+
 function Products() {
   return (
     <div>
-      <div
-        className="card bg-dark col-12 container"
-        style={{
-          height: 400,
-          borderRadius: 20,
-        }}
-      ></div>
-
-      <br />
-
       <div className="container">
         <div className="row">
           <div className="col-md-3 ">
             <div className="vertical-nav bg-dark" style={{ height: 170 }}>
-              <div class="accordion accordion-flush" id="accordionFlushExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header">
+              <div className="accordion accordion-flush" id="accordionFlushExample">
+                <div className="accordion-item">
+                  <h2 className="accordion-header">
                     <button
-                      class="accordion-button collapsed bg-dark text-white"
+                      className="accordion-button collapsed bg-dark text-white"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target="#flush-collapseOne"
@@ -36,18 +28,18 @@ function Products() {
                   </h2>
                   <div
                     id="flush-collapseOne"
-                    class="accordion-collapse"
+                    className="accordion-collapse"
                     data-bs-parent="#accordionFlushExample"
                   >
-                    <div class="accordion-body">
+                    <div className="accordion-body">
                       Here, brand name will appear to add filter.
                     </div>
                   </div>
                 </div>
-                <div class="accordion-item ">
-                  <h2 class="accordion-header">
+                <div className="accordion-item">
+                  <h2 className="accordion-header">
                     <button
-                      class="accordion-button collapsed bg-dark text-white"
+                      className="accordion-button collapsed bg-dark text-white"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target="#flush-collapseTwo"
@@ -59,10 +51,10 @@ function Products() {
                   </h2>
                   <div
                     id="flush-collapseTwo"
-                    class="accordion-collapse collapse"
+                    className="accordion-collapse collapse"
                     data-bs-parent="#accordionFlushExample"
                   >
-                    <div class="accordion-body">
+                    <div className="accordion-body">
                       <input
                         type="range"
                         name="price"
@@ -73,10 +65,10 @@ function Products() {
                     </div>
                   </div>
                 </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header">
+                <div className="accordion-item">
+                  <h2 className="accordion-header">
                     <button
-                      class="accordion-button collapsed bg-dark text-white"
+                      className="accordion-button collapsed bg-dark text-white"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target="#flush-collapseThree"
@@ -88,10 +80,10 @@ function Products() {
                   </h2>
                   <div
                     id="flush-collapseThree"
-                    class="accordion-collapse collapse"
+                    className="accordion-collapse collapse"
                     data-bs-parent="#accordionFlushExample"
                   >
-                    <div class="accordion-body">
+                    <div className="accordion-body">
                       <input
                         type="checkbox"
                         name="outofstock"

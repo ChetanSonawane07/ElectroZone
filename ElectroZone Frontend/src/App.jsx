@@ -20,9 +20,7 @@ import CartPage from "./pages/CartPage";
 import WishListPage from "./pages/WishListPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrdersPage from "./pages/OrdersPage";
-
 import AboutUs from "./pages/AboutUs";
-
 import AdminLogin from "./componants/AdminLogin";
 
 function App() {
@@ -39,7 +37,8 @@ function App() {
         <Route path="/Admin-Dashboard" element={<Admin_Dashboard />} />
         <Route path="/Products" element={<ProductPage />} />
         <Route path="/ProductDetails/:id" element={<ProductDetailsPage />}/>
-        <Route path="/Products/category/*" element={<ProductPage />} />
+        <Route path="/category/:categoryId" element={<ProductPage />} />
+        <Route path="/brand/:brandId" element={<ProductPage />} />
         <Route path="/AboutUs" element={<AboutUs />} />
         <Route path="/Add-Address" element={<AddAddress />} />
         <Route path="/Add-Product" element={<AddProduct />} />
