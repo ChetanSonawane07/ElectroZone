@@ -20,12 +20,17 @@ import CartPage from "./pages/CartPage";
 import WishListPage from "./pages/WishListPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrdersPage from "./pages/OrdersPage";
+<<<<<<< HEAD
 import AboutUs from "./pages/AboutUs";
+=======
+import AdminLogin from "./componants/AdminLogin";
+>>>>>>> main
 function App() {
   return (
     <div>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/Admin-Login" element={<AdminLogin />} />
         <Route path="/User-Register" element={<User_Register />} />
         <Route path="/User-Login" element={<User_Login />} />
         <Route path="/Seller-Register" element={<Seller_Register />} />

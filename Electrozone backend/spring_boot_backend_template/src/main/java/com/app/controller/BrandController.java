@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/brands")
-@CrossOrigin
+
 public class BrandController {
 
     @Autowired
