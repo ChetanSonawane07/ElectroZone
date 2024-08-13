@@ -178,7 +178,7 @@ function ProductDetails() {
   return (
     <div className="container mt-5">
       <div className="row">
-        <div className="col-md-6 mb-4 d-flex">
+        <div className="col-md-12 mb-4 d-flex">
           <div className="border-0 img-magnifier-container rounded flex-fill d-flex align-items-center">
             <img
               id="myimage"
