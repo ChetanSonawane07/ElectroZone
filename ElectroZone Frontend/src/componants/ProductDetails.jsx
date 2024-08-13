@@ -12,6 +12,8 @@ function ProductDetails() {
   const [reviewText, setReviewText] = useState('');
   const [reviews, setReviews] = useState([]);
   const [averageRating, setAverageRating] = useState(0);
+  const [isInWishlist, setIsInWishlist] = useState(false); // New state for wishlist status
+  const [isInCart, setIsInCart] = useState(false); // New state for cart status
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -81,10 +83,31 @@ function ProductDetails() {
         userId: 1, // Assuming user ID is 1 for now, you need to replace this with actual user ID
       };
       await addProductToWishlist(wishlistDTO);
+      setIsInWishlist(true); // Update the state to indicate the product is in the wishlist
       alert('Product added to wishlist!');
     } catch (error) {
       console.error('Failed to add product to wishlist:', error);
       alert('Failed to add product to wishlist.');
+    }
+  };
+
+
+
+  const addToCart = () => {
+    // Simulate adding to cart
+    try {
+      const wishlistDTO = {
+        productId: id,
+        userId: 1, // Assuming user ID is 1 for now, you need to replace this with actual user ID
+        quantity: quantity,
+      };
+
+      setIsInCart(true); // Update the state to indicate the product is in the cart
+      alert('Product added to cart!');
+    }
+    catch (error) {
+      console.error('Failed to add product to cart:', error);
+      alert('Failed to add product to cart.');
     }
   };
 
@@ -103,7 +126,7 @@ function ProductDetails() {
   return (
     <div className="container mt-5">
       <div className="row">
-        <div className="col-md-6 mb-4 d-flex">
+        <div className="col-md-12 mb-4 d-flex">
           <div className="card border-0 shadow rounded flex-fill d-flex align-items-center">
             <img
               src={product.image || 'path/to/default-image.jpg'}
@@ -112,7 +135,7 @@ function ProductDetails() {
               style={{ height: '100%', objectFit: 'cover', width: '100%' }}
             />
           </div>
-        </div>
+        
 
         <div className="col-md-6 d-flex flex-column">
           <div className="card border-0 shadow rounded p-4 flex-fill d-flex flex-column" style={{ height: '100%' }}>
@@ -139,10 +162,39 @@ function ProductDetails() {
             </div>
 
             <div className="text-center mb-3">
-              <button className="btn btn-outline-success mx-2" onClick={addToWishlist}>Add to WishList</button>
-              <button className="btn btn-success">Add to Cart</button>
+              {isInWishlist ? (
+                <button 
+                  className="btn btn-outline-primary mx-2" 
+                  onClick={() => navigate('/wishlist')}
+                >
+                  Go to Wishlist
+                </button>
+              ) : (
+                <button 
+                  className="btn btn-outline-success mx-2" 
+                  onClick={addToWishlist}
+                >
+                  Add to WishList
+                </button>
+              )}
+              {isInCart ? (
+                <button 
+                  className="btn btn-success" 
+                  onClick={() => navigate('/cart')}
+                >
+                  Go to Cart
+                </button>
+              ) : (
+                <button 
+                  className="btn btn-success" 
+                  onClick={addToCart}
+                >
+                  Add to Cart
+                </button>
+              )}
             </div>
           </div>
+        </div>
         </div>
       </div>
 

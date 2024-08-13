@@ -49,20 +49,33 @@ public class WishlistServiceImpl implements WishlistService {
 
     @Override
     public void addProductToWishlist(WishlistDTO wishlistDTO) {
-        User user = userDao.findById(wishlistDTO.getUserId())
-                           .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+    	
+    	User user = userDao.findById(wishlistDTO.getUserId())
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
-        Product product = productDao.findById(wishlistDTO.getProductId())
-                          .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
-
-        Wishlist wishlist = new Wishlist();
-        wishlist.setUser(user);
-        wishlist.setProduct(product);
-        wishlistDao.save(wishlist);
+    	Product product = productDao.findById(wishlistDTO.getProductId())
+               .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+    	
+    	if(!wishlistDao.existsByUserAndProduct(user, product))
+    	{
+		        Wishlist wishlist = new Wishlist();
+		        wishlist.setUser(user);
+		        wishlist.setProduct(product);
+		        wishlistDao.save(wishlist);
+		        System.out.println("product added to wishlish");
+    	}
+    	else{
+    		 System.out.println("product alredy exist to wishlish");
+    		
+    	}
+    	
+    	
     }
 
     @Override
     public void removeProductFromWishlist(WishlistDTO wishlistDTO) {
+    	
+    	
         User user = userDao.findById(wishlistDTO.getUserId())
                            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
@@ -75,5 +88,10 @@ public class WishlistServiceImpl implements WishlistService {
         } else {
             throw new ResourceNotFoundException("Product not found in the user's wishlist");
         }
+        
+    	
     }
+    
+    
+    
 }
