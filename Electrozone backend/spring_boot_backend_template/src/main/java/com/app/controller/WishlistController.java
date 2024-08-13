@@ -16,6 +16,7 @@ import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/wishlist")
+@CrossOrigin
 @Validated
 public class WishlistController {
 

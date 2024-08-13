@@ -56,20 +56,18 @@ public class ImageHandlingServiceCategoryImpl implements ImageHandlingServiceCat
 			return category;
 		}
 
-		
-		
 
 		@Override
-		public byte[] serveImage(Long categoryId) throws IOException {
-		Category category = categoryDao.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Invalid category ID!!!!"));	
-			String path = category.getImagePath();
-			if (path != null) {
-				// path ---> File --> byte[]
-				return readFileToByteArray(new File(path));
-			} else
-				throw new ApiException("Image not yet assigned !!!!");
-
-		}
+	    public byte[] serveImage(Long categoryId) throws IOException {
+	        Category category = categoryDao.findById(categoryId)
+	            .orElseThrow(() -> new ResourceNotFoundException("Invalid category ID!"));
+	        String path = category.getImagePath();
+	        if (path != null) {
+	            return readFileToByteArray(new File(path));
+	        } else {
+	            throw new ApiException("Image not yet assigned!");
+	        }
+	    }
 		
 		
 	}

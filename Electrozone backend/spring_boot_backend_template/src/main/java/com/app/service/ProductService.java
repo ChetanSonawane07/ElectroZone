@@ -8,6 +8,7 @@ import com.app.dto.ApiResponse;
 import com.app.dto.BrandDTO;
 import com.app.dto.CategoryDTO;
 import com.app.dto.ProductDTO;
+import com.app.dto.ProductResponseDTO;
 import com.app.dto.SellerDTO;
 
 
@@ -28,8 +29,8 @@ public interface ProductService {
 
 	 List<ProductDTO> getAllProductsByName(String name);
 
-	List<ProductDTO> getAllProductsByCategory(CategoryDTO category);
-
+	 List<ProductResponseDTO> getAllProductsByCategory(CategoryDTO categoryDTO);
+	 
 	ProductDTO addProduct(ProductDTO productDTO) throws IOException;
 
 	ProductDTO updateProduct(Long productId, ProductDTO dto) throws IOException;

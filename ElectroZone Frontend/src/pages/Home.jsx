@@ -19,6 +19,9 @@ function Home() {
   const UserLogin = () => {
     navigate("/User-Login");
   };
+  const navigateToAboutUs = () => {
+    navigate("/AboutUs");
+  };
 
   const renderComponent = () => {
     switch (activeComponent) {
@@ -81,6 +84,14 @@ function Home() {
             {/* <!-- Left links --> */}
           </div>
           {/* <!-- Collapsible wrapper --> */}
+
+          <span
+            className="nav-link text-white fw-bold"
+            onClick={navigateToAboutUs}
+            style={{ cursor: "pointer", textDecoration: "underline", marginRight: "10px" }}
+          >
+            About Us
+          </span>
 
           <button
             className="btn btn-outline-success"
