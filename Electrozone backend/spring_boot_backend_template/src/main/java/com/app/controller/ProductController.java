@@ -66,12 +66,12 @@ public ProductController() {
 	
 	
 
-    @PutMapping("/{productId}")
+    @PutMapping("/update/{productId}")
     public ResponseEntity<ProductDTO> updateProduct(
-            @PathVariable Long productId,
+            @PathVariable String productId,
             @ModelAttribute ProductDTO productDTO) throws IOException  {     
          
-            ProductDTO updatedProduct = productService.updateProduct(productId, productDTO);
+            ProductDTO updatedProduct = productService.updateProduct(Long.valueOf(productId), productDTO);
             return ResponseEntity.ok(updatedProduct);        		
         }            		
             		
@@ -97,8 +97,8 @@ public ProductController() {
 
 	    return ResponseEntity.ok(product);
 	}
-
-	    @GetMapping("/{sellerId}")
+	
+	    @GetMapping("seller/{sellerId}")
 	    public ResponseEntity<?> getProductsBySeller(@PathVariable String sellerId) {
 	        SellerDTO seller = new SellerDTO();
 	        seller.setId(Long.valueOf(sellerId));

@@ -107,7 +107,7 @@ public class SellerServiceImpl implements SellerService {
         String hashedPassword = PasswordUtil.hashPassword(pwd);
 
 		
-		Seller seller = sellerDao.findByEmailAndPassword(email, hashedPassword)
+		Seller seller = sellerDao.findByEmailAndPasswordAndIsActiveTrue(email, hashedPassword)
         .orElseThrow(() -> new ResourceNotFoundException("Invalid email or password"));
     return modelMapper.map(seller, SellerDTO.class);
 	}

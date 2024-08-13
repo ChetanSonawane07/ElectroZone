@@ -45,9 +45,9 @@ public class SellerController {
         return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<SellerDTO> updateSeller(@PathVariable Long id, @Valid @RequestBody SellerDTO sellerDto) {
-        SellerDTO updatedSeller = sellerService.updateSeller(id, sellerDto);
+    @PutMapping("/update/{id}")
+    public ResponseEntity<SellerDTO> updateSeller(@PathVariable String id, @Valid @RequestBody SellerDTO sellerDto) {
+        SellerDTO updatedSeller = sellerService.updateSeller(Long.valueOf(id), sellerDto);
         return ResponseEntity.ok(updatedSeller);
     }
 

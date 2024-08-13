@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { fetchSellers, deleteSeller } from "../services/admin";
 import { toast } from "react-toastify";
+import Delete from '../images/trash3-fill.svg'
 
 function AdminSellerList() {
   const [sellers, setSellers] = useState([]);
@@ -64,7 +65,7 @@ function AdminSellerList() {
                       className="btn btn-danger"
                       onClick={() => handleDelete(seller.id)}
                     >
-                      Delete
+                      <img src={Delete} height="25" alt="Delete" />
                     </button>
                   </td>
                 </tr>

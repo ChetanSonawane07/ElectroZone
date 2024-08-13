@@ -53,8 +53,8 @@ function AddAddress() {
         <div className="container py-5">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-12 col-md-4 col-lg-12">
-              <div className="card shadow-2-strong">
-                <div className="card-body p-5 text-center bg-dark text-white">
+              <div className="card shadow text-white">
+                <div className="card-body p-5 text-center bg-dark fill-flex text-white">
                   <h3 className="mb-5">My Addresses</h3>
                   <div className="row">
                     <div className="col-lg-6">

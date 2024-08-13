@@ -48,9 +48,9 @@ public class CategoryController {
 	
 	 @PutMapping("update/{categoryId}")
 	    public ResponseEntity<CategoryDTO> updateCategory(
-	            @PathVariable Long categoryId,
+	            @PathVariable String categoryId,
 	            @ModelAttribute CategoryDTO categoryDTO) throws IOException {  
-	            CategoryDTO updatedCategory = categoryService.updateCategory(categoryId, categoryDTO);        
+	            CategoryDTO updatedCategory = categoryService.updateCategory(Long.valueOf(categoryId), categoryDTO);        
 	            return ResponseEntity.ok(updatedCategory);
 	     }
 	
@@ -58,7 +58,7 @@ public class CategoryController {
 			    produces = 
 			    { IMAGE_GIF_VALUE, IMAGE_JPEG_VALUE, IMAGE_PNG_VALUE })
 			public ResponseEntity<?> downloadImage(@PathVariable long categoryId) throws IOException {
-			    return ResponseEntity.ok(imageService.serveImage(categoryId));
+			    return ResponseEntity.ok(imageService.serveImage(categoryId)); 
 			}
 
 

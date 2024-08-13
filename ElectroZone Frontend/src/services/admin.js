@@ -69,12 +69,20 @@ export async function login(email, password) {
     }
   };
   
-  export const updateBrand = async (brandId, brandData) => {
+  export const updateBrand = async (brandId, name, image) => {
+    const formData = new FormData();
+    formData.append('name', name);
+    formData.append('image', image);
+  
     try {
-      const response = await axios.put(`http://localhost:8080/brands/update/${brandId}`, brandData);
+      const response = await axios.put(`http://localhost:8080/brands/update/${brandId}`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       return response.data;
     } catch (error) {
-      console.error('Error updating brand', error);
+      console.error("Error updating brand:", error);
       throw error;
     }
   };
@@ -104,11 +112,19 @@ export const deleteCategory = async (id) => {
   }
 };
 
-// Update a category by ID
-export const updateCategory = async (categoryId, categoryData) => {
+export const updateCategory = async (categoryId, title, image, description) => {
+  const formData = new FormData();
+  formData.append('title', title);
+  formData.append('image', image);
+  formData.append('description', description);
+
   try {
-    const response = await axios.put(`http://localhost:8080/categories/update/${categoryId}`, categoryData);
-    return response;
+    const response = await axios.put(`http://localhost:8080/categories/update/${categoryId}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    return response.data;
   } catch (error) {
     console.error("Error updating category:", error);
     throw error;
