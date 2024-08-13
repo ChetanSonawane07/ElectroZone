@@ -22,7 +22,7 @@ export const getProductByName = async (id) => {
 
 export const getProductById = async (id) => {
     try {
-        const response = await axios.get(`http://localhost:8080/products/${id}`);
+        const response = await axios.get(`http://localhost:8080/products/details/${id}`);
         return response.data;
     } catch (error) {
         console.error('Error fetching product details:', error);
@@ -58,14 +58,14 @@ const API_URL = 'http://localhost:8080/api/reviews';
 export const addReview = async (review) => {
     const response = await axios.post(`${API_URL}/addReview`, review);
     return response.data;
-  };
-  
-  export const getReviewsByProduct = async (productId) => {
+};
+
+export const getReviewsByProduct = async (productId) => {
     const response = await axios.get(`${API_URL}/product/${productId}`);
     return response.data;
-  };
-  
-  export const getAverageRating = async (productId) => {
+};
+
+export const getAverageRating = async (productId) => {
     const response = await axios.get(`${API_URL}/product/average/${productId}`);
     return response.data;
-  };
+};

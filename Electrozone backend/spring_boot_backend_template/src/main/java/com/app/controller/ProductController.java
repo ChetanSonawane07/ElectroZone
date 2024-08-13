@@ -90,15 +90,13 @@ public ProductController() {
 	}
 	
 	
-	@GetMapping("/{productId}")
+	@GetMapping("/details/{productId}")
 	public ResponseEntity<?> getProductsByCategory(@PathVariable String productId) {
 	    
 	    ProductResponseDTO product = productService.getProductById(productId);
 
 	    return ResponseEntity.ok(product);
 	}
-
-
 
 	    @GetMapping("/{sellerId}")
 	    public ResponseEntity<?> getProductsBySeller(@PathVariable String sellerId) {

@@ -7,7 +7,7 @@ function Category({ id, title, image }) {
       <Link to={`/category/${id}`}>
         <div
           className="card bg-dark text-white text-center category-card"
-          style={{ height: 100, width: 100, margin: 10, borderRadius: 20 }}
+          style={{ height: 105, width: 105, margin: 10, borderRadius: 20 }}
         >
           <div className="card-body">
             <img
