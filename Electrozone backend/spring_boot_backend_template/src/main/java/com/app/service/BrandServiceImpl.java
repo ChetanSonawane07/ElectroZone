@@ -31,7 +31,7 @@ public class BrandServiceImpl implements BrandService {
 
 	 @Override
 	 public List<BrandResponseDTO> getAllBrands() {
-	     List<Brand> brands = brandDao.findAll();
+	     List<Brand> brands = brandDao.findAllByIsActiveTrue();
 	     List<BrandResponseDTO> brandResponseDTOs = new ArrayList<>();
 
 	     for (Brand brand : brands) {

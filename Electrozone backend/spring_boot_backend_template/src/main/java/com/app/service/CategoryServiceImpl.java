@@ -33,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
 	
 	@Override
 	public List<CategoryResponseDTO> getAllCategories() {
-        List<Category> categories = categoryDao.findAll();
+        List<Category> categories = categoryDao.findAllByIsActiveTrue();
         List<CategoryResponseDTO> categoryResponseDTOs = new ArrayList<>();
 
         for (Category category : categories) {

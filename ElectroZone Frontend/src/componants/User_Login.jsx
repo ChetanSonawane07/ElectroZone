@@ -15,12 +15,16 @@ function User_Login() {
     } else if (password.length === 0) {
       toast.warning("Password is mandatory");
     }else {
-      const result = await login(email,password)
-      if(result){
-        sessionStorage.setItem('id',result['id'])
-        navigate("/")
-      }else{
-        setLoginFailed(true)
+      try {
+          const result = await login(email,password)
+          if(result.status === 200){
+            sessionStorage.setItem('id',result.data['id'])
+            navigate("/")
+          }else{
+            setLoginFailed(true)
+          }
+      } catch (error) {
+        toast.error("Invalid Email or Password")
       }
     }
   };

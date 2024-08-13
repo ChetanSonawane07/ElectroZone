@@ -45,7 +45,7 @@ public class BrandController {
 				.body(brandService.addBrand(brand));
 	}
 	
-	 @PutMapping("/{brandId}")
+	 @PutMapping("/update/{brandId}")
 	    public ResponseEntity<BrandDTO> updateBrand(
 	            @PathVariable Long brandId,
 	            @ModelAttribute BrandDTO brandDTO) throws IOException {  
@@ -61,7 +61,7 @@ public class BrandController {
 		return ResponseEntity.ok(imageService.serveImage(brandId));
 	}
  
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteBrand(@PathVariable Long id) {
         return ResponseEntity.ok(brandService.deleteBrandById(id));
     }

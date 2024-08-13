@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { register } from "../services/seller";
 
 function Seller_Register() {
   const [name, setName] = useState("");
@@ -9,7 +10,7 @@ function Seller_Register() {
   const [password, setPassword] = useState("");
   const [confirmpassword, setConfirmPassword] = useState("");
 
-  const onRegister = () => {
+  const onRegister = async () => {
     const validateEmail = () => {
       if (email.includes("@") && email.includes(".")) return true;
     };
@@ -21,8 +22,21 @@ function Seller_Register() {
       toast.warning("Phone Number is mandatory");
     } else if (password.length == 0) {
       toast.warning("Password is mandatory");
-    } else if (confirmpassword.length == password.length) {
+    } else if (confirmpassword.length !== password.length) {
       toast.warning("Password should be same");
+    }
+    else{
+      const result = await register(
+        name,
+        email,
+        phoneNumber,
+        password
+      );
+      if (result.status === 201) {
+        toast.success("Registeration Successful")
+      } else {
+        toast.error("Failed to register the user");
+      }
     }
   };
 
@@ -57,7 +71,7 @@ function Seller_Register() {
                           <div data-mdb-input-init className="form-outline">
                             <input
                               type="text"
-                              id="form3Example1"
+                              id="sellername"
                               className="form-control"
                               placeholder="Enter Name"
                               onChange={(e) => setName(e.target.value)}
@@ -70,7 +84,7 @@ function Seller_Register() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="email"
-                          id="form3Example3"
+                          id="selleremail"
                           className="form-control"
                           placeholder="Enter Email"
                           onChange={(e) => setEmail(e.target.value)}
@@ -81,7 +95,7 @@ function Seller_Register() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="tel"
-                          id="form3Example3"
+                          id="sellerphoneNo"
                           className="form-control"
                           placeholder="Enter Phone Number"
                           onChange={(e) => setPhoneNumber(e.target.value)}
@@ -92,7 +106,7 @@ function Seller_Register() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="password"
-                          id="form3Example4"
+                          id="password"
                           className="form-control"
                           placeholder="Enter Password"
                           onChange={(e) => setPassword(e.target.value)}
@@ -102,7 +116,7 @@ function Seller_Register() {
                       <div data-mdb-input-init className="form-outline mb-4">
                         <input
                           type="password"
-                          id="form3Example4"
+                          id="confirmpassword"
                           className="form-control"
                           placeholder="Confirm Password"
                           onChange={(e) => setConfirmPassword(e.target.value)}

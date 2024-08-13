@@ -46,7 +46,7 @@ public class CategoryController {
 	}
 	
 	
-	 @PutMapping("/{categoryId}")
+	 @PutMapping("update/{categoryId}")
 	    public ResponseEntity<CategoryDTO> updateCategory(
 	            @PathVariable Long categoryId,
 	            @ModelAttribute CategoryDTO categoryDTO) throws IOException {  
@@ -68,7 +68,7 @@ public class CategoryController {
        
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("delete/{id}")
     public ResponseEntity<?> deleteCategoryById(@PathVariable Long id) {
     	return ResponseEntity.ok(categoryService.deleteCategoryById(id));
         

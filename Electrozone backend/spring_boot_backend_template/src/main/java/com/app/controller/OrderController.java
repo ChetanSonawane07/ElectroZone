@@ -25,8 +25,8 @@ public class OrderController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/order/{userId}")
-    public ResponseEntity<List<OrderItem>> findAllOrdersByUser(@PathVariable Long userId) {
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> findAllOrdersByUser(@PathVariable Long userId) {
         List<OrderItem> orderItem = orderItemService.getAllOrderItemsOfUser(userId);
         return ResponseEntity.ok(orderItem);
     }  

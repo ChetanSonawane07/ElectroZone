@@ -14,6 +14,7 @@ import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.dao.SellerDao;
 import com.app.dto.AdminDTO;
 import com.app.dto.ApiResponse;
+import com.app.dto.SellerAdditionalInfoDTO;
 import com.app.dto.SellerDTO;
 import com.app.dto.SellerLoginDTO;
 import com.app.entities.Seller;
@@ -85,8 +86,8 @@ public class SellerServiceImpl implements SellerService {
         return modelMapper.map(updatedSeller, SellerDTO.class);
     }
 
-    @Override
-    public SellerDTO updateAdditionalFields(Long id, SellerDTO sellerDto) {
+	@Override
+    public SellerAdditionalInfoDTO updateAdditionalFields(Long id, SellerAdditionalInfoDTO sellerDto) {
         Seller seller = sellerDao.findById(id)
                 .orElseThrow(() -> new RuntimeException("Seller not found"));
         // Update additional fields (Bank details)
@@ -95,19 +96,19 @@ public class SellerServiceImpl implements SellerService {
         seller.setIfscNumber(sellerDto.getIfscNumber());
         seller.setBranch(sellerDto.getBranch());
         seller.setAddress(sellerDto.getAddress());
-        seller.setActive(sellerDto.isActive());
+        //seller.setActive(sellerDto.isActive());
         Seller updatedSeller = sellerDao.save(seller);
-        return modelMapper.map(updatedSeller, SellerDTO.class);
+        return modelMapper.map(updatedSeller, SellerAdditionalInfoDTO.class);
     }
 
 	@Override
-	public SellerLoginDTO findByEmailAndPassword(String email, String pwd) {
+	public SellerDTO findByEmailAndPassword(String email, String pwd) {
 		
         String hashedPassword = PasswordUtil.hashPassword(pwd);
 
 		
 		Seller seller = sellerDao.findByEmailAndPassword(email, hashedPassword)
         .orElseThrow(() -> new ResourceNotFoundException("Invalid email or password"));
-    return modelMapper.map(seller, SellerLoginDTO.class);
+    return modelMapper.map(seller, SellerDTO.class);
 	}
 }

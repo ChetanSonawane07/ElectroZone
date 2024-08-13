@@ -224,7 +224,7 @@ function CartPage() {
                 borderRadius: 10,
                 verticalAlign: "middle",
                 marginTop: 10,
-                
+
               }}
             >
               Proceed to Checkout

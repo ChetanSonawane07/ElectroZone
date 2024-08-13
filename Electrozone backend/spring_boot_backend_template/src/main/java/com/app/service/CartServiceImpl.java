@@ -1,5 +1,6 @@
 package com.app.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -17,6 +18,7 @@ import com.app.entities.User;
 import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.dto.CartDTO;
 import com.app.dto.ProductQuantityDTO;
+import com.app.dto.ProductResponseDTO;
 
 @Service
 @Transactional
@@ -30,6 +32,9 @@ public class CartServiceImpl implements CartService {
 
     @Autowired
     private ProductDao productDao;
+    
+    @Autowired
+    private ImageHandlingServiceProduct imgHandlingService;
 
     @Override
     public void addProductToCart(CartDTO cartDTO) {
@@ -55,21 +60,36 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<ProductQuantityDTO> getProductsInCart(Long userId) {
+    public List<ProductResponseDTO> getProductsInCart(Long userId) {
         User user = userDao.findByIdAndIsActiveTrue(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         List<Cart> cartItems = cartDao.findByUser(user);
         return cartItems.stream()
                 .map(cart -> {
-                    ProductQuantityDTO dto = new ProductQuantityDTO();
-                    dto.setProductId(cart.getProduct().getId());
-                    dto.setProductName(cart.getProduct().getName());
-                    dto.setQuantity(cart.getQuantity());
+                    ProductResponseDTO dto = new ProductResponseDTO();
+                    dto.setId(cart.getProduct().getId());
+                    dto.setName(cart.getProduct().getName());
+                    dto.setMrp(cart.getProduct().getMrp());
+                    dto.setDiscount(cart.getProduct().getDiscount());
+                    try {
+                        byte[] image = imgHandlingService.serveImage(cart.getProduct().getId());
+                        dto.setImage(image);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    dto.setDescription(cart.getProduct().getDescription());
+                    dto.setQuantity(cart.getQuantity()); // This is the quantity in the cart
+                    dto.setWarranty(cart.getProduct().getWarranty());
+                    dto.setActive(cart.getProduct().isActive());
+                    dto.setBrandName(cart.getProduct().getBrand().getName());
+                    dto.setCategoryName(cart.getProduct().getCategory().getTitle());
+                    dto.setSellerName(cart.getProduct().getSeller().getName());
                     return dto;
                 })
                 .collect(Collectors.toList());
     }
+
 
     @Override
     public void updateProductQuantity(CartDTO cartDTO) {

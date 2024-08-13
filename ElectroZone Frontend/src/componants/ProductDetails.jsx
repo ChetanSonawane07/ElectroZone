@@ -148,7 +148,7 @@ function ProductDetails() {
               <p className="mb-3">{product.description}</p>
               <p className="text-muted mb-4">Warranty: {product.warranty} months</p>
             </div>
-            
+
             <div className="d-flex align-items-center mb-3">
               <button className="btn btn-secondary" onClick={decreaseQuantity}>-</button>
               <input
@@ -258,7 +258,7 @@ function ProductDetails() {
               </div>
             </div>
             {reviews.length > 0 ? (
-              <div className="table-responsive"  style={{ maxHeight: '170px', overflowY: 'auto' }}>
+              <div className="table-responsive" style={{ maxHeight: '170px', overflowY: 'auto' }}>
                 <table className="table table-bordered table-striped">
                   <thead>
                     <tr>

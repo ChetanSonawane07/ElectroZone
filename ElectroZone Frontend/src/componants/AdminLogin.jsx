@@ -17,7 +17,7 @@ function AdminLogin() {
     }else {
       const result = await login(email,password)
       if(result){
-        sessionStorage.setItem('adminId',result['id'])
+        sessionStorage.setItem('email',result['email'])
         navigate("/Admin-Dashboard")
       }else{
         setLoginFailed(true)
