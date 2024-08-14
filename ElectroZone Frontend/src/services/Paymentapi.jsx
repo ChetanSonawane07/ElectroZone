@@ -1,8 +1,8 @@
 function PaymentApi(){
     const Pay = () => {
         var options = {
-          key: "rzp_test_ffSb2yIkIflJH9",
-          key_secret: "iExGzM7nCvTIo41Rk4iV9kye",
+          key: "rzp_test_KfkSVTMrjRudas",
+          key_secret: "WkTAxsYbM61XV2zLioGlRphd",
           currency: "INR",
           name: "STARTUP_PROJECTS",
           description: "for testing purpose",
@@ -10,8 +10,8 @@ function PaymentApi(){
             alert(response.razorpay_payment_id);
           },
           prefill: {
-            name: "Velmurugan",
-            email: "mvel1620r@gmail.com",
+            name: "ElectroZone",
+            email: "admin@gmail.com",
             contact: "7904425033",
           },
           notes: {

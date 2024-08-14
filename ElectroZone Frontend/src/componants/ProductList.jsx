@@ -68,7 +68,7 @@ function ProductList() {
               <div className="card-body">
                 <h5 className="card-title">{product.name}</h5>
                 <p className="card-text">{product.description}</p>
-                <p className="card-text font-weight-bold">${product.mrp.toFixed(2)}</p>
+                <p className="card-text font-weight-bold">₹{product.mrp.toFixed(2)}</p>
               </div>
             </div>
           </div>

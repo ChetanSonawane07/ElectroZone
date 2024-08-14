@@ -12,5 +12,5 @@ import com.app.entities.Seller;
 public interface OrderItemDao extends JpaRepository<OrderItem, Long>{
 	
 	List<OrderItem> findBySeller(Seller s);
-	List<OrderItem> findByOrder(Orders order);
+	List<OrderItem> findByOrder(Orders order);  
 }

@@ -4,6 +4,7 @@ import { getProductById, addReview, getReviewsByProduct, getAverageRating } from
 import { addProductToWishlist } from '../services/wishlist';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { addProductToCart } from '../services/cart';
+import { toast } from 'react-toastify';
 
 function ProductDetails() {
   const { id } = useParams();
@@ -15,7 +16,14 @@ function ProductDetails() {
   const [averageRating, setAverageRating] = useState(0);
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
+  const [userLogin,setUserLogin] = useState(false)
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (sessionStorage.getItem('id') && sessionStorage.getItem('id').length > 0) {
+      setUserLogin(true);
+    }
+  }, []);
 
   useEffect(() => {
     fetchProduct(id);
@@ -196,9 +204,9 @@ function ProductDetails() {
               <div className="flex-grow-1">
                 <h2 className="mb-3">{product.name}</h2>
                 <h4 className="text-muted">
-                  <strike>${product.mrp}</strike>
+                  <strike>₹{product.mrp}</strike>
                 </h4>
-                <h3 className="text-success">${product.mrp - product.discount}</h3>
+                <h3 className="text-success">₹{product.mrp - product.discount}</h3>
                 <p className="mb-3">{product.description}</p>
                 <p className="text-muted mb-4">Warranty: {product.warranty} months</p>
               </div>
@@ -216,7 +224,10 @@ function ProductDetails() {
               </div>
 
               <div className="text-center mb-3">
-                {isInWishlist ? (
+                {
+                  userLogin && (
+                    <>
+                    {isInWishlist ? (
                   <button
                     className="btn btn-outline-primary mx-2"
                     onClick={() => navigate('/wishlist')}
@@ -246,6 +257,9 @@ function ProductDetails() {
                     Add to Cart
                   </button>
                 )}
+                    </>
+                  )
+                }
               </div>
             </div>
           </div>

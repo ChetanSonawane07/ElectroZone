@@ -1,8 +1,13 @@
 import { useState, useEffect } from "react";
 import logo from "../images/logo.jpg";
+import { useNavigate } from "react-router-dom";
 
 function Navbar({ onBecomeSeller, onUserLogin, onNavigateToAboutUs, setActiveComponent }) {
   const [permission, setPermission] = useState(false);
+  const navigate = useNavigate()
+  const onHome = () => {
+    navigate('/')
+  }
 
   useEffect(() => {
     if (sessionStorage.getItem('id') && sessionStorage.getItem('id').length > 0) {
@@ -15,7 +20,7 @@ function Navbar({ onBecomeSeller, onUserLogin, onNavigateToAboutUs, setActiveCom
       <div className="container-fluid">
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <a className="navbar-brand mt-2 mt-lg-0" href="#">
-            <img src={logo} height="35" alt="Logo" />
+            <img src={logo} height="35" alt="Logo" onClick={onHome}/>
           </a>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li>
@@ -48,9 +53,9 @@ function Navbar({ onBecomeSeller, onUserLogin, onNavigateToAboutUs, setActiveCom
           </ul>
         </div>
         <span
-          className="nav-link text-white fw-bold"
+          className="nav-link text-white fw-bold btn"
           onClick={onNavigateToAboutUs}
-          style={{ cursor: "pointer", textDecoration: "underline", marginRight: "10px" }}
+          style={{ cursor: "pointer", marginRight: "10px" }}
         >
           About Us
         </span>
@@ -62,7 +67,7 @@ function Navbar({ onBecomeSeller, onUserLogin, onNavigateToAboutUs, setActiveCom
         <div className="d-flex align-items-center">
           <button
             className="text-reset me-3 border-none btn"
-            onClick={() => setActiveComponent("My-Cart")}
+            onClick={permission ? () => setActiveComponent("My-Cart") : onUserLogin}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
