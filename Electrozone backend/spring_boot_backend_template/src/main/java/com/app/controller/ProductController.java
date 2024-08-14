@@ -97,7 +97,7 @@ public ProductController() {
 
 	    return ResponseEntity.ok(product);
 	}
-	
+
 	    @GetMapping("seller/{sellerId}")
 	    public ResponseEntity<?> getProductsBySeller(@PathVariable String sellerId) {
 	        SellerDTO seller = new SellerDTO();
@@ -105,6 +105,7 @@ public ProductController() {
 	        return ResponseEntity.ok(productService.getAllProductsBySeller(seller));
 	        
 	    }
+
 
     @GetMapping("/brand/{brandId}")
     public ResponseEntity<?> getProductsByBrand(@PathVariable Long brandId) {

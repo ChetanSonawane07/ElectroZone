@@ -198,40 +198,9 @@ function CartPage() {
         {/* <!-- Container wrapper --> */}
       </nav>
 
-      <CategoryList />
-      <br />
+ 
       <Cart />
-      <div
-        className="container bg-white text-dark align-middle card border"
-        style={{ height: 60, borderRadius: 10 }}
-      >
-        <div className="row">
-          <div
-            className="col-3"
-            style={{ verticalAlign: "middle", marginTop: 10 }}
-          >
-            Grand Total :
-          </div>
-          <div className="col-7"></div>
-          <div className="col-2">
-            <button
-              className="text-white bg-success"
-              onClick={Checkout}
-              style={{
-                height: 40,
-                width: "max",
-                textAlign: "center",
-                borderRadius: 10,
-                verticalAlign: "middle",
-                marginTop: 10,
-
-              }}
-            >
-              Proceed to Checkout
-            </button>
-          </div>
-        </div>
-      </div>
+     
       <br />
       {/* Footer */}
       <footer className="text-center text-lg-start bg-dark text-white">

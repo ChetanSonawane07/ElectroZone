@@ -92,7 +92,9 @@ public class CartServiceImpl implements CartService {
 
 
     @Override
-    public void updateProductQuantity(CartDTO cartDTO) {
+    public void updateProductQuantity(List<CartDTO> cartDTOs) {
+    	
+    	for(CartDTO cartDTO:cartDTOs ){
         User user = userDao.findByIdAndIsActiveTrue(cartDTO.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
@@ -104,6 +106,7 @@ public class CartServiceImpl implements CartService {
 
         cart.setQuantity(cartDTO.getQuantity());
         cartDao.save(cart);
+    	}
     }
 
     @Override
@@ -119,4 +122,6 @@ public class CartServiceImpl implements CartService {
 
         cartDao.delete(cart);
     }
+
+	
 }

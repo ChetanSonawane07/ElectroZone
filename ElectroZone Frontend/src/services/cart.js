@@ -9,3 +9,54 @@ export const getCartByUserId = async (userId) => {
         return [];
     }
 };
+
+
+const API_BASE_URL = 'http://localhost:8080'; 
+
+
+export const addProductToCart = async (cartDTO) => {
+    try {
+      // Send POST request to the backend endpoint
+      const response = await axios.post(`${API_BASE_URL}/cart/add`, cartDTO, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+  
+      // Return response on success
+      return response;
+    } catch (error) {
+      // Log error and throw it to be handled by the caller
+      console.error('Failed to add product to cart:', error);
+      throw error;
+    }
+  };
+
+
+  export const updateCartInBackend = async (cartDTOs) => {
+    try {
+        const response = await axios.put(`${API_BASE_URL}/cart/update`, cartDTOs, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error('Failed to update cart in backend:', error);
+        throw error;
+    }
+};
+
+export const removeFromCartInbackend = async (cartDTO) => {
+  try {
+      const response = await axios.delete(`${API_BASE_URL}/cart/remove`, cartDTO, {
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      });
+      return response.data;
+  } catch (error) {
+      console.error('Failed to update cart in backend:', error);
+      throw error;
+  }
+};
