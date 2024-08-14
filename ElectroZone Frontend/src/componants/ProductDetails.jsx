@@ -4,6 +4,7 @@ import { getProductById, addReview, getReviewsByProduct, getAverageRating } from
 import { addProductToWishlist } from '../services/wishlist';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { addProductToCart } from '../services/cart';
+import { toast } from 'react-toastify';
 
 function ProductDetails() {
   const { id } = useParams();
@@ -15,7 +16,14 @@ function ProductDetails() {
   const [averageRating, setAverageRating] = useState(0);
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
+  const [userLogin,setUserLogin] = useState(false)
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (sessionStorage.getItem('id') && sessionStorage.getItem('id').length > 0) {
+      setUserLogin(true);
+    }
+  }, []);
 
   useEffect(() => {
     fetchProduct(id);
@@ -216,7 +224,10 @@ function ProductDetails() {
               </div>
 
               <div className="text-center mb-3">
-                {isInWishlist ? (
+                {
+                  userLogin && (
+                    <>
+                    {isInWishlist ? (
                   <button
                     className="btn btn-outline-primary mx-2"
                     onClick={() => navigate('/wishlist')}
@@ -246,6 +257,9 @@ function ProductDetails() {
                     Add to Cart
                   </button>
                 )}
+                    </>
+                  )
+                }
               </div>
             </div>
           </div>

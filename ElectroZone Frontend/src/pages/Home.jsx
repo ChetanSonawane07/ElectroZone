@@ -13,9 +13,9 @@ import Navbar from "../componants/Navbar";
 
 initMDB({ Dropdown, Collapse });
 function Home() {
-  const [activeComponent, setActiveComponent] = useState("Home");
   const navigate = useNavigate();
-
+  
+  const [activeComponent, setActiveComponent] = useState("Home");
   const handleNavigation = (path) => {
     navigate(path);
   };
