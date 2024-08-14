@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 function Cart() {
     const [cartItems, setCartItems] = useState([]);
     const [grandTotal, setGrandTotal] = useState(0);
-    const userId = 1; // Replace with actual user ID
+    const userId = sessionStorage.getItem('id'); // Replace with actual user ID
     const dispatch = useDispatch();
     const navigate = useNavigate();
 

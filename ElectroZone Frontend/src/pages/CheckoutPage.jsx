@@ -1,4 +1,4 @@
-import { useEffect,useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../images/logo.jpg";
 import MainPage from "../componants/Main-page";
 import Edit_Profile from "../componants/Edit_Profile";
@@ -11,11 +11,11 @@ import AddressList from '../componants/AddressList';
 
 function CheckoutPage() {
 
-  const userId = 1; // Replace with actual user ID
-  
+  const userId = sessionStorage.getItem('id'); // Replace with actual user ID
+
   const [activeComponent, setActiveComponent] = useState("Home");
   const navigate = useNavigate();
-  
+
   const BecomeSeller = () => {
     navigate("/Seller-Register");
   };
@@ -30,23 +30,23 @@ function CheckoutPage() {
   const [addresses, setAddresses] = useState([]);
   useEffect(() => {
     const fetchCartItems = async () => {
-        try {
-            const items = await getAddress(userId);
-            setAddresses(items || []);
-            
-        } catch (error) {
-            console.error('Error fetching cart items:', error);
-            setAddresses([]);
-        }
+      try {
+        const items = await getAddress(userId);
+        setAddresses(items || []);
+
+      } catch (error) {
+        console.error('Error fetching cart items:', error);
+        setAddresses([]);
+      }
     };
     fetchCartItems();
-}, [userId]);
+  }, [userId]);
 
- 
+
 
   const [selectedAddress, setSelectedAddress] = useState(null);
 
- 
+
 
   const handleAddressSelect = (id) => {
     setSelectedAddress(id);
@@ -243,7 +243,7 @@ function CheckoutPage() {
             <div className="card">
               <h3 className="text-center">Select Address</h3>
               <div>
-              <AddressList addresses={addresses} onAddressSelect={handleAddressSelect} />
+                <AddressList addresses={addresses} onAddressSelect={handleAddressSelect} />
               </div>
             </div>
           </div>

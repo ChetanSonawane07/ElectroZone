@@ -11,9 +11,9 @@ import com.app.entities.Product;
 import com.app.entities.Seller;
 
 public interface ProductDao extends JpaRepository<Product, Long>{
-	    List<Product> findByCategory(Category categories);
+	    List<Product> findByCategoryAndIsActiveTrue(Category categories);
 	    List<Product> findBySeller(Seller seller);
-	    List<Product> findByBrand(Brand brand);
+	    List<Product> findByBrandAndIsActiveTrue(Brand brand);
 	    Optional<Product> findByName(String name);	
 	    List<Product> findBySellerAndIsActiveTrue(Seller seller);
 		

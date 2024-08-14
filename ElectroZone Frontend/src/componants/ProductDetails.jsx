@@ -73,7 +73,7 @@ function ProductDetails() {
         rating,
         description: reviewText,
         productId: id,
-        userId: 1, // Replace with actual user ID
+        userId: sessionStorage.getItem('id'), // Replace with actual user ID
       });
       setReviewText('');
       setRating(0);
@@ -87,11 +87,11 @@ function ProductDetails() {
     try {
       const wishlistDTO = {
         productId: id,
-        userId: 1, // Replace with actual user ID
+        userId: sessionStorage.getItem('id'), // Replace with actual user ID
       };
       await addProductToWishlist(wishlistDTO);
       setIsInWishlist(true);
-      
+
     } catch (error) {
       console.error('Failed to add product to wishlist:', error);
       alert('Failed to add product to wishlist.');
@@ -102,12 +102,12 @@ function ProductDetails() {
     try {
       const cartDTO = {
         productId: id,
-        userId: 1, // Replace with actual user ID
+        userId: sessionStorage.getItem('id'), // Replace with actual user ID
         quantity: quantity,
       };
       await addProductToCart(cartDTO);
       setIsInCart(true);
-    
+
     } catch (error) {
       console.error('Failed to add product to cart:', error);
       alert('Failed to add product to cart.');
