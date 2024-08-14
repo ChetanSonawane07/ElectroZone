@@ -1,16 +1,12 @@
+
 package com.app.service;
 
 import java.util.List;
-
-import com.app.dto.ProductDTO;
-import com.app.dto.ProductResponseDTO;
 import com.app.dto.WishlistDTO;
+import com.app.dto.ProductResponseDTO;
 
 public interface WishlistService {
-
-    List<ProductResponseDTO> getWishlistByUserId(Long userId);
-
+    List<ProductResponseDTO> getProductsInWishlist(Long userId);
     void addProductToWishlist(WishlistDTO wishlistDTO);
-
     void removeProductFromWishlist(WishlistDTO wishlistDTO);
 }

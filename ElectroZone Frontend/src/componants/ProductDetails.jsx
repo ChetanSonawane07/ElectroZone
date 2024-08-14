@@ -4,7 +4,7 @@ import { getProductById, addReview, getReviewsByProduct, getAverageRating } from
 import { addProductToWishlist } from '../services/wishlist';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { addProductToCart } from '../services/cart';
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 function ProductDetails() {
   const { id } = useParams();
@@ -16,7 +16,7 @@ function ProductDetails() {
   const [averageRating, setAverageRating] = useState(0);
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [isInCart, setIsInCart] = useState(false);
-  const [userLogin,setUserLogin] = useState(false)
+  const [userLogin, setUserLogin] = useState(false)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -99,10 +99,9 @@ function ProductDetails() {
       };
       await addProductToWishlist(wishlistDTO);
       setIsInWishlist(true);
-
+      toast.success("Product Added to Wishlist Successfully")
     } catch (error) {
-      console.error('Failed to add product to wishlist:', error);
-      alert('Failed to add product to wishlist.');
+      toast.error("Product Failed to Add to Wishlist");
     }
   };
 
@@ -115,10 +114,9 @@ function ProductDetails() {
       };
       await addProductToCart(cartDTO);
       setIsInCart(true);
-
+      toast.success("Product Added to Cart Successfully")
     } catch (error) {
-      console.error('Failed to add product to cart:', error);
-      alert('Failed to add product to cart.');
+      toast.error("Product Failed to Add to Cart");
     }
   };
 
@@ -227,36 +225,36 @@ function ProductDetails() {
                 {
                   userLogin && (
                     <>
-                    {isInWishlist ? (
-                  <button
-                    className="btn btn-outline-primary mx-2"
-                    onClick={() => navigate('/wishlist')}
-                  >
-                    Go to Wishlist
-                  </button>
-                ) : (
-                  <button
-                    className="btn btn-outline-success mx-2"
-                    onClick={addToWishlist}
-                  >
-                    Add to Wishlist
-                  </button>
-                )}
-                {isInCart ? (
-                  <button
-                    className="btn btn-success"
-                    onClick={() => navigate('/cart')}
-                  >
-                    Go to Cart
-                  </button>
-                ) : (
-                  <button
-                    className="btn btn-success"
-                    onClick={addToCart}
-                  >
-                    Add to Cart
-                  </button>
-                )}
+                      {isInWishlist ? (
+                        <button
+                          className="btn btn-outline-primary mx-2"
+                          onClick={() => navigate('/wishlist')}
+                        >
+                          Go to Wishlist
+                        </button>
+                      ) : (
+                        <button
+                          className="btn btn-outline-success mx-2"
+                          onClick={addToWishlist}
+                        >
+                          Add to Wishlist
+                        </button>
+                      )}
+                      {isInCart ? (
+                        <button
+                          className="btn btn-success"
+                          onClick={() => navigate('/cart')}
+                        >
+                          Go to Cart
+                        </button>
+                      ) : (
+                        <button
+                          className="btn btn-success"
+                          onClick={addToCart}
+                        >
+                          Add to Cart
+                        </button>
+                      )}
                     </>
                   )
                 }
