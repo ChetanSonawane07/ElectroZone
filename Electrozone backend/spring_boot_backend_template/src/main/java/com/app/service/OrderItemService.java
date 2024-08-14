@@ -12,5 +12,5 @@ public interface OrderItemService {
 	List<OrderItem> getAllOrderItemsOfUser(Long userId);
 	List<OrderItem> getOrderItemByOrder(Long orderId);
 //	List<Orders> getOrdersByUser(User user);
-	ApiResponse placeOrder(Long userId,Long addressId,PaymentMethod payMethod);
+	ApiResponse placeOrder(Long userId,Long addressId);
 }

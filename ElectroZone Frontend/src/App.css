@@ -89,6 +89,8 @@ body {
 }
 
 
+
+
 .text-warning {
     color: gold;
     /* Golden color for stars */
@@ -170,3 +172,48 @@ body {
   transform: scale(1.1); /* Zoom effect */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Adds a shadow effect */
 }
+.product-card {
+    height: 400px; /* Fixed height for the product card */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+  }
+  
+  .product-card img {
+    height: 400px; /* Set a fixed height for the image */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+  }
+  
+  .product-card .card-body {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+  }
+  .product-card .card-title {
+    font-size: 1.10rem;
+    margin-bottom: 10px;
+    font-weight: bolder;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Display text in 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .product-card .card-text {
+    flex-grow: 1;
+    margin-bottom: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Display text in 2 lines */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .product-card .font-weight-bold {
+    margin-top: 10px;
+  }
+  

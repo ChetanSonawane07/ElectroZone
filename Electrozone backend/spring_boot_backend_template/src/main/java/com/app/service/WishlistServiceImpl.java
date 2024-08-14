@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -44,7 +45,7 @@ public class WishlistServiceImpl implements WishlistService {
 
         List<Wishlist> wishlistItems = wishlistDao.findByUser(user);
 
-        List<ProductResponseDTO> product = new ArrayList<>();
+       
         
         return wishlistItems.stream()
                 .map(wishlist -> {

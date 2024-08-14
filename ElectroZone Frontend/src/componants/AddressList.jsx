@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import Address from "./Address";
 
-function AddressList({ addresses, onAddressSelect }) {
-  const [selectedAddressId, setSelectedAddressId] = useState(null);
+function AddressList({ addresses, onAddressSelect,selectedAddressId, setSelectedAddressId }) {
 
   const handleAddressSelect = (id) => {
     setSelectedAddressId(id);
