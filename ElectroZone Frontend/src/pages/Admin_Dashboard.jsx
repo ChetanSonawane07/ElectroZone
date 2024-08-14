@@ -13,10 +13,13 @@ function Admin_Dashboard() {
   const [renderComponent, setRenderComponent] = useState("Home");
   const navigate = useNavigate()
 
+  const onHome = () => {
+    navigate('/')
+  }
   const Logout = () => {
     sessionStorage.removeItem('email')
     navigate('/Admin-Login')
-  } 
+  }
 
   const activeComponent = () => {
     switch (renderComponent) {
@@ -54,8 +57,8 @@ function Admin_Dashboard() {
           {/* <!-- Collapsible wrapper --> */}
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             {/* <!-- Navbar brand --> */}
-            <a className="navbar-brand mt-2 mt-lg-0">
-              <img src={logo} height="35" alt="Logo" />
+            <a className="navbar-brand mt-2 mt-lg-0" href="#">
+              <img src={logo} height="35" alt="Logo" onClick={onHome} />
             </a>
           </div>
           <div className="navbar-brand mt-2 mt-lg-0 ">

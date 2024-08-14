@@ -20,6 +20,9 @@ function Seller_Dashboard() {
   const [address, setAddress] = useState('');
   const item = document.getElementById("VerticalNav")
 
+  const onHome = () => {
+    navigate('/')
+  }
   const onSubmit = async () => {
     if (GSTINNo.length === 0) {
       toast.warning("GST Number is mandatory");
@@ -54,7 +57,7 @@ function Seller_Dashboard() {
       console.log(prop["gstNo"])
       const gst = prop.gstNo;
       try {
-        if(gst.length > 0){
+        if (gst.length > 0) {
           console.log('hii')
           setVerticalNavVisible(true);
         }
@@ -145,7 +148,7 @@ function Seller_Dashboard() {
       case "SellerOrderList":
         return <SellerOrderList />;
       case "EditProfile":
-        return <EditSellerProfile/>
+        return <EditSellerProfile />
       default:
         return null;
     }
@@ -163,8 +166,8 @@ function Seller_Dashboard() {
           {/* <!-- Collapsible wrapper --> */}
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             {/* <!-- Navbar brand --> */}
-            <a className="navbar-brand mt-2 mt-lg-0">
-              <img src={logo} height="35" alt="Logo" />
+            <a className="navbar-brand mt-2 mt-lg-0" href="#">
+              <img src={logo} height="35" alt="Logo" onClick={onHome} />
             </a>
           </div>
           <div className="navbar-brand mt-2 mt-lg-0 text-center">
@@ -215,7 +218,7 @@ function Seller_Dashboard() {
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-3 ">
-            <div className="vertical-nav bg-dark" id="VerticalNav" style={{ height: 300,visibility: verticalNavVisible ? "visible" : "hidden" }}  >
+            <div className="vertical-nav bg-dark" id="VerticalNav" style={{ height: 300, visibility: verticalNavVisible ? "visible" : "hidden" }}  >
               <ul className="nav flex-column">
                 <li
                   className="nav-item"
@@ -250,7 +253,7 @@ function Seller_Dashboard() {
             </div>
           </div>
           <div className="col-md-9">{activeComponent()}
-              
+
           </div>
         </div>
       </div>
