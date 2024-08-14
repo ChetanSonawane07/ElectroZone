@@ -30,7 +30,7 @@ function CartItem({ item, onQuantityChange }) {
           'Content-Type': 'application/json',
         },
         data: {
-          userId: 1, // Pass userId and productId to identify the item
+          userId: sessionStorage.getItem('id'), // Pass userId and productId to identify the item
           productId: item.id,
         },
       });

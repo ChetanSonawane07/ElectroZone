@@ -98,9 +98,6 @@ public ProductController() {
 	    return ResponseEntity.ok(product);
 	}
 
-
-
-
 	    @GetMapping("seller/{sellerId}")
 	    public ResponseEntity<?> getProductsBySeller(@PathVariable String sellerId) {
 	        SellerDTO seller = new SellerDTO();

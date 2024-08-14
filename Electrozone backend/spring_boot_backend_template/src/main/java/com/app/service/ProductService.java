@@ -24,7 +24,7 @@ public interface ProductService {
 
 	ApiResponse deleteProductById(Long id);
 
-	 List<ProductDTO>getAllProductsBySeller(SellerDTO seller);
+	List<ProductResponseDTO> getAllProductsBySeller(SellerDTO sellerdto);
 	 List<ProductResponseDTO> getAllProductsByBrand(BrandDTO brandDTO);
 
 	 List<ProductDTO> getAllProductsByName(String name);

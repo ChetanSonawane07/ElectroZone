@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchSellerProducts, deleteProduct } from "../services/seller"; 
+import { fetchSellerProducts, deleteProduct } from "../services/seller";
 import Update from '../images/pencil-square.svg'
 import Delete from '../images/trash3-fill.svg'
 import UpdateProduct from "./Update-Product";
@@ -12,6 +12,7 @@ function SellerProductList() {
     const getProducts = async () => {
       try {
         const response = await fetchSellerProducts(sessionStorage.sellerId);
+        console.log(response.data)
         setProducts(response.data);
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -59,7 +60,11 @@ function SellerProductList() {
                   <td>{product.description}</td>
                   <td>
                     <img
-                      src={product.image ? `data:image/${product.imageFormat || 'jpeg'};base64,${product.image}` : 'path/to/default-image.jpg'}
+                      src={
+                        product.image
+                          ? `data:image/${product.imageFormat || 'jpeg'};base64,${product.image}`
+                          : 'path/to/default-image.jpg'
+                      }
                       alt={product.name}
                       style={{ width: "100px", height: "auto" }}
                     />
