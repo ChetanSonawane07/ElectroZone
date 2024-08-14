@@ -193,8 +193,7 @@ function WishListPage() {
         {/* <!-- Container wrapper --> */}
       </nav>
 
-      <CategoryList />
-      <br />
+    
       <WishList />
 
       {/* Footer */}

@@ -1,5 +1,6 @@
 package com.app.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import com.app.dto.ProductDTO;
+import com.app.dto.ProductResponseDTO;
 import com.app.dto.WishlistDTO;
 import com.app.service.WishlistService;
 import com.app.custom_exceptions.ResourceNotFoundException;
@@ -25,11 +28,12 @@ public class WishlistController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<?> getWishlistByUserId(@PathVariable @NotNull Long userId) {
-        List<WishlistDTO> wishlist = wishlistService.getWishlistByUserId(userId);
-        if (wishlist.isEmpty()) {
+        List<ProductResponseDTO> wishListProduct = wishlistService.getWishlistByUserId(userId);
+        
+        if (wishListProduct.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(wishlist);
+        return ResponseEntity.ok(wishListProduct);
     }
 
     @PostMapping("/add")

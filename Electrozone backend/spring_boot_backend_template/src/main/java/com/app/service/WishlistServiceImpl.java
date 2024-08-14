@@ -1,5 +1,6 @@
 package com.app.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,6 +16,7 @@ import com.app.entities.Product;
 import com.app.entities.User;
 import com.app.entities.Wishlist;
 import com.app.custom_exceptions.ResourceNotFoundException;
+import com.app.dto.ProductResponseDTO;
 import com.app.dto.WishlistDTO;
 
 @Service
@@ -30,18 +32,23 @@ public class WishlistServiceImpl implements WishlistService {
     @Autowired
     private ProductDao productDao;
     
+	@Autowired
+	private ProductService productService;
+	
+    
     @Override
-    public List<WishlistDTO> getWishlistByUserId(Long userId) {
+    public List<ProductResponseDTO> getWishlistByUserId(Long userId) {
         User user = userDao.findById(userId)
                            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         List<Wishlist> wishlistItems = wishlistDao.findByUser(user);
 
+        List<ProductResponseDTO> product = new ArrayList<>();
+        
         return wishlistItems.stream()
                             .map(wishlist -> {
-                                WishlistDTO dto = new WishlistDTO();
-                                dto.setUserId(user.getId());
-                                dto.setProductId(wishlist.getProduct().getId());
+                            	ProductResponseDTO dto = new ProductResponseDTO();
+                               dto = productService.getProductById((wishlist.getProduct().getId()).toString());
                                 return dto;
                             })
                             .collect(Collectors.toList());
