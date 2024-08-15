@@ -14,8 +14,7 @@ export const login = async (email,password) => {
     const body = {
         email,password
     }
-
-    const response = await axios.post(`http://localhost:8080/api/sellers/login`,body)
+const response = await axios.post(`http://localhost:8080/api/sellers/login`,body)
     return response
 }
 
@@ -130,7 +129,6 @@ export const deleteProduct = async (id) => {
     throw error; // Rethrow error to be handled in the component
   }
 };
-
 export const fetchOrdersBySeller = async (sellerId) => {
   try {
     const response = await axios.get(`http://localhost:8080/order/seller/${sellerId}`);
@@ -139,4 +137,4 @@ export const fetchOrdersBySeller = async (sellerId) => {
     console.error("Error deleting product:", error);
     throw error; // Rethrow error to be handled in the component
   }
-}
+};
