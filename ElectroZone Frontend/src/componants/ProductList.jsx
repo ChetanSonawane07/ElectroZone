@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProductsByCategoryId, getProductsByBrandId } from '../services/product';
+// import './ProductList.css'; // Make sure to import your CSS file
 
 function ProductList() {
   const { categoryId, brandId } = useParams();
@@ -63,7 +64,6 @@ function ProductList() {
                 src={product.image}
                 className="card-img-top"
                 alt={product.name}
-                style={{ height: '200px', objectFit: 'cover' }}
               />
               <div className="card-body">
                 <h5 className="card-title">{product.name}</h5>

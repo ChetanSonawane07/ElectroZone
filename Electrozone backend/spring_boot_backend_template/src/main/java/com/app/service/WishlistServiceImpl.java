@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -16,6 +17,7 @@ import com.app.entities.Product;
 import com.app.entities.User;
 import com.app.entities.Wishlist;
 import com.app.custom_exceptions.ResourceNotFoundException;
+import com.app.dto.ProductResponseDTO;
 import com.app.dto.WishlistDTO;
 import com.app.dto.ProductResponseDTO;
 import com.app.service.ImageHandlingServiceProduct;
@@ -43,6 +45,8 @@ public class WishlistServiceImpl implements WishlistService {
 
         List<Wishlist> wishlistItems = wishlistDao.findByUser(user);
 
+       
+        
         return wishlistItems.stream()
                 .map(wishlist -> {
                     Product product = wishlist.getProduct();

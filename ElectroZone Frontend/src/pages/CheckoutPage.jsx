@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import PaymentApi from "../services/Paymentapi";
 import AddressList from '../componants/AddressList';
 import Navbar from "../componants/Navbar";
+import { useSelector } from "react-redux";
 
 
 function CheckoutPage() {
@@ -15,6 +16,11 @@ function CheckoutPage() {
   const userId = sessionStorage.getItem('id'); // Replace with actual user ID
 
   const [activeComponent, setActiveComponent] = useState("Home");
+  const cartItems = useSelector(state => state.cart);
+  const grandTotal = useSelector(state => state.grandTotal);
+  
+  console.log({cartItems, grandTotal});
+  
   const navigate = useNavigate();
   const handleNavigation = (path) => {
     navigate(path);
@@ -24,7 +30,15 @@ function CheckoutPage() {
     navigate("/AboutUs");
   };
 
+  // const payMethod = {
+  //    UPI,
+  //     CREDIT_CARD,
+  //     DEBIT_CARD,
+  //     INTERNET_BANKING
+  // }
+
   const [addresses, setAddresses] = useState([]);
+  const [selectedAddressId, setSelectedAddressId] = useState(null);
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
@@ -81,31 +95,26 @@ function CheckoutPage() {
       {/* Main Content */}
       <div className="container">
         <div className="row">
-          <div className="col-6 ">
+          <div className="col-12">
             <div className="card">
               <h3 className="text-center">Select Address</h3>
               <div>
-                <AddressList addresses={addresses} onAddressSelect={handleAddressSelect} />
+                <AddressList addresses={addresses} onAddressSelect={handleAddressSelect} selectedAddressId={selectedAddressId} setSelectedAddressId={setSelectedAddressId} />
               </div>
             </div>
           </div>
-          <div className="col-6">
-            <div className="card">
-              <h3 className="text-center">Select Payment Method</h3>
-              <div className="form-control">
-                <select class="form-select" aria-label="Default select example">
-                  <option selected>Payment Method</option>
-                  <option value="1">Credit / Debit / ATM Card</option>
-                  <option value="2">Net Banking</option>
-                  <option value="3">UPI</option>
-                </select>
-              </div>
-              <div className="form-control text-center">
-                <PaymentApi />
+          </div>
+          <div className="row">
+          <div className="col-9"></div>
+            <div className="col-3">
+              <div className="card">
+                <div className="form-control text-center">
+                  <PaymentApi selectedAddressId={selectedAddressId} />
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        
       </div>
       <br />
 
