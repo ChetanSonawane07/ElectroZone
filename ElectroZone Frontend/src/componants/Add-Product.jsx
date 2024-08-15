@@ -62,7 +62,7 @@ function AddProduct() {
     }else if(warranty.length === 0){
       toast.warning("Product Warranty is Mandatory")
     }else{
-      const result = await addProduct(sessionStorage.sellerId,name,description,image,category,brand,mrp,discount,quantity,warranty)
+      const result = await addProduct(sessionStorage.id,name,description,image,category,brand,mrp,discount,quantity,warranty)
       if(result.status == 201){
         toast.success("Product added successfully")
       }

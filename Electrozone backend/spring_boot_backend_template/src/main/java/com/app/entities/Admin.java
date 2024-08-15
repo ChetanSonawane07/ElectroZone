@@ -11,18 +11,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Admin {
+public class Admin extends CommonEntity{
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 	
-	@Column(unique = true)
-	@NotBlank(message = "Email Should not be blank")
-	private String email;
-	
-	@NotBlank(message = "Password Should not be blank")
-	private String password;
 	
 	private String role = "ADMIN"; 
 }

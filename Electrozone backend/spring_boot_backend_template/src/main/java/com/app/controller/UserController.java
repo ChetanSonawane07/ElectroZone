@@ -29,12 +29,12 @@ public class UserController {
         return ResponseEntity.ok(userDto);
     }
 
+
     @PostMapping("/login")
-    public ResponseEntity<UserDTO> findByEmailAndPassword(@Valid @RequestBody LoginDTO loginDTO) {
-    	 String hashedPassword = PasswordUtil.hashPassword(loginDTO.getPassword());
+    public ResponseEntity<?> findByEmailAndPassword(@Valid @RequestBody LoginDTO loginDTO) {
     	
-        UserDTO userDto = userService.findByEmailAndPassword(loginDTO.getEmail(),hashedPassword);
-        return ResponseEntity.ok(userDto);
+//    
+        return ResponseEntity.status(201).body(userService.findByEmailAndPassword(loginDTO.getEmail(),loginDTO.getPassword()));
     }
 
     @PostMapping("/register")

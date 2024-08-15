@@ -11,7 +11,7 @@ function SellerProductList() {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const response = await fetchSellerProducts(sessionStorage.sellerId);
+        const response = await fetchSellerProducts(sessionStorage.id);
         console.log(response.data)
         setProducts(response.data);
       } catch (error) {

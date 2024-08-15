@@ -13,5 +13,11 @@ public interface UserDao extends JpaRepository<User, Long> {
     List<User> findAllByIsActiveTrue();
     Optional<User> findByIdAndIsActiveTrue(Long id);
     Optional<User> findByEmailAndPasswordAndIsActiveTrue(String email, String password);
+    
+    User findByEmail(String email);
+	
+	boolean existsByEmail(String email);
+    
+    
 
 }

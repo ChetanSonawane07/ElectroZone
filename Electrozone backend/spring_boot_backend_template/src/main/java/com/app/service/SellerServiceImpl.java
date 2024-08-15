@@ -8,16 +8,24 @@ import javax.transaction.Transactional;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.dao.SellerDao;
 import com.app.dto.AdminDTO;
 import com.app.dto.ApiResponse;
+import com.app.dto.LoginResponseDTO;
 import com.app.dto.SellerAdditionalInfoDTO;
 import com.app.dto.SellerDTO;
 import com.app.dto.SellerLoginDTO;
 import com.app.entities.Seller;
+import com.app.security.JwtUtils;
 import com.app.util.PasswordUtil;
 @Service
 @Transactional
@@ -25,6 +33,18 @@ public class SellerServiceImpl implements SellerService {
 
     @Autowired
     private SellerDao sellerDao;
+    
+    
+	
+   	@Autowired
+   	private JwtUtils jwtUtils;
+   	
+   	  @Autowired
+   	  private AuthenticationManager authenticationManager;
+       
+       @Autowired
+       private PasswordEncoder passwordEncoder;
+
 
     @Autowired
     private ModelMapper modelMapper;
@@ -47,13 +67,13 @@ public class SellerServiceImpl implements SellerService {
     public SellerDTO addSeller(SellerDTO sellerDto) {
         Seller seller = modelMapper.map(sellerDto, Seller.class);
         seller.setActive(true); // Set isActive to true by default
-        
-        String hashedPassword = PasswordUtil.hashPassword(sellerDto.getPassword());
-        seller.setPassword(hashedPassword);
+ 
+        seller.setPassword(passwordEncoder.encode(sellerDto.getPassword()));
         
         Seller savedSeller = sellerDao.save(seller);
         return modelMapper.map(savedSeller, SellerDTO.class);
     }
+
 
     @Override
     public ApiResponse deleteSeller(Long id) {
@@ -72,9 +92,8 @@ public class SellerServiceImpl implements SellerService {
         seller.setName(sellerDto.getName());
         seller.setEmail(sellerDto.getEmail());
         
-        String hashedPassword = PasswordUtil.hashPassword(sellerDto.getPassword());
-
-        seller.setPassword(hashedPassword);
+        seller.setPassword(passwordEncoder.encode(sellerDto.getPassword()));
+        
         seller.setPhoneNo(sellerDto.getPhoneNo());
         seller.setGstNo(sellerDto.getGstNo());
         seller.setBankAccountNo(sellerDto.getBankAccountNo());
@@ -85,6 +104,7 @@ public class SellerServiceImpl implements SellerService {
         Seller updatedSeller = sellerDao.save(seller);
         return modelMapper.map(updatedSeller, SellerDTO.class);
     }
+
 
 	@Override
     public SellerAdditionalInfoDTO updateAdditionalFields(Long id, SellerAdditionalInfoDTO sellerDto) {
@@ -101,14 +121,25 @@ public class SellerServiceImpl implements SellerService {
         return modelMapper.map(updatedSeller, SellerAdditionalInfoDTO.class);
     }
 
-	@Override
-	public SellerDTO findByEmailAndPassword(String email, String pwd) {
-		
-        String hashedPassword = PasswordUtil.hashPassword(pwd);
 
+	@Override
+	public ResponseEntity<?>  findByEmailAndPassword(String email, String pwd) {
 		
-		Seller seller = sellerDao.findByEmailAndPasswordAndIsActiveTrue(email, hashedPassword)
-        .orElseThrow(() -> new ResourceNotFoundException("Invalid email or password"));
-    return modelMapper.map(seller, SellerDTO.class);
+		System.out.println(email+" "+pwd);
+		
+		Seller seller = sellerDao.findByEmail(email);
+		
+		authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(email, pwd));
+         
+         UsernamePasswordAuthenticationToken token=new 
+ 				UsernamePasswordAuthenticationToken(email,pwd);
+ 		//invoke auth mgr's authenticate method;
+ 		Authentication verifiedToken = authenticationManager.authenticate(token);
+ 		//=> authentication n authorization  successful !
+ 		System.out.println(verifiedToken.getPrincipal().getClass());//custom user details object
+ 		//create JWT n send it to the clnt in response
+ 		LoginResponseDTO resp=new LoginResponseDTO(jwtUtils.generateJwtToken(verifiedToken),"Successful Auth!!!!", email, seller.getId());
+ 		return ResponseEntity.status(HttpStatus.CREATED).body(resp);
 	}
 }

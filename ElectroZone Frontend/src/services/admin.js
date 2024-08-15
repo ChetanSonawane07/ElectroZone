@@ -2,14 +2,12 @@ import axios from "axios"
 
 export async function login(email, password) {
     // body parameters
-    const body = {
+    const data = {
       email,
       password,
     }
-  
     // make API call
-    const response = await axios.post(`http://localhost:8080/admin/login`, body)
-  
+    const response = await axios.post(`http://localhost:8080/admin/login`,data)
     // read JSON data (response)
     return response.data
   }
@@ -41,6 +39,7 @@ export async function login(email, password) {
     // make API call
     const response = await axios.post(`http://localhost:8080/brands/addbrand`, formData,{
       headers: {
+        'Authorization':`Bearer ${sessionStorage.getItem("auth")}`,
         "Content-Type": "multipart/form-data", // Ensure proper headers for file upload
       },
     });
@@ -61,7 +60,14 @@ export async function login(email, password) {
   
   export const deleteBrand = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:8080/brands/delete/${id}`);
+      const response = await axios.delete(`http://localhost:8080/brands/delete/${id}`
+        ,{
+          headers: {
+          'Authorization':`Bearer ${sessionStorage.getItem("auth")}`,
+
+        },
+      }
+      );
       return response.status;
     } catch (error) {
       console.error('Error deleting brand', error);
@@ -77,6 +83,7 @@ export async function login(email, password) {
     try {
       const response = await axios.put(`http://localhost:8080/brands/update/${brandId}`, formData, {
         headers: {
+          'Authorization':`Bearer ${sessionStorage.getItem("auth")}`,
           'Content-Type': 'multipart/form-data',
         },
       });
@@ -104,7 +111,12 @@ export const fetchCategories = async () => {
 // Delete a category by ID
 export const deleteCategory = async (id) => {
   try {
-    const response = await axios.delete(`http://localhost:8080/categories/delete/${id}`);
+    const response = await axios.delete(`http://localhost:8080/categories/delete/${id}` ,{
+      headers: {
+      'Authorization':`Bearer ${sessionStorage.getItem("auth")}`,
+
+    },
+  });
     return response;
   } catch (error) {
     console.error("Error deleting category:", error);
@@ -121,6 +133,7 @@ export const updateCategory = async (categoryId, title, image, description) => {
   try {
     const response = await axios.put(`http://localhost:8080/categories/update/${categoryId}`, formData, {
       headers: {
+        'Authorization':`Bearer ${sessionStorage.getItem("auth")}`,
         'Content-Type': 'multipart/form-data',
       },
     });
@@ -142,7 +155,12 @@ export const fetchUsers = async () => {
 
 export const deleteUser = async (id) => {
   try {
-    const response = await axios.delete(`http://localhost:8080/api/users/${id}`); // Adjust endpoint if needed
+    const response = await axios.delete(`http://localhost:8080/api/users/${id}`,{
+      headers: {
+      'Authorization':`Bearer ${sessionStorage.getItem("auth")}`,
+
+    },
+  }); // Adjust endpoint if needed
     return response;
   } catch (error) {
     throw error;
@@ -151,7 +169,12 @@ export const deleteUser = async (id) => {
 
 export const updateUser = async (id, userData) => {
   try {
-    const response = await axios.put(`/api/admin/users/${id}`, userData); // Adjust endpoint if needed
+    const response = await axios.put(`/api/admin/users/${id}`, userData,{
+      headers: {
+      'Authorization':`Bearer ${sessionStorage.getItem("auth")}`,
+
+    },
+  }); // Adjust endpoint if needed
     return response;
   } catch (error) {
     throw error;
@@ -161,7 +184,12 @@ export const updateUser = async (id, userData) => {
 // Fetch the list of sellers
 export const fetchSellers = async () => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/sellers/allsellers`);
+    const response = await axios.get(`http://localhost:8080/api/sellers/allsellers`,{
+      headers: {
+      'Authorization':`Bearer ${sessionStorage.getItem("auth")}`,
+
+    },
+  });
     return response; // Contains response.data with the list of sellers
   } catch (error) {
     console.error("Error fetching sellers:", error);
@@ -172,7 +200,12 @@ export const fetchSellers = async () => {
 // Delete a seller
 export const deleteSeller = async (id) => {
   try {
-    const response = await axios.delete(`http://localhost:8080/api/sellers/${id}`);
+    const response = await axios.delete(`http://localhost:8080/api/sellers/${id}`,{
+      headers: {
+      'Authorization':`Bearer ${sessionStorage.getItem("auth")}`,
+
+    },
+  });
     return response; // Response indicates success (e.g., status 204 No Content)
   } catch (error) {
     console.error("Error deleting seller:", error);

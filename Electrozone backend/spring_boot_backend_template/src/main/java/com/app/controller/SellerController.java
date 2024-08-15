@@ -60,8 +60,10 @@ public class SellerController {
     @PostMapping("/login")
     public ResponseEntity<?> findByEmailAndPassword(@RequestBody LoginDTO loginDTO) {
         try {
-            SellerDTO seller = sellerService.findByEmailAndPassword(loginDTO.getEmail(), loginDTO.getPassword());
-            return ResponseEntity.ok(seller);
+        	
+        	
+        	ResponseEntity<?> sellerLogin = sellerService.findByEmailAndPassword(loginDTO.getEmail(), loginDTO.getPassword());
+            return ResponseEntity.ok(sellerLogin);
         } catch (Exception e) {
             return ResponseEntity.status(404).body("Invalid email or password");
         }

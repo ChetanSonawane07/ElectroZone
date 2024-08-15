@@ -52,7 +52,7 @@ function Seller_Dashboard() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const prop = await fetchSeller(sessionStorage.sellerId);
+      const prop = await fetchSeller(sessionStorage.id);
       console.log(prop)
       console.log(prop["gstNo"])
       const gst = prop.gstNo;
