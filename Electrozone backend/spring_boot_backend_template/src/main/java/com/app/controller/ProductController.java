@@ -95,7 +95,7 @@ public ProductController() {
 	
 	
 	@GetMapping("/details/{productId}")
-	public ResponseEntity<?> getProductsByCategory(@PathVariable String productId) {
+	public ResponseEntity<?> getProductsByID(@PathVariable String productId) {
 	    
 	    ProductResponseDTO product = productService.getProductById(productId);
 

@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux';
 import { updateQuantityAction, removeFromCartAction } from '../features/cartSlice';
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8080'; 
+const API_BASE_URL = 'http://localhost:8080';
 
-function CartItem({ item, onQuantityChange }) {
+function CartItem({ item, onQuantityChange, onRemove }) {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
 
@@ -24,7 +24,6 @@ function CartItem({ item, onQuantityChange }) {
 
   const removeFromCart = async () => {
     try {
-      // Send DELETE request to the backend to remove the item
       await axios.delete(`${API_BASE_URL}/cart/remove`, {
         headers: {
           'Content-Type': 'application/json',
@@ -35,12 +34,10 @@ function CartItem({ item, onQuantityChange }) {
         },
       });
 
-      // Dispatch action to update Redux store
       dispatch(removeFromCartAction(item.id));
 
-      // Optionally notify parent component if needed
-      if (onQuantityChange) {
-        onQuantityChange(item.id, 0); // Indicate removal
+      if (onRemove) {
+        onRemove(item.id); // Notify the Cart component to remove the item from the list
       }
 
       console.log('Item removed from cart successfully');
@@ -54,7 +51,7 @@ function CartItem({ item, onQuantityChange }) {
     setQuantity(newQuantity);
     dispatch(updateQuantityAction({ id: item.id, quantity: newQuantity }));
     if (onQuantityChange) {
-      onQuantityChange(item.id, newQuantity); // Notify parent component
+      onQuantityChange(item.id, newQuantity);
     }
   };
 
@@ -63,13 +60,13 @@ function CartItem({ item, onQuantityChange }) {
     setQuantity(newQuantity);
     dispatch(updateQuantityAction({ id: item.id, quantity: newQuantity }));
     if (onQuantityChange) {
-      onQuantityChange(item.id, newQuantity); // Notify parent component
+      onQuantityChange(item.id, newQuantity);
     }
   };
 
   return (
     <div className="col-md-4 mb-4">
-      <div className="card">
+      <div className="product-card card">
         <img
           src={imageSrc}
           className="card-img-top"
@@ -78,7 +75,7 @@ function CartItem({ item, onQuantityChange }) {
         />
         <div className="card-body">
           <h4 className="card-title">{item.name}</h4>
-          <hr/>
+          <hr />
           <p className="card-text">{item.description}</p>
           <p className="card-text font-weight-bold">₹{price.toFixed(2)}</p>
           <p className="card-text">Quantity:

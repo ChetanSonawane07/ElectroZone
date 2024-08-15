@@ -1,7 +1,8 @@
-import { Dropdown, Collapse, initMDB } from "mdb-ui-kit";
-import CategoryList from "../componants/CategoryList";
 import { useState } from "react";
-import logo from "../images/logo.jpg";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../componants/Navbar";
+import Footer from "../componants/Footer";
+import Wishlist from "../componants/WishList";
 import MainPage from "../componants/Main-page";
 import Edit_Profile from "../componants/Edit_Profile";
 import AddAddress from "../componants/Add-Address";
@@ -11,10 +12,10 @@ import { useNavigate } from "react-router-dom";
 import Navbar from "../componants/Navbar";
 import Footer from "../componants/Footer";
 
-initMDB({ Dropdown, Collapse });
-function WishListPage() {
+function WishlistPage() {
   const [activeComponent, setActiveComponent] = useState("Home");
   const navigate = useNavigate();
+
   const handleNavigation = (path) => {
     navigate(path);
   };
@@ -35,6 +36,7 @@ function WishListPage() {
         return navigate("/Orders");
     }
   };
+
   return (
     <div>
       {/* <!-- Navbar --> */}
@@ -45,14 +47,13 @@ function WishListPage() {
         setActiveComponent={setActiveComponent}
       />
 
-      <CategoryList />
-      <br />
-      <WishList />
+      <Wishlist />
 
+      <br />
       {/* Footer */}
-     <Footer/>
+      <Footer />
     </div>
   );
 }
 
-export default WishListPage;
+export default WishlistPage;

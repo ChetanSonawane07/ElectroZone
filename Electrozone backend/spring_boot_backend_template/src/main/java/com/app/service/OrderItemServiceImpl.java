@@ -63,7 +63,7 @@ public class OrderItemServiceImpl implements OrderItemService {
         return allOrderItem;
     }
 
-    public ApiResponse placeOrder(Long userId, Long addressId, PaymentMethod payMethod) {
+    public ApiResponse placeOrder(Long userId, Long addressId) {
         User user = userDao.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
         Address address = addressDao.findById(addressId).orElseThrow(() -> new ResourceNotFoundException("Address not found"));
         List<Cart> cartItemList = cartDao.findByUser(user);
@@ -99,7 +99,7 @@ public class OrderItemServiceImpl implements OrderItemService {
 
         Payment newPayment = new Payment();
         newPayment.setOrder(newOrder);
-        newPayment.setPaymentMethod(payMethod);
+        newPayment.setPaymentMethod(PaymentMethod.ONLINE_PAYMENT);
         newPayment.setStatus(PaymentStatus.COMPLETED);
         paymentDao.save(newPayment);
 

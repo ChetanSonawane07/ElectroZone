@@ -5,7 +5,6 @@ import logo from "../images/logo.jpg";
 import MainPage from "../componants/Main-page";
 import Edit_Profile from "../componants/Edit_Profile";
 import AddAddress from "../componants/Add-Address";
-import WishList from "../componants/WishList";
 import Cart from "../componants/Cart";
 import Products from "../componants/Products";
 import { useNavigate } from "react-router-dom";
@@ -50,12 +49,12 @@ function CartPage() {
         setActiveComponent={setActiveComponent}
       />
 
- 
+
       <Cart />
-     
+
       <br />
       {/* Footer */}
-     <Footer/>
+      <Footer />
     </div>
   );
 }

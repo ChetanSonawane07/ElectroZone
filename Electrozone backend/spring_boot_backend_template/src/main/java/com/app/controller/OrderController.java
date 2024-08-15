@@ -47,8 +47,7 @@ public class OrderController {
     public ResponseEntity<?> placeOrder(@RequestBody PlaceOrderDTO placeOrderDTO) {
         ApiResponse placeOrder = orderItemService.placeOrder(
                 placeOrderDTO.getUserId(),
-                placeOrderDTO.getAddressId(),
-                placeOrderDTO.getPaymentMethod()
+                placeOrderDTO.getAddressId()
         );
         return ResponseEntity.ok(placeOrder);
     }

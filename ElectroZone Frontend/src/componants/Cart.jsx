@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { getCartByUserId, updateCartInBackend } from '../services/cart';
 import { updateCartAction } from '../features/cartSlice';
 import { useNavigate } from "react-router-dom";
+import {updateAmount} from "../features/grandTotal";
 
 function Cart() {
     const [cartItems, setCartItems] = useState([]);
@@ -41,14 +42,18 @@ function Cart() {
         setGrandTotal(calculateGrandTotal(updatedItems));
     };
 
-    const proceedToCheckout = async (amount) => {
+    const handleRemove = (id) => {
+        const updatedItems = cartItems.filter((item) => item.id !== id);
+        setCartItems(updatedItems);
+        setGrandTotal(calculateGrandTotal(updatedItems));
+    };
+
+    const proceedToCheckout = async () => {
         try {
             console.log("inside proceed to checkout",amount);
 
-            // Update the Redux store with the current quantities
             dispatch(updateCartAction(cartItems));
 
-            // Convert cart items to DTOs
             const cartDTOs = cartItems.map(item => ({
                 userId: userId,
                 productId: item.id,
@@ -57,13 +62,13 @@ function Cart() {
 
             console.log(cartDTOs)
 
-            // Optionally, send the updated cart to the backend
-           await updateCartInBackend(cartDTOs);
+            await updateCartInBackend(cartDTOs);
+            dispatch(updateAmount(grandTotal))
+
+           
+
 
             console.log('Cart updated and ready for checkout!');
-            // alert('Cart updated and ready for checkout!');
-            
-            // Navigate to checkout page
             navigate('/Checkout');
         } catch (error) {
             console.error('Error during checkout:', error);
@@ -77,17 +82,17 @@ function Cart() {
                 <div className="row">
                     {cartItems.length > 0 ? (
                         cartItems.map((item) => (
-                            <CartItem 
-                                key={item.id} 
-                                item={item} 
+                            <CartItem
+                                key={item.id}
+                                item={item}
                                 onQuantityChange={handleQuantityChange}
+                                onRemove={handleRemove}
                             />
                         ))
                     ) : (
                         <p>Your cart is empty</p>
                     )}
                 </div>
-               
             </div>
             <div
                 className="container bg-white text-dark align-middle card border"
@@ -98,13 +103,10 @@ function Cart() {
                         Grand Total: ₹{grandTotal.toFixed(2)}
                     </div>
                     <div className="col-3">
-                    
-                    <button className="btn btn-warning"  style={{ verticalAlign: "middle", marginTop: 10 }} onClick={proceedToCheckout(grandTotal.toFixed(2))}>
-                        Proceed to Checkout
-                    </button>
-                
+                        <button className="btn btn-warning" style={{ verticalAlign: "middle", marginTop: 10 }} onClick={proceedToCheckout}>
+                            Proceed to Checkout
+                        </button>
                     </div>
-                   
                 </div>
             </div>
         </div>
