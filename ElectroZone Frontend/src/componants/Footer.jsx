@@ -99,7 +99,7 @@ const Footer = () => {
 
           <Col md={4} style={styles.contactSection}>
             <h3 style={styles.heading}>Contact Us</h3>
-            <p>Email: info@gmail.com</p>
+            <p>Email: electrozone0007@gmail.com</p>
             <p>Phone: +1234567890</p>
             <p>Address: Sunbeam Infotech Private Limited, Hinjawadi - Kasarsai Rd, Phase 2, Hinjawadi Rajiv Gandhi Infotech Park, Hinjawadi, Pimpri-Chinchwad, Maharashtra 411057</p>
             <br /> <br />
