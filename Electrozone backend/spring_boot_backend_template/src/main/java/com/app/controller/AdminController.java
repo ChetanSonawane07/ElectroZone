@@ -23,7 +23,9 @@ public class AdminController {
     @PostMapping("/login")
     public ResponseEntity<?> findByEmailAndPassword(@RequestBody LoginDTO loginDTO) {
         try {
-            AdminDTO admin = adminService.findByEmailAndPassword(loginDTO.getEmail(), loginDTO.getPassword());
+        	
+        	System.out.println(loginDTO.getEmail()+" "+loginDTO.getPassword());
+            ResponseEntity<?> admin = adminService.findByEmailAndPassword(loginDTO.getEmail(), loginDTO.getPassword());
             return ResponseEntity.ok(admin);
         } catch (Exception e) {
             return ResponseEntity.status(404).body("Invalid email or password");

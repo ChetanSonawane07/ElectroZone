@@ -2,6 +2,8 @@ package com.app.service;
 
 import java.util.List;
 
+import org.springframework.http.ResponseEntity;
+
 import com.app.dto.ApiResponse;
 import com.app.dto.SellerAdditionalInfoDTO;
 import com.app.dto.SellerDTO;
@@ -13,7 +15,7 @@ public interface SellerService {
 	    SellerDTO addSeller(SellerDTO sellerDto);
 	    ApiResponse deleteSeller(Long id);
 	    SellerDTO updateSeller(Long id, SellerDTO sellerDto);
-	    SellerDTO findByEmailAndPassword(String email, String pwd);
+	    ResponseEntity<?> findByEmailAndPassword(String email, String pwd);
 		SellerAdditionalInfoDTO updateAdditionalFields(Long id, SellerAdditionalInfoDTO sellerDto);
 	}
 

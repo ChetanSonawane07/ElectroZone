@@ -62,7 +62,7 @@ function UpdateProduct({ product }) {
     }else{
       const updatedData = { name, description, image, category, brand, mrp, discount, quantity, warranty };
       try {
-        const result = await updateProduct(sessionStorage.sellerId, product.id, updatedData);
+        const result = await updateProduct(sessionStorage.id, product.id, updatedData);
         console.log(result)
         if(result.status === 200){
           toast.success("Product updated successfully");

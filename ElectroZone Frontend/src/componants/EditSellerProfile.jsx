@@ -15,7 +15,7 @@ function EditSellerProfile() {
   const [address,setAddress] = useState('')
 
   const fetchInfo = async () => {
-    const result = await fetchSeller(sessionStorage.getItem('sellerId')); // Corrected sessionStorage access
+    const result = await fetchSeller(sessionStorage.id); // Corrected sessionStorage access
     return result;
   };
 
@@ -61,7 +61,7 @@ function EditSellerProfile() {
         toast.warning("Address is mandatory")
       }
         else {
-      const result = await updateSellerProfileData(sessionStorage.sellerId,name,phoneNo,email,password,gstNo,bankAccountNo,ifscNumber,branch,address)
+      const result = await updateSellerProfileData(sessionStorage.id,name,phoneNo,email,password,gstNo,bankAccountNo,ifscNumber,branch,address)
       if (result.status === 200) {
         toast.success("Profile Updated")
       }

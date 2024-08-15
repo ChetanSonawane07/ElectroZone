@@ -13,4 +13,8 @@ public interface SellerDao extends JpaRepository<Seller, Long> {
     void deleteById(Long id);
     List<Seller> findAllByIsActive(Boolean isActive);
     Optional<Seller> findByIdAndIsActive(Long id, Boolean isActive);
+    
+Seller findByEmail(String email);
+	
+	boolean existsByEmail(String Email);
 }

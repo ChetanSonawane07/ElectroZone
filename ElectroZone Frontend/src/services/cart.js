@@ -19,6 +19,7 @@ export const addProductToCart = async (cartDTO) => {
       // Send POST request to the backend endpoint
       const response = await axios.post(`${API_BASE_URL}/cart/add`, cartDTO, {
         headers: {
+          'Authorization':`Bearer ${sessionStorage.getItem("auth")}`,
           'Content-Type': 'application/json'
         }
       });
@@ -37,6 +38,7 @@ export const addProductToCart = async (cartDTO) => {
     try {
         const response = await axios.put(`${API_BASE_URL}/cart/update`, cartDTOs, {
             headers: {
+              'Authorization':`Bearer ${sessionStorage.getItem("auth")}`,
                 'Content-Type': 'application/json'
             }
         });
@@ -51,6 +53,7 @@ export const removeFromCartInbackend = async (cartDTO) => {
   try {
       const response = await axios.delete(`${API_BASE_URL}/cart/remove`, cartDTO, {
           headers: {
+            'Authorization':`Bearer ${sessionStorage.getItem("auth")}`,
               'Content-Type': 'application/json'
           }
       });

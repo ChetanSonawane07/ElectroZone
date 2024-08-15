@@ -9,6 +9,7 @@ function OrderItems({ userId }) {
     const loadOrders = async () => {
       try {
         const response = await fetchUserOrders(userId);
+        console.log(response.data)
         setOrders(response.data);
       } catch (error) {
         console.error("Error fetching orders:", error);

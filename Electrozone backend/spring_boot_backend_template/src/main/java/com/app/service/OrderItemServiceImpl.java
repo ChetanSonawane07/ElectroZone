@@ -46,6 +46,9 @@ public class OrderItemServiceImpl implements OrderItemService {
     @Autowired
 	private SellerDao sellerDao;
 
+    @Autowired
+	private EmailService emailService;
+
     public List<OrderItem> getOrderItemByOrder(Long orderId) {
         Orders order = ordersDao.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Invalid Order ID!!!"));
         return orderItemdao.findByOrder(order);
@@ -103,6 +106,14 @@ public class OrderItemServiceImpl implements OrderItemService {
         newPayment.setStatus(PaymentStatus.COMPLETED);
         paymentDao.save(newPayment);
 
+     
+     // Send confirmation email after order is placed
+        String toEmail = newOrder.getUser().getEmail();
+        String subject = "Order Confirmation";
+        String body = "Dear " + newOrder.getUser().getName() + ",\n\nYour order has been placed successfully. Order ID: " + newOrder.getId() + "\n\nThank you for shopping with us!";
+        
+        emailService.sendOrderConfirmationEmail(toEmail, subject, body);
+        
         return new ApiResponse("Order placed successfully!");
     }
 
