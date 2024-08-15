@@ -1,11 +1,11 @@
 import { Dropdown, Collapse, initMDB } from "mdb-ui-kit";
 import CategoryList from "../componants/CategoryList";
-import MainPage from "../componants/Main-page";
+import Edit_Profile from "../componants/Edit_Profile";
 import Footer from "../componants/Footer";
 import Navbar from "../componants/Navbar";
 
 initMDB({ Dropdown, Collapse });
-function Home() {
+function EditProfilePage() {
 
   return (
     <div>
@@ -14,7 +14,8 @@ function Home() {
       <Navbar />
 
       <CategoryList />
-      <MainPage />
+      {/* <MainPage /> */}
+      <Edit_Profile />
 
       <br />
       {/* Footer */}
@@ -23,4 +24,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default EditProfilePage;

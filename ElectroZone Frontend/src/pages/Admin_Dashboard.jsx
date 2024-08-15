@@ -18,6 +18,8 @@ function Admin_Dashboard() {
   }
   const Logout = () => {
     sessionStorage.removeItem('email')
+    sessionStorage.removeItem('auth')
+    sessionStorage.removeItem('id')
     navigate('/Admin-Login')
   }
 

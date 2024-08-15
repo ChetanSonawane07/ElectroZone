@@ -9,7 +9,7 @@ function SellerOrderList({ sellerId }) {
     const loadOrders = async () => {
       try {
         const response = await fetchOrdersBySeller(sellerId);
-        console.log(response.data)
+        console.log(response.data);
         setOrders(response.data);
       } catch (error) {
         console.error('Error loading orders:', error);
@@ -44,8 +44,8 @@ function SellerOrderList({ sellerId }) {
                   <td>{index + 1}</td>
                   <td>{orderItem.order.user.name}</td>
                   <td>{orderItem.product.name}</td>
-                  <td>{orderItem.Quantity}</td>
-                  <td>{orderItem.order.address}</td>
+                  <td>{orderItem.quantity}</td> {/* Ensure this is the correct quantity field */}
+                  <td>{orderItem.order.address.addressLine1},{orderItem.order.address.addressLine2},{orderItem.order.address.landMark}, {orderItem.order.address.city},{orderItem.order.address.state},{orderItem.order.address.pinCode}</td> {/* Modify as per your address structure */}
                   <td>{new Date(orderItem.createdOn).toLocaleDateString()}</td>
                   <td>{new Date(orderItem.order.delivaryDate).toLocaleDateString()}</td>
                   <td>{orderItem.order.orderStatus}</td>

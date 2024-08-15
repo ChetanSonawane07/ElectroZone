@@ -17,7 +17,9 @@ function Seller_Login() {
       try {
           const result = await login(email,password)
         if(result.status === 200){
-          sessionStorage.setItem('sellerId',result.data['id'])
+          sessionStorage.setItem('id',result.data.body['id'])
+          sessionStorage.setItem('email',result.data.body['email'])
+          sessionStorage.setItem('auth',result.data.body['jwt'])
           console.log(result)
           navigate("/Seller-Dashboard");
         }else if(result.data = "Invalid email or password"){
@@ -30,8 +32,6 @@ function Seller_Login() {
         toast.error("Invalid email or password")
       }
     }
-
-    
   };
   return (
     <div>

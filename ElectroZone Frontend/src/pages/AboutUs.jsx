@@ -1,14 +1,4 @@
 import { Dropdown, Collapse, initMDB } from "mdb-ui-kit";
-import CategoryList from "../componants/CategoryList";
-import { useState } from "react";
-import logo from "../images/logo.jpg";
-import MainPage from "../componants/Main-page";
-import Edit_Profile from "../componants/Edit_Profile";
-import AddAddress from "../componants/Add-Address";
-import WishList from "../componants/WishList";
-import Cart from "../componants/Cart";
-import ProductDetails from "../componants/ProductDetails";
-import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -23,33 +13,6 @@ import profileImg5 from "../images/prajakta.jpeg"
 initMDB({ Dropdown, Collapse });
 
 function AboutUsPage() {
-    const [activeComponent, setActiveComponent] = useState("Home");
-    const [condition, setCondition] = useState(false);
-    const navigate = useNavigate();
-
-    const handleNavigation = (path) => {
-        navigate(path);
-    };
-
-    const renderComponent = () => {
-        switch (activeComponent) {
-            case "Home":
-                return <MainPage />;
-            case "Edit-Profile":
-                setCondition(true);
-                return <Edit_Profile />;
-            case "Add-Address":
-                return <AddAddress />;
-            case "My-WishList":
-                return navigate('/WishList');
-            case "My-Cart":
-                return navigate('/Cart');
-            case "View-Orders":
-                return navigate("/Orders");
-            default:
-                return null;
-        }
-    };
 
     const renderTooltip = (email) => (
         <Tooltip id="email-tooltip">{email}</Tooltip>
@@ -57,15 +20,9 @@ function AboutUsPage() {
 
     return (
         <div>
-            <Navbar
-                onBecomeSeller={() => handleNavigation("/Seller-Register")}
-                onUserLogin={() => handleNavigation("/User-Login")}
-                onNavigateToAboutUs={() => handleNavigation("/AboutUs")}
-                setActiveComponent={setActiveComponent}
-            />
-
+            <Navbar />
             {
-                condition ? renderComponent() : <Container className="my-5">
+                <Container className="my-5">
                     <div className="p-5 bg-light rounded btn">
                         <Row className="mb-5 text-center">
                             <Col xs={12}>

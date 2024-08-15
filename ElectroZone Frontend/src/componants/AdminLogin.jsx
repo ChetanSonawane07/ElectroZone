@@ -10,14 +10,22 @@ function AdminLogin() {
   const navigate = useNavigate();
 
   const onLogin = async () => {
+
     if (email.length === 0) {
       toast.warning("Email is mandatory");
     } else if (password.length === 0) {
       toast.warning("Password is mandatory");
     }else {
+      
       const result = await login(email,password)
+      
       if(result){
-        sessionStorage.setItem('email',result['email'])
+        console.log(result)
+
+        sessionStorage.setItem('id',result.body['id'])
+        sessionStorage.setItem('email',result.body['email'])
+        sessionStorage.setItem('auth',result.body['jwt'])
+        
         navigate("/Admin-Dashboard")
       }else{
         setLoginFailed(true)

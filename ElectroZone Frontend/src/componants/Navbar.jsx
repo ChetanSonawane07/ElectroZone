@@ -2,12 +2,9 @@ import { useState, useEffect } from "react";
 import logo from "../images/logo.jpg";
 import { useNavigate } from "react-router-dom";
 
-function Navbar({ onBecomeSeller, onUserLogin, onNavigateToAboutUs, setActiveComponent }) {
+function Navbar() {
   const [permission, setPermission] = useState(false);
   const navigate = useNavigate()
-  const onHome = () => {
-    navigate('/')
-  }
 
   useEffect(() => {
     if (sessionStorage.getItem('id') && sessionStorage.getItem('id').length > 0) {
@@ -15,30 +12,35 @@ function Navbar({ onBecomeSeller, onUserLogin, onNavigateToAboutUs, setActiveCom
     }
   }, []);
 
+  const Logout = () => {
+    sessionStorage.removeItem('id');
+    navigate('/')
+  }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-dark text-white">
       <div className="container-fluid">
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <a className="navbar-brand mt-2 mt-lg-0" href="#">
-            <img src={logo} height="35" alt="Logo" onClick={onHome} />
+            <img src={logo} height="35" alt="Logo" onClick={() => navigate('/')} />
           </a>
         </div>
         <span
           className="nav-link text-white fw-bold btn"
-          onClick={onNavigateToAboutUs}
+          onClick={() => navigate('/AboutUs')}
           style={{ cursor: "pointer", marginRight: "10px" }}
         >
           About Us
         </span>
 
-        <button className="btn btn-outline-success" style={{ marginRight: 20 }} onClick={onBecomeSeller}>
+        <button className="btn btn-outline-success" style={{ marginRight: 20 }} onClick={() => navigate('/Seller-Register')}>
           Become a seller
         </button>
 
         <div className="d-flex align-items-center">
           <button
             className="text-reset me-3 border-none btn"
-            onClick={permission ? () => setActiveComponent("My-Cart") : onUserLogin}
+            onClick={permission ? () => navigate('/Cart') : () => navigate('/User-Login')}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +77,7 @@ function Navbar({ onBecomeSeller, onUserLogin, onNavigateToAboutUs, setActiveCom
               {permission ? 
               null : 
               <li>
-                <button className="dropdown-item" onClick={onUserLogin}>
+                <button className="dropdown-item" onClick={() => navigate('/User-Login')}>
                   Login
                 </button>
               </li>}
@@ -84,7 +86,7 @@ function Navbar({ onBecomeSeller, onUserLogin, onNavigateToAboutUs, setActiveCom
                   <li>
                     <button
                       className="dropdown-item"
-                      onClick={() => setActiveComponent("Edit-Profile")}
+                      onClick={() => navigate('/EditProfile')}
                     >
                       Edit profile
                     </button>
@@ -92,7 +94,7 @@ function Navbar({ onBecomeSeller, onUserLogin, onNavigateToAboutUs, setActiveCom
                   <li>
                     <button
                       className="dropdown-item"
-                      onClick={() => setActiveComponent("Add-Address")}
+                      onClick={() => navigate('/AddressInfo')}
                     >
                       Add Address
                     </button>
@@ -100,7 +102,7 @@ function Navbar({ onBecomeSeller, onUserLogin, onNavigateToAboutUs, setActiveCom
                   <li>
                     <button
                       className="dropdown-item"
-                      onClick={() => setActiveComponent("My-WishList")}
+                      onClick={() => navigate('/WishList')}
                     >
                       My Wishlist
                     </button>
@@ -108,7 +110,7 @@ function Navbar({ onBecomeSeller, onUserLogin, onNavigateToAboutUs, setActiveCom
                   <li>
                     <button
                       className="dropdown-item"
-                      onClick={() => setActiveComponent("My-Cart")}
+                      onClick={() => navigate('/Cart')}
                     >
                       My Cart
                     </button>
@@ -116,7 +118,7 @@ function Navbar({ onBecomeSeller, onUserLogin, onNavigateToAboutUs, setActiveCom
                   <li>
                     <button
                       className="dropdown-item"
-                      onClick={() => setActiveComponent("View-Orders")}
+                      onClick={() => navigate('/Orders')}
                     >
                       View Orders
                     </button>
@@ -124,11 +126,7 @@ function Navbar({ onBecomeSeller, onUserLogin, onNavigateToAboutUs, setActiveCom
                   <li>
                     <button
                       className="dropdown-item"
-                      onClick={() => {
-                        sessionStorage.removeItem('id');
-                        navigate('/')
-                        setActiveComponent("Home");
-                      }}
+                      onClick={Logout}
                     >
                       Logout
                     </button>

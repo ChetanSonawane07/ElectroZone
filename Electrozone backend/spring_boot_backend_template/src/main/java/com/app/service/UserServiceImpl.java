@@ -2,13 +2,21 @@ package com.app.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.app.custom_exceptions.ResourceNotFoundException;
 import com.app.dao.UserDao;
 import com.app.dto.ApiResponse;
+import com.app.dto.LoginResponseDTO;
 import com.app.dto.UserDTO;
 import com.app.entities.User;
+import com.app.security.JwtUtils;
 import com.app.util.PasswordUtil;
 
 import javax.transaction.Transactional;
@@ -25,6 +33,15 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private ModelMapper modelMapper;
+    
+	@Autowired
+	private JwtUtils jwtUtils;
+	
+	  @Autowired
+	  private AuthenticationManager authenticationManager;
+    
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDTO findById(Long id) {
@@ -57,6 +74,7 @@ public class UserServiceImpl implements UserService {
         return modelMapper.map(savedUser, UserDTO.class);
     }
 
+
     @Override
     public UserDTO updateUser(Long id, UserDTO userDto) {
         User user = userDao.findById(id)
@@ -64,8 +82,7 @@ public class UserServiceImpl implements UserService {
         user.setName(userDto.getName());
         user.setEmail(userDto.getEmail());
         
-        String hashedPassword = PasswordUtil.hashPassword(userDto.getPassword());
-        user.setPassword(hashedPassword);
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
         
 
         user.setPhoneNo(userDto.getPhoneNo());
@@ -75,11 +92,24 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO findByEmailAndPassword(String email, String password) {
+    public ResponseEntity<?> findByEmailAndPassword(String email, String password) {
     	
-
-         User user = userDao.findByEmailAndPasswordAndIsActiveTrue(email, password)
-            .orElseThrow(() -> new ResourceNotFoundException(password));
-        return modelMapper.map(user, UserDTO.class);
+    	User user = userDao.findByEmail(email);
+    	
+    	System.out.println();
+    	authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(email, password));
+         
+         UsernamePasswordAuthenticationToken token=new 
+ 				UsernamePasswordAuthenticationToken(email,password);
+ 		//invoke auth mgr's authenticate method;
+ 		Authentication verifiedToken = authenticationManager.authenticate(token);
+ 		//=> authentication n authorization  successful !
+ 		System.out.println(verifiedToken.getPrincipal().getClass());//custom user details object
+ 		//create JWT n send it to the clnt in response
+ 		LoginResponseDTO resp=new LoginResponseDTO(jwtUtils.generateJwtToken(verifiedToken),"Successful Auth!!!!", email,user.getId());
+ 	
+ 		return ResponseEntity.status(HttpStatus.CREATED).body(resp);
+       
     }
 }

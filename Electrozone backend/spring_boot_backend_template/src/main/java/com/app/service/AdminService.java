@@ -1,9 +1,11 @@
 package com.app.service;
 
+import org.springframework.http.ResponseEntity;
+
 import com.app.dto.AdminDTO;
 
 public interface AdminService {
-	AdminDTO findByEmailAndPassword(String email, String pwd);
+	ResponseEntity<?> findByEmailAndPassword(String email, String pwd);
 	AdminDTO addAdmin(AdminDTO adminDTO);
 
 }

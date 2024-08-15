@@ -16,18 +16,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Seller extends BaseEntity{
+public class Seller  extends CommonEntity{
 
 
 	@NotBlank(message = "Name Should not be blank")
 	private String name;
 	
-	@Column(unique = true)
-	@NotBlank(message = "Email Should not be blank")
-	private String email;
 	
-	@NotBlank(message = "Password Should not be blank")
-	private String password;
 	
 	@Length(min = 10)
 	@NotBlank(message = "Phone no Should not be blank")

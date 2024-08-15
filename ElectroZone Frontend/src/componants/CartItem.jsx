@@ -30,7 +30,7 @@ function CartItem({ item, onQuantityChange, onRemove }) {
           'Content-Type': 'application/json',
         },
         data: {
-          userId: sessionStorage.getItem('id'), // Pass userId and productId to identify the item
+          userId: sessionStorage.getItem('id'), 
           productId: item.id,
         },
       });
@@ -38,7 +38,7 @@ function CartItem({ item, onQuantityChange, onRemove }) {
       dispatch(removeFromCartAction(item.id));
 
       if (onRemove) {
-        onRemove(item.id); // Notify the Cart component to remove the item from the list
+        onRemove(item.id); 
       }
 
       console.log('Item removed from cart successfully');

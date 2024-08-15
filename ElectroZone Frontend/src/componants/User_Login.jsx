@@ -17,8 +17,10 @@ function User_Login() {
     }else {
       try {
           const result = await login(email,password)
-          if(result.status === 200){
-            sessionStorage.setItem('id',result.data['id'])
+          if(result.status === 201){  
+            sessionStorage.setItem('id',result.data.body['id'])
+            sessionStorage.setItem('email',result.data.body['email'])
+            sessionStorage.setItem('auth',result.data.body['jwt'])
             navigate("/")
           }else{
             setLoginFailed(true)

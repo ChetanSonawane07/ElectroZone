@@ -22,6 +22,8 @@ import CheckoutPage from "./pages/CheckoutPage";
 import OrdersPage from "./pages/OrdersPage";
 import AboutUs from "./pages/AboutUs";
 import AdminLogin from "./componants/AdminLogin";
+import EditProfilePage from "./pages/EditProfilePage";
+import AddressInfoPage from "./pages/AddressInfoPage";
 
 function App() {
   return (
@@ -46,6 +48,8 @@ function App() {
         <Route path="/WishList" element={<WishListPage />} />
         <Route path="/Checkout" element={<CheckoutPage />} />
         <Route path="/Orders" element={<OrdersPage />} />
+        <Route path="/EditProfile" element={<EditProfilePage />} />
+        <Route path="/AddressInfo" element={<AddressInfoPage />} />
       </Routes>
       <ToastContainer />
     </div>
