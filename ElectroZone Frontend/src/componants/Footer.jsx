@@ -200,9 +200,9 @@ function Footer(){
                     width="200"
                     height="200"
                     style={{ border: 0 }}
-                    allowfullscreen=""
+                    allowFullScreen
                     loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
+                    referrerPolicy="no-referrer-when-downgrade"
                   ></iframe>
                 </div>
               </div>

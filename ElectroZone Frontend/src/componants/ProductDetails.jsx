@@ -102,7 +102,7 @@ function ProductDetails() {
 
     } catch (error) {
       console.error('Failed to add product to wishlist:', error);
-      alert('Failed to add product to wishlist.');
+      toast.error('Failed to add product to wishlist.');
     }
   };
 
@@ -118,7 +118,7 @@ function ProductDetails() {
 
     } catch (error) {
       console.error('Failed to add product to cart:', error);
-      alert('Failed to add product to cart.');
+      toast.error('Failed to add product to cart.');
     }
   };
 

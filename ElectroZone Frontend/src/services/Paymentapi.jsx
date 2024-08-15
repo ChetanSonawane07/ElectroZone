@@ -1,13 +1,16 @@
-function PaymentApi(){
+import { toast } from "react-toastify";
+
+function PaymentApi(amount){
     const Pay = () => {
         var options = {
           key: "rzp_test_KfkSVTMrjRudas",
           key_secret: "WkTAxsYbM61XV2zLioGlRphd",
           currency: "INR",
+          amount : amount*100,
           name: "STARTUP_PROJECTS",
           description: "for testing purpose",
           handler: function (response) {
-            alert(response.razorpay_payment_id);
+            toast.success(response.razorpay_payment_id);
           },
           prefill: {
             name: "ElectroZone",

@@ -41,9 +41,9 @@ function Cart() {
         setGrandTotal(calculateGrandTotal(updatedItems));
     };
 
-    const proceedToCheckout = async () => {
+    const proceedToCheckout = async (amount) => {
         try {
-            console.log("inside proceed to checkout");
+            console.log("inside proceed to checkout",amount);
 
             // Update the Redux store with the current quantities
             dispatch(updateCartAction(cartItems));
@@ -95,11 +95,11 @@ function Cart() {
             >
                 <div className="row">
                     <div className="col-9" style={{ verticalAlign: "middle", marginTop: 10 }}>
-                        Grand Total: ${grandTotal.toFixed(2)}
+                        Grand Total: ₹{grandTotal.toFixed(2)}
                     </div>
                     <div className="col-3">
                     
-                    <button className="btn btn-warning"  style={{ verticalAlign: "middle", marginTop: 10 }} onClick={proceedToCheckout}>
+                    <button className="btn btn-warning"  style={{ verticalAlign: "middle", marginTop: 10 }} onClick={proceedToCheckout(grandTotal.toFixed(2))}>
                         Proceed to Checkout
                     </button>
                 
