@@ -5,7 +5,11 @@ import static org.springframework.http.MediaType.IMAGE_JPEG_VALUE;
 import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,9 +23,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -91,7 +95,7 @@ public ProductController() {
 	
 	
 	@GetMapping("/details/{productId}")
-	public ResponseEntity<?> getProductsByCategory(@PathVariable String productId) {
+	public ResponseEntity<?> getProductsByID(@PathVariable String productId) {
 	    
 	    ProductResponseDTO product = productService.getProductById(productId);
 
@@ -130,6 +134,30 @@ public ProductController() {
 	public ResponseEntity<?> deleteProducts(@PathVariable Long id) {
 		return ResponseEntity.ok
 				(productService.deleteProductById(id));
+	}
+
+	@GetMapping("/filter")
+	public ArrayList<ProductResponseDTO> filterProductsByCategoryAndBrand(
+	         @RequestParam String categoryId,
+	         @RequestParam Set<String> brandIds,
+	         @RequestParam boolean b) {
+	     
+	    System.out.println(categoryId + " " + b);
+	    System.out.println(brandIds.toString());
+
+	    // Convert brandIds to Set of BrandDTOs
+	    Set<BrandDTO> brandDTOs = brandIds.stream().map(id -> {
+	        BrandDTO brandDTO = new BrandDTO();
+	        brandDTO.setId(Long.valueOf(id));
+	        return brandDTO;
+	    }).collect(Collectors.toSet());
+
+	    // Create CategoryDTO
+	    CategoryDTO categoryDTO = new CategoryDTO();
+	    categoryDTO.setId(Long.valueOf(categoryId));
+
+	    // Call the service method
+	    return productService.getAllProductsByCategoryAndBrand(brandDTOs, categoryDTO, b);
 	}
 
 }

@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { getCartByUserId, updateCartInBackend } from '../services/cart';
 import { updateCartAction } from '../features/cartSlice';
 import { useNavigate } from "react-router-dom";
+import {updateAmount} from "../features/grandTotal";
 
 function Cart() {
     const [cartItems, setCartItems] = useState([]);
@@ -49,7 +50,7 @@ function Cart() {
 
     const proceedToCheckout = async () => {
         try {
-            console.log("inside proceed to checkout");
+            console.log("inside proceed to checkout",amount);
 
             dispatch(updateCartAction(cartItems));
 
@@ -62,6 +63,10 @@ function Cart() {
             console.log(cartDTOs)
 
             await updateCartInBackend(cartDTOs);
+            dispatch(updateAmount(grandTotal))
+
+           
+
 
             console.log('Cart updated and ready for checkout!');
             navigate('/Checkout');
@@ -95,7 +100,7 @@ function Cart() {
             >
                 <div className="row">
                     <div className="col-9" style={{ verticalAlign: "middle", marginTop: 10 }}>
-                        Grand Total: ${grandTotal.toFixed(2)}
+                        Grand Total: ₹{grandTotal.toFixed(2)}
                     </div>
                     <div className="col-3">
                         <button className="btn btn-warning" style={{ verticalAlign: "middle", marginTop: 10 }} onClick={proceedToCheckout}>

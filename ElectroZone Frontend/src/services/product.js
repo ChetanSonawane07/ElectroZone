@@ -69,3 +69,19 @@ export const getAverageRating = async (productId) => {
     const response = await axios.get(`${API_URL}/product/average/${productId}`);
     return response.data;
 };
+
+
+export const getProductsByFilters = async (categoryId, brandIds, sortOrder) => {
+  try {
+    const response = await axios.get('http://localhost:8080/products/filter', {
+      categoryId,
+      brandIds,
+      sortOrder
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching products by filters:', error);
+    throw error;
+  }
+};
+

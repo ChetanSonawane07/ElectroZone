@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProductsByCategoryId, getProductsByBrandId } from '../services/product';
+import axios from 'axios';
+import qs from'qs';
+// import './ProductList.css'; // Make sure to import your CSS file
 
-function ProductList() {
+function ProductList({ selectedBrands, priceOrder }) {
   const { categoryId, brandId } = useParams();
   const [products, setProducts] = useState([]);
   const navigate = useNavigate();
@@ -12,8 +15,14 @@ function ProductList() {
       loadProductsByCategory(categoryId);
     } else if (brandId) {
       loadProductsByBrand(brandId);
-    }
+    } 
   }, [categoryId, brandId]);
+
+  useEffect(() => {
+    if (categoryId) {
+      loadFilteredProducts(categoryId, selectedBrands, priceOrder);
+    }
+  }, [categoryId, selectedBrands, priceOrder]);
 
   const loadProductsByCategory = async (categoryId) => {
     try {
@@ -49,6 +58,34 @@ function ProductList() {
     }
   };
 
+  const loadFilteredProducts = async (categoryId,selectedBrands,priceOrder) => {
+    try {
+      console.log(categoryId, JSON.stringify(selectedBrands),priceOrder)
+      const result = await axios.get('http://localhost:8080/products/filter', {
+        params: {
+            categoryId: categoryId,
+            brandIds: selectedBrands,
+            b: priceOrder // Assuming 'b' is related to price order (asc/desc)
+        },
+        paramsSerializer: params => {
+            return qs.stringify(params, { arrayFormat: 'repeat' })
+        }
+    });
+
+      if (result.data) {
+        const productsWithImages = result.data.map(product => ({
+          ...product,
+          image: product.image ? `data:image/${product.imageFormat || 'jpeg'};base64,${product.image}` : 'path/to/default-image.jpg',
+        }));
+        setProducts(productsWithImages);
+      } else {
+        console.error('Failed to load filtered products');
+      }
+    } catch (error) {
+      console.error('Error loading filtered products:', error);
+    }
+  };
+
   const handleProductClick = (productId) => {
     navigate(`/ProductDetails/${productId}`);
   };
@@ -63,7 +100,6 @@ function ProductList() {
                 src={product.image}
                 className="card-img-top"
                 alt={product.name}
-                style={{ height: '200px', objectFit: 'cover' }}
               />
               <div className="card-body">
                 <h5 className="card-title">{product.name}</h5>

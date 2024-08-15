@@ -25,13 +25,19 @@ public class OrderController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/{userId}")
+    @GetMapping("/user/{userId}")
     public ResponseEntity<?> findAllOrdersByUser(@PathVariable Long userId) {
-        List<OrderItem> orderItem = orderItemService.getAllOrderItemsOfUser(userId);
+        List<OrderItem> orderItem = orderItemService.getAllOrderItemsOfUser(userId); 
         return ResponseEntity.ok(orderItem);
-    }  
+    } 
+    
+    @GetMapping("/seller/{sellerId}")
+    public ResponseEntity<?> findAllOrdersBySeller(@PathVariable Long sellerId) {
+        List<OrderItem> orderItems = orderItemService.getOrderItemBySeller(sellerId);
+        return ResponseEntity.ok(orderItems);
+    }
 
-    @GetMapping("/{orderId}")
+    @GetMapping("/order/{orderId}")
     public ResponseEntity<List<OrderItem>> findAllOrderItemsByOrder(@PathVariable Long orderId) {
         List<OrderItem> orderItem = orderItemService.getOrderItemByOrder(orderId);
         return ResponseEntity.ok(orderItem);
@@ -41,9 +47,14 @@ public class OrderController {
     public ResponseEntity<?> placeOrder(@RequestBody PlaceOrderDTO placeOrderDTO) {
         ApiResponse placeOrder = orderItemService.placeOrder(
                 placeOrderDTO.getUserId(),
-                placeOrderDTO.getAddressId(),
-                placeOrderDTO.getPaymentMethod()
+                placeOrderDTO.getAddressId()
         );
         return ResponseEntity.ok(placeOrder);
+    }
+    
+    @GetMapping("/orders")
+    public ResponseEntity<List<OrderItem>> findAllOrderItems() {
+        List<OrderItem> orderItem = orderItemService.getAllOrderItem();
+        return ResponseEntity.ok(orderItem);
     }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +42,9 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Autowired
     ModelMapper modelMapper;
+    
+    @Autowired
+	private SellerDao sellerDao;
 
     public List<OrderItem> getOrderItemByOrder(Long orderId) {
         Orders order = ordersDao.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Invalid Order ID!!!"));
@@ -59,7 +63,7 @@ public class OrderItemServiceImpl implements OrderItemService {
         return allOrderItem;
     }
 
-    public ApiResponse placeOrder(Long userId, Long addressId, PaymentMethod payMethod) {
+    public ApiResponse placeOrder(Long userId, Long addressId) {
         User user = userDao.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
         Address address = addressDao.findById(addressId).orElseThrow(() -> new ResourceNotFoundException("Address not found"));
         List<Cart> cartItemList = cartDao.findByUser(user);
@@ -95,10 +99,26 @@ public class OrderItemServiceImpl implements OrderItemService {
 
         Payment newPayment = new Payment();
         newPayment.setOrder(newOrder);
-        newPayment.setPaymentMethod(payMethod);
+        newPayment.setPaymentMethod(PaymentMethod.ONLINE_PAYMENT);
         newPayment.setStatus(PaymentStatus.COMPLETED);
         paymentDao.save(newPayment);
 
         return new ApiResponse("Order placed successfully!");
     }
+
+	@Override
+	public List<OrderItem> getAllOrderItem() {
+		return orderItemdao.findAll();
+	}
+
+	@Override
+	public List<OrderItem> getOrderItemBySeller(Long sellerId) {
+	    // Fetch the seller by ID, throw an exception if not found
+	    Seller seller = sellerDao.findById(sellerId)
+	        .orElseThrow(() -> new ResourceNotFoundException("Invalid Seller ID!!!"));
+
+	    // Fetch the order items associated with this seller
+	    return orderItemdao.findBySeller(seller);
+	}
+
 }

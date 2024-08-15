@@ -66,7 +66,7 @@ function CartItem({ item, onQuantityChange, onRemove }) {
 
   return (
     <div className="col-md-4 mb-4">
-      <div className="card">
+      <div className="product-card card">
         <img
           src={imageSrc}
           className="card-img-top"
@@ -77,7 +77,7 @@ function CartItem({ item, onQuantityChange, onRemove }) {
           <h4 className="card-title">{item.name}</h4>
           <hr />
           <p className="card-text">{item.description}</p>
-          <p className="card-text font-weight-bold">${price.toFixed(2)}</p>
+          <p className="card-text font-weight-bold">₹{price.toFixed(2)}</p>
           <p className="card-text">Quantity:
             <div className="d-flex align-items-center">
               <button className="btn btn-outline-secondary" onClick={decreaseQuantity}>-</button>
