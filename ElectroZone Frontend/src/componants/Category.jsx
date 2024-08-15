@@ -21,7 +21,7 @@ function Category({ id, title, image }) {
               src={image || 'path/to/default-image.jpg'}
               alt={title}
             />
-            <div className='text-reset' style={{ fontWeight: '600', fontSize: 15 }}>{title}</div>
+            <div className='text-reset' key={title} style={{ fontWeight: '600', fontSize: 15 }}>{title}</div>
           </div>
         </div>
       </Link>

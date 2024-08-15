@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +42,9 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     @Autowired
     ModelMapper modelMapper;
+    
+    @Autowired
+	private SellerDao sellerDao;
 
     public List<OrderItem> getOrderItemByOrder(Long orderId) {
         Orders order = ordersDao.findById(orderId).orElseThrow(() -> new ResourceNotFoundException("Invalid Order ID!!!"));
@@ -101,4 +105,20 @@ public class OrderItemServiceImpl implements OrderItemService {
 
         return new ApiResponse("Order placed successfully!");
     }
+
+	@Override
+	public List<OrderItem> getAllOrderItem() {
+		return orderItemdao.findAll();
+	}
+
+	@Override
+	public List<OrderItem> getOrderItemBySeller(Long sellerId) {
+	    // Fetch the seller by ID, throw an exception if not found
+	    Seller seller = sellerDao.findById(sellerId)
+	        .orElseThrow(() -> new ResourceNotFoundException("Invalid Seller ID!!!"));
+
+	    // Fetch the order items associated with this seller
+	    return orderItemdao.findBySeller(seller);
+	}
+
 }

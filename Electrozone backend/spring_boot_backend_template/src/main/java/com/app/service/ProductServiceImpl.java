@@ -1,9 +1,10 @@
 package com.app.service;
 
 import java.io.IOException;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -267,4 +268,97 @@ public class ProductServiceImpl implements ProductService {
         product.setActive(false);
         return new ApiResponse("Product soft deleted");
     }
+
+
+
+	
+
+
+
+
+//	@Override
+//	public List<ProductResponseDTO> getFilteredProducts(BrandDTO brandDTO, CategoryDTO categoryDTO, List<Long> brandIds, String sortDirection) {
+//        Brand brand = new Brand();
+//        brand.setId(brandDTO.getId());
+//        Category category = new Category();
+//        category.setId(categoryDTO.getId());
+//
+//        // Convert brandIds to Brand entities
+//        List<Brand> brands = brandIds.stream().map(id -> {
+//            Brand b = new Brand();
+//            b.setId(id);
+//            return b;
+//        }).collect(Collectors.toList());
+//
+//        List<Product> products = productDao.findByCategoryAndBrandInAndIsActiveTrue(category, brands, sortDirection);
+//
+//        return products.stream().map(product -> {
+//            ProductResponseDTO dto = new ProductResponseDTO();
+//            dto.setId(product.getId());
+//            dto.setName(product.getName());
+//            dto.setMrp(product.getMrp());
+//            dto.setDiscount(product.getDiscount());
+//            try {
+//                byte[] image = imgHandlingService.serveImage(product.getId());
+//                dto.setImage(image);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            dto.setDescription(product.getDescription());
+//            dto.setQuantity(product.getQuantity());
+//            dto.setWarranty(product.getWarranty());
+//            dto.setActive(product.isActive());
+//            dto.setBrandName(product.getBrand().getName());
+//            dto.setCategoryName(product.getCategory().getTitle());
+//            dto.setSellerName(product.getSeller().getName());
+//            return dto;
+//        }).collect(Collectors.toList());
+//    }
+	
+	@Override
+	public ArrayList<ProductResponseDTO> getAllProductsByCategoryAndBrand(Set<BrandDTO> brandDTOs, CategoryDTO categoryDTO, boolean b) {
+	    // Convert BrandDTOs to Brand entities
+	    Set<Brand> brands = (Set<Brand>) brandDTOs.stream().map(brandDTO -> {
+	        Brand brand = new Brand();
+	        brand.setId(brandDTO.getId());
+	        return brand;
+	    }).collect(Collectors.toSet());
+
+	    // Convert CategoryDTO to Category entity
+	    Category category = new Category();
+	    category.setId(categoryDTO.getId());
+	    
+	    ArrayList<Product> products;
+
+	    // Fetch products matching the category and list of brands
+	    if(b) {
+		     products = (ArrayList<Product>) productDao.findByCategoryAndIsActiveTrueAndBrandInOrderByMrpAsc(category, brands);
+	    }else {
+		     products = (ArrayList<Product>) productDao.findByCategoryAndIsActiveTrueAndBrandInOrderByMrpDesc(category, brands);
+
+	    }
+	    // Map products to ProductResponseDTOs
+	    return (ArrayList<ProductResponseDTO>) products.stream().map(product -> {
+	        ProductResponseDTO dto = new ProductResponseDTO();
+	        dto.setId(product.getId());
+	        dto.setName(product.getName());
+	        dto.setMrp(product.getMrp());
+	        dto.setDiscount(product.getDiscount());
+	        try {
+	            byte[] image = imgHandlingService.serveImage(product.getId());
+	            dto.setImage(image);
+	        } catch (IOException e) {
+	            e.printStackTrace();
+	        }
+	        dto.setDescription(product.getDescription());
+	        dto.setQuantity(product.getQuantity());
+	        dto.setWarranty(product.getWarranty());
+	        dto.setActive(product.isActive());
+	        dto.setBrandName(product.getBrand().getName());
+	        dto.setCategoryName(product.getCategory().getTitle());
+	        dto.setSellerName(product.getSeller().getName());
+	        return dto;
+	    }).collect(Collectors.toList());
+	}
+
 }

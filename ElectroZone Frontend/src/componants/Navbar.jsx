@@ -20,37 +20,8 @@ function Navbar({ onBecomeSeller, onUserLogin, onNavigateToAboutUs, setActiveCom
       <div className="container-fluid">
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <a className="navbar-brand mt-2 mt-lg-0" href="#">
-            <img src={logo} height="35" alt="Logo" onClick={onHome}/>
+            <img src={logo} height="35" alt="Logo" onClick={onHome} />
           </a>
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li>
-              <form className="d-flex input-group w-auto">
-                <input
-                  type="search"
-                  className="form-control"
-                  placeholder="Search"
-                  aria-label="Search"
-                  aria-describedby="search-addon"
-                />
-                <button
-                  className="btn"
-                  type="submit"
-                  style={{ marginLeft: 5, backgroundColor: "green" }}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-search"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                  </svg>
-                </button>
-              </form>
-            </li>
-          </ul>
         </div>
         <span
           className="nav-link text-white fw-bold btn"
@@ -101,11 +72,13 @@ function Navbar({ onBecomeSeller, onUserLogin, onNavigateToAboutUs, setActiveCom
             </a>
 
             <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+              {permission ? 
+              null : 
               <li>
                 <button className="dropdown-item" onClick={onUserLogin}>
                   Login
                 </button>
-              </li>
+              </li>}
               {permission && (
                 <>
                   <li>
@@ -153,6 +126,7 @@ function Navbar({ onBecomeSeller, onUserLogin, onNavigateToAboutUs, setActiveCom
                       className="dropdown-item"
                       onClick={() => {
                         sessionStorage.removeItem('id');
+                        navigate('/')
                         setActiveComponent("Home");
                       }}
                     >

@@ -130,3 +130,13 @@ export const deleteProduct = async (id) => {
     throw error; // Rethrow error to be handled in the component
   }
 };
+
+export const fetchOrdersBySeller = async (sellerId) => {
+  try {
+    const response = await axios.get(`http://localhost:8080/order/seller/${sellerId}`);
+    return response; // Response indicates success (e.g., status 204 No Content)
+  } catch (error) {
+    console.error("Error deleting product:", error);
+    throw error; // Rethrow error to be handled in the component
+  }
+}

@@ -1,18 +1,66 @@
-// src/components/Products.jsx
 import { Dropdown, Collapse, initMDB } from "mdb-ui-kit";
 import ProductList from "./ProductList";
-import BrandList from "./BrandList";
+import { getBrands } from "../services/brand";
+import { useEffect, useState } from "react";
 
 initMDB({ Dropdown, Collapse });
 
 function Products() {
+  const [brands, setBrands] = useState([]);
+  const [selectedBrands, setSelectedBrands] = useState([]);
+  const [priceOrder, setPriceOrder] = useState(true);
+
+  useEffect(() => {
+    loadBrands();
+  }, []);
+
+  const loadBrands = async () => {
+    try {
+      const result = await getBrands();
+      if (result) {
+        setBrands(result);
+      } else {
+        console.error('Failed to load brands: ', result.message);
+      }
+    } catch (error) {
+      console.error('Failed to load brands:', error);
+    }
+  };
+
+  const handleBrandChange = (e) => {
+    const brandId = parseInt(e.target.value);
+    if (e.target.checked) {
+      setSelectedBrands([...selectedBrands, brandId]);
+    } else {
+      setSelectedBrands(selectedBrands.filter(id => id !== brandId));
+    }
+  };
+
+  const handlePriceChange = (e) => {
+    setPriceOrder(e.target.value);
+  };
+
   return (
     <div>
       <div className="container">
         <div className="row">
           <div className="col-md-3 ">
-            <div className="vertical-nav bg-dark" style={{ height: 170 }}>
+            <div className="vertical-nav bg-dark" style={{ height: 100 }}>
               <div className="accordion accordion-flush" id="accordionFlushExample">
+              <div className="accordion-item">
+                  <h2 className="accordion-header">
+                    <button
+                      className="accordion-button collapsed bg-white text-dark"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#flush-collapseOne"
+                      aria-expanded="false"
+                      aria-controls="flush-collapseOne"
+                    >
+                      Filters
+                    </button>
+                  </h2>
+                </div>
                 <div className="accordion-item">
                   <h2 className="accordion-header">
                     <button
@@ -28,11 +76,22 @@ function Products() {
                   </h2>
                   <div
                     id="flush-collapseOne"
-                    className="accordion-collapse"
+                    className="accordion-collapse "
                     data-bs-parent="#accordionFlushExample"
                   >
                     <div className="accordion-body">
-                      Here, brand name will appear to add filter.
+                      {brands.map((brand) => (
+                        <div key={brand.id}>
+                          <input
+                            type="checkbox"
+                            name={brand.name}
+                            id={brand.id}
+                            value={brand.id}
+                            onChange={handleBrandChange}
+                          />{" "}
+                          <label className="font-weight">{brand.name}</label>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -51,45 +110,24 @@ function Products() {
                   </h2>
                   <div
                     id="flush-collapseTwo"
-                    className="accordion-collapse collapse"
+                    className="accordion-collapse "
                     data-bs-parent="#accordionFlushExample"
                   >
                     <div className="accordion-body">
                       <input
-                        type="range"
-                        name="price"
-                        id="price"
-                        min={10000}
-                        max={1000000}
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div className="accordion-item">
-                  <h2 className="accordion-header">
-                    <button
-                      className="accordion-button collapsed bg-dark text-white"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#flush-collapseThree"
-                      aria-expanded="false"
-                      aria-controls="flush-collapseThree"
-                    >
-                      Availability
-                    </button>
-                  </h2>
-                  <div
-                    id="flush-collapseThree"
-                    className="accordion-collapse collapse"
-                    data-bs-parent="#accordionFlushExample"
-                  >
-                    <div className="accordion-body">
-                      <input
-                        type="checkbox"
-                        name="outofstock"
-                        id="outofstock"
+                        type="radio"
+                        name="priceOrder"
+                        value={true}
+                        onChange={handlePriceChange}
                       />{" "}
-                      Include out of Stock
+                      <label>Low To High</label><br />
+                      <input
+                        type="radio"
+                        name="priceOrder"
+                        value={false}
+                        onChange={handlePriceChange}
+                      />{" "}
+                      <label>High To Low</label>
                     </div>
                   </div>
                 </div>
@@ -97,12 +135,9 @@ function Products() {
             </div>
           </div>
           <div className="col-md-9">
-            <ProductList />
+            <ProductList selectedBrands={selectedBrands} priceOrder={priceOrder} />
           </div>
         </div>
-      </div>
-      <div className="container-fluid">
-        <BrandList />
       </div>
     </div>
   );
