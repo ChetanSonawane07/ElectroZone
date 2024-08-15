@@ -99,9 +99,9 @@ const Footer = () => {
 
           <Col md={4} style={styles.contactSection}>
             <h3 style={styles.heading}>Contact Us</h3>
-            <p>Email: info@yourdomain.com</p>
+            <p>Email: info@gmail.com</p>
             <p>Phone: +1234567890</p>
-            <p>Address: 123 Your Street, City, Country</p>
+            <p>Address: 123 Street, Pune, Maharashtra, India</p>
             <br /> <br />
             <div style={styles.mapSection}>
               <iframe
@@ -119,7 +119,7 @@ const Footer = () => {
         {/* Footer Bottom */}
         <Row className="text-center mt-4">
           <Col>
-            <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+            <p>&copy; 2024 ElectroZone. All rights reserved.</p>
           </Col>
         </Row>
       </Container>
