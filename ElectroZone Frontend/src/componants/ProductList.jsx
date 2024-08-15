@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { getProductsByCategoryId, getProductsByBrandId } from '../services/product';
 import axios from 'axios';
-import qs from'qs';
-// import './ProductList.css'; // Make sure to import your CSS file
+import qs from 'qs';
 
 function ProductList({ selectedBrands, priceOrder }) {
   const { categoryId, brandId } = useParams();
@@ -15,7 +14,7 @@ function ProductList({ selectedBrands, priceOrder }) {
       loadProductsByCategory(categoryId);
     } else if (brandId) {
       loadProductsByBrand(brandId);
-    } 
+    }
   }, [categoryId, brandId]);
 
   useEffect(() => {
@@ -58,19 +57,18 @@ function ProductList({ selectedBrands, priceOrder }) {
     }
   };
 
-  const loadFilteredProducts = async (categoryId,selectedBrands,priceOrder) => {
+  const loadFilteredProducts = async (categoryId, selectedBrands, priceOrder) => {
     try {
-      console.log(categoryId, JSON.stringify(selectedBrands),priceOrder)
       const result = await axios.get('http://localhost:8080/products/filter', {
         params: {
-            categoryId: categoryId,
-            brandIds: selectedBrands,
-            b: priceOrder // Assuming 'b' is related to price order (asc/desc)
+          categoryId: categoryId,
+          brandIds: selectedBrands,
+          b: priceOrder
         },
         paramsSerializer: params => {
-            return qs.stringify(params, { arrayFormat: 'repeat' })
+          return qs.stringify(params, { arrayFormat: 'repeat' });
         }
-    });
+      });
 
       if (result.data) {
         const productsWithImages = result.data.map(product => ({
@@ -94,7 +92,7 @@ function ProductList({ selectedBrands, priceOrder }) {
     <div className="row product-list">
       {products.length > 0 ? (
         products.map(product => (
-          <div key={product.id} className="col-md-4 mb-4">
+          <div key={product.id} className="col-md-4 col-sm-6 mb-4">
             <div className="product-card card" onClick={() => handleProductClick(product.id)} style={{ cursor: 'pointer' }}>
               <img
                 src={product.image}

@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { getProductsInWishlist } from '../services/wishlist';
 import { updateWishlistAction } from '../features/wishlistSlice';
 import { useNavigate } from "react-router-dom";
+import { FaHeart } from "react-icons/fa"; // Import wishlist icon
 
 function Wishlist() {
   const [wishlistItems, setWishlistItems] = useState([]);
@@ -37,7 +38,10 @@ function Wishlist() {
   return (
     <div>
       <div className="container">
-        <h4>Your Wishlist</h4>
+        <div className="d-flex align-items-center mb-4">
+          <FaHeart size={30} className="me-2 text-danger" />
+          <h4 className="mb-0">Wishlist</h4>
+        </div>
         <div className="row">
           {wishlistItems.length > 0 ? (
             wishlistItems.map((item) => (
@@ -53,6 +57,23 @@ function Wishlist() {
           )}
         </div>
       </div>
+      <style jsx>{`
+        .container {
+          border-radius: 8px;
+          padding: 20px;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        h4 {
+          font-weight: bold;
+        }
+        .col-md-4 {
+          margin-bottom: 20px;
+        }
+        .col-md-4:hover {
+          transform: scale(1.05);
+          transition: transform 0.3s ease-in-out;
+        }
+      `}</style>
     </div>
   );
 }

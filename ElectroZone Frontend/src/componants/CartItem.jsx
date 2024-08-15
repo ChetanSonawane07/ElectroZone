@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { updateQuantityAction, removeFromCartAction } from '../features/cartSlice';
 import axios from 'axios';
+import { FaTrash } from 'react-icons/fa'; // Import the trash icon
 
 const API_BASE_URL = 'http://localhost:8080';
 
@@ -96,7 +97,7 @@ function CartItem({ item, onQuantityChange, onRemove }) {
               onClick={removeFromCart}
               className="btn btn-danger"
             >
-              Remove
+              <FaTrash />
             </button>
           </div>
         </div>

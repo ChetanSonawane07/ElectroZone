@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { addProductToCart } from '../services/cart';
 import { useNavigate } from 'react-router-dom';
-
+import { FaTrash, FaShoppingCart, FaCartPlus } from 'react-icons/fa'; // Import the trash icon
 const API_BASE_URL = 'http://localhost:8080';
 
 function WishlistItem({ item, onRemove }) {
@@ -13,10 +13,8 @@ function WishlistItem({ item, onRemove }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if the product is in the cart
     const checkIfInCart = async () => {
       try {
-        // Replace with actual user ID and product ID for the API request
         const userId = sessionStorage.getItem('id');
         const response = await axios.get(`${API_BASE_URL}/cart/${userId}`);
         const cartItems = response.data;
@@ -34,8 +32,8 @@ function WishlistItem({ item, onRemove }) {
     try {
       const cartDTO = {
         productId: item.id,
-        userId: sessionStorage.getItem('id'), // Replace with actual user ID
-        quantity: 1, // Assuming default quantity is 1
+        userId: sessionStorage.getItem('id'),
+        quantity: 1,
       };
       await addProductToCart(cartDTO);
       setIsInCart(true);
@@ -52,7 +50,7 @@ function WishlistItem({ item, onRemove }) {
           'Content-Type': 'application/json',
         },
         data: {
-          userId: sessionStorage.getItem('id'), // Pass userId and productId to identify the item
+          userId: sessionStorage.getItem('id'),
           productId: item.id,
         },
       });
@@ -60,7 +58,7 @@ function WishlistItem({ item, onRemove }) {
       dispatch({ type: 'REMOVE_FROM_WISHLIST', payload: item.id });
 
       if (onRemove) {
-        onRemove(item.id); // Notify the Wishlist component to remove the item from the list
+        onRemove(item.id);
       }
 
       toast.success('Item removed from wishlist successfully');
@@ -93,21 +91,21 @@ function WishlistItem({ item, onRemove }) {
                 className="btn btn-success"
                 onClick={() => navigate('/cart')}
               >
-                Go to Cart
+                <FaShoppingCart />
               </button>
             ) : (
               <button
-                className="btn btn-success"
+                  className="btn btn-outline-success"
                 onClick={addToCart}
               >
-                Add to Cart
+                <FaCartPlus />
               </button>
             )}
             <button
               onClick={removeFromWishlist}
               className="btn btn-danger"
             >
-              Remove
+              <FaTrash /> {/* Use trash icon */}
             </button>
           </div>
         </div>

@@ -4,7 +4,9 @@ import { useDispatch } from 'react-redux';
 import { getCartByUserId, updateCartInBackend } from '../services/cart';
 import { updateCartAction } from '../features/cartSlice';
 import { useNavigate } from "react-router-dom";
-import {updateAmount} from "../features/grandTotal";
+import { updateAmount } from "../features/grandTotal";
+import { FaShoppingCart } from "react-icons/fa"; // Import the shopping cart icon
+
 
 function Cart() {
     const [cartItems, setCartItems] = useState([]);
@@ -50,8 +52,6 @@ function Cart() {
 
     const proceedToCheckout = async () => {
         try {
-            console.log("inside proceed to checkout",amount);
-
             dispatch(updateCartAction(cartItems));
 
             const cartDTOs = cartItems.map(item => ({
@@ -64,10 +64,6 @@ function Cart() {
 
             await updateCartInBackend(cartDTOs);
             dispatch(updateAmount(grandTotal))
-
-           
-
-
             console.log('Cart updated and ready for checkout!');
             navigate('/Checkout');
         } catch (error) {
@@ -78,7 +74,10 @@ function Cart() {
     return (
         <div>
             <div className="container">
-                <h4>Your Cart</h4>
+                <div className="d-flex align-items-center mb-4">
+                    <FaShoppingCart size={30} className="me-2 text-primary" />
+                    <h4 className="mb-0">Shopping Cart</h4>
+                </div>
                 <div className="row">
                     {cartItems.length > 0 ? (
                         cartItems.map((item) => (
@@ -94,22 +93,47 @@ function Cart() {
                     )}
                 </div>
             </div>
-            <div
-                className="container bg-white text-dark align-middle card border"
-                style={{ height: 60, borderRadius: 10 }}
-            >
-                <div className="row">
-                    <div className="col-9" style={{ verticalAlign: "middle", marginTop: 10 }}>
-                        Grand Total: ₹{grandTotal.toFixed(2)}
-                    </div>
-                    <div className="col-3">
-                        <button className="btn btn-warning" style={{ verticalAlign: "middle", marginTop: 10 }} onClick={proceedToCheckout}>
-                            Proceed to Checkout
-                        </button>
-                    </div>
+            <div className="container my-4">
+                <div className="bg-light rounded p-3 d-flex justify-content-between align-items-center shadow-sm">
+                    <h5 className="mb-0 fw-bold">Grand Total: ₹{grandTotal.toFixed(2)}</h5>
+                    <button className="btn btn-warning btn-lg" onClick={proceedToCheckout}>
+                        Proceed to Checkout
+                    </button>
                 </div>
             </div>
+            {/* Custom CSS */}
+            <style jsx>{`
+                .container {
+                    border-radius: 8px;
+                    padding: 20px;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+                }
+                .text-muted {
+                    color: #6c757d;
+                }
+                .bg-light {
+                    background-color: #f8f9fa;
+                }
+                .shadow-sm {
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                }
+                h4 {
+                    font-weight: bold;
+                }
+                .btn-warning {
+                    background-color: #ffc107;
+                    border-color: #ffc107;
+                    font-size: 1rem;
+                    font-weight: 500;
+                    text-transform: uppercase;
+                }
+                .btn-warning:hover {
+                    background-color: #e0a800;
+                    border-color: #d39e00;
+                }
+            `}</style>
         </div>
+
     );
 }
 

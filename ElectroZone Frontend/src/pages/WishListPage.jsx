@@ -6,11 +6,7 @@ import Wishlist from "../componants/WishList";
 import MainPage from "../componants/Main-page";
 import Edit_Profile from "../componants/Edit_Profile";
 import AddAddress from "../componants/Add-Address";
-import WishList from "../componants/WishList";
-import Cart from "../componants/Cart";
-import { useNavigate } from "react-router-dom";
-import Navbar from "../componants/Navbar";
-import Footer from "../componants/Footer";
+
 
 function WishlistPage() {
   const [activeComponent, setActiveComponent] = useState("Home");

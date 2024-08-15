@@ -101,17 +101,10 @@ const Footer = () => {
             <h3 style={styles.heading}>Contact Us</h3>
             <p>Email: info@gmail.com</p>
             <p>Phone: +1234567890</p>
-            <p>Address: 123 Street, Pune, Maharashtra, India</p>
+            <p>Address: Sunbeam Infotech Private Limited, Hinjawadi - Kasarsai Rd, Phase 2, Hinjawadi Rajiv Gandhi Infotech Park, Hinjawadi, Pimpri-Chinchwad, Maharashtra 411057</p>
             <br /> <br />
             <div style={styles.mapSection}>
-              <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.085229950602!2d144.95373541544363!3d-37.81621897975178!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d5df5f4e7f1%3A0x2c01cdb3c0f344b9!2sVictoria%20Harbour%2C%20Docklands%20VIC%203008%2C%20Australia!5e0!3m2!1sen!2sin!4v1634319043923!5m2!1sen!2sin"
-                width="100%"
-                height="200"
-                style={styles.mapFrame}
-                allowFullScreen=""
-                loading="lazy"
-              ></iframe>
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3781.670018694865!2d73.70315507465374!3d18.58890976708421!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bb7d0345f01f%3A0x6e8c20c647a06f47!2sSunbeam%20Infotech%20Private%20Limited!5e0!3m2!1sen!2sin!4v1723718410926!5m2!1sen!2sin" width="350" height="300" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </Col>
         </Row>

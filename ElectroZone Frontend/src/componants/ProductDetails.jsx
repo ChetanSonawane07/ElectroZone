@@ -5,6 +5,8 @@ import { addProductToWishlist } from '../services/wishlist';
 import { FaStar, FaRegStar } from 'react-icons/fa';
 import { addProductToCart } from '../services/cart';
 import { toast } from "react-toastify";
+import { FaRegHeart, FaHeart, FaShoppingCart, FaCartPlus } from 'react-icons/fa'; // Import the trash icon
+
 
 function ProductDetails() {
   const { id } = useParams();
@@ -227,32 +229,32 @@ function ProductDetails() {
                     <>
                       {isInWishlist ? (
                         <button
-                          className="btn btn-outline-primary mx-2"
+                          className="btn btn-outline-danger mx-2"
                           onClick={() => navigate('/wishlist')}
                         >
-                          Go to Wishlist
+                          <FaHeart size={25} className="text-danger" />
                         </button>
                       ) : (
                         <button
-                          className="btn btn-outline-success mx-2"
+                          className="btn btn-outline-danger mx-2"
                           onClick={addToWishlist}
                         >
-                          Add to Wishlist
+                          <FaRegHeart size={25} />
                         </button>
                       )}
                       {isInCart ? (
                         <button
-                          className="btn btn-success"
+                          className="btn btn-success mx-2"
                           onClick={() => navigate('/cart')}
                         >
-                          Go to Cart
+                          <FaShoppingCart size={25} />
                         </button>
                       ) : (
                         <button
-                          className="btn btn-success"
+                          className="btn btn-outline-success mx-2"
                           onClick={addToCart}
                         >
-                          Add to Cart
+                          <FaCartPlus size={25} />
                         </button>
                       )}
                     </>

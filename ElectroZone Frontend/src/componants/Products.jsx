@@ -41,13 +41,13 @@ function Products() {
   };
 
   return (
-    <div>
-      <div className="container">
+    <div className="products-page">
+      <div className="container-fluid">
         <div className="row">
-          <div className="col-md-3 ">
-            <div className="vertical-nav bg-dark" style={{ height: 100 }}>
+          <div className="col-lg-3">
+            <div className="vertical-nav bg-white p-3">
               <div className="accordion accordion-flush" id="accordionFlushExample">
-              <div className="accordion-item">
+                <div className="accordion-item">
                   <h2 className="accordion-header">
                     <button
                       className="accordion-button collapsed bg-white text-dark"
@@ -76,7 +76,7 @@ function Products() {
                   </h2>
                   <div
                     id="flush-collapseOne"
-                    className="accordion-collapse "
+                    className="accordion-collapse collapse"
                     data-bs-parent="#accordionFlushExample"
                   >
                     <div className="accordion-body">
@@ -110,7 +110,7 @@ function Products() {
                   </h2>
                   <div
                     id="flush-collapseTwo"
-                    className="accordion-collapse "
+                    className="accordion-collapse collapse"
                     data-bs-parent="#accordionFlushExample"
                   >
                     <div className="accordion-body">
@@ -134,7 +134,7 @@ function Products() {
               </div>
             </div>
           </div>
-          <div className="col-md-9">
+          <div className="col-lg-9">
             <ProductList selectedBrands={selectedBrands} priceOrder={priceOrder} />
           </div>
         </div>
