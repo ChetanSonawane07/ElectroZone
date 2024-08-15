@@ -47,7 +47,7 @@ function OrdersPage() {
 
       <CategoryList />
       <br />
-      <OrderItems />
+      <OrderItems userId={sessionStorage.getItem('id')} />
       <br />
       {/* Footer */}
       <Footer/>

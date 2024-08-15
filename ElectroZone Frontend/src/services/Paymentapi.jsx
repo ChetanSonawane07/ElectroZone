@@ -8,7 +8,7 @@ function PaymentApi({selectedAddressId}){
 
   const grandTotal = useSelector(state => state.grandTotal);
 
-  const amt = parseInt(grandTotal)
+  const amount = parseInt(grandTotal)
 
   const navigate = useNavigate();
 
@@ -23,7 +23,6 @@ function PaymentApi({selectedAddressId}){
           amount : amount*100,
           name: "STARTUP_PROJECTS",
           description: "for testing purpose",
-          amount: amt*100,
           handler: function (response) {
               toast.success("Your Order Is Placed");
                 const res = axios.post(`http://localhost:8080/order/checkout`,{

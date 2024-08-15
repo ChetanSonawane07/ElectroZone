@@ -20,14 +20,14 @@ import com.app.service.UserService;
 public class OrderController {
 
     @Autowired
-    OrderItemService orderItemService;
+    OrderItemService orderItemService; 
 
     @Autowired
     UserService userService;
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<?> findAllOrdersByUser(@PathVariable Long userId) {
-        List<OrderItem> orderItem = orderItemService.getAllOrderItemsOfUser(userId); 
+    public ResponseEntity<?> findAllOrdersByUser(@PathVariable String userId) {
+        List<OrderItem> orderItem = orderItemService.getAllOrderItemsOfUser(Long.valueOf(userId)); 
         return ResponseEntity.ok(orderItem);
     } 
     

@@ -50,7 +50,7 @@ function Cart() {
 
     const proceedToCheckout = async () => {
         try {
-            console.log("inside proceed to checkout",amount);
+            console.log("inside proceed to checkout");
 
             dispatch(updateCartAction(cartItems));
 

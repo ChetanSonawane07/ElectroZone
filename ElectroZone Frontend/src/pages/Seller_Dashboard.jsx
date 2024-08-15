@@ -146,7 +146,7 @@ function Seller_Dashboard() {
       case "SellerProductList":
         return <SellerProductList />;
       case "SellerOrderList":
-        return <SellerOrderList />;
+        return <SellerOrderList sellerId = { sessionStorage.sellerId }/>;
       case "EditProfile":
         return <EditSellerProfile />
       default:

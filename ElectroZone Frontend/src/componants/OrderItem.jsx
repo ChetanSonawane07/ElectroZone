@@ -1,22 +1,24 @@
-function OrderItem() {
+function OrderItem({ order }) {
   return (
     <div>
       <div className="container">
-        <div className="card shadow">
+        <div className="card shadow mb-3">
           <div className="card-body">
             <div className="row">
               <div className="col-3">
-                <div className="img-left"></div>
+                <img src={order.product.image ? `data:image/${order.product.imageFormat || 'jpeg'};base64,${order.product.image}` : 'path/to/default-image.jpg'} alt={order.product.name} className="img-fluid img-left" />
               </div>
               <div className="col-3">
-                <p>Item Name</p>
-                <p>Seller Name</p>
-                <p>Item Price</p>
+                <p><strong>{order.product.name}</strong></p>
+                <p>Seller: {order.seller.name}</p>
+                <p>Price: ₹{(order.product.mrp - order.product.mrp)*order.quantity}</p>
               </div>
               <div className="col-3">
-                Estimate Delivery Date / Delivered Date
+                <p>{order.order.delivaryDate ? `Delivered on: ${order.order.delivaryDate}` : `Estimated Delivery: ${order.order.estimateDeliveryDate}`}</p>
               </div>
-              <div className="col-3">Delivery Status</div>
+              <div className="col-3">
+                <p>Status: {order.order.orderStatus}</p>
+              </div>
             </div>
           </div>
         </div>

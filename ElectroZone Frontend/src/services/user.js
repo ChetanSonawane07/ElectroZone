@@ -79,3 +79,13 @@ export async function fetchSavedAddresses(id) {
   // read JSON data (response)
   return response
 }
+
+
+export async function fetchUserOrders(userId) {
+
+  // make API call
+  const response = await axios.get(`http://localhost:8080/order/user/${userId}`)
+
+  // read JSON data (response)
+  return response
+}
