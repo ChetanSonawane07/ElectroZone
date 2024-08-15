@@ -25,16 +25,20 @@ function User_Register() {
     } else if (confirmpassword.length !== password.length) {
       toast.warning("Password should be same");
     } else {
-      const result = await register(
-        name,
-        email,
-        phoneNumber,
-        password
-      );
-      if (result.status === 201) {
-        toast.success("Registeration Successful")
-      } else {
-        toast.error("Failed to register the user");
+      try {
+        const result = await register(
+          name,
+          email,
+          phoneNumber,
+          password
+        );
+        if (result.status === 201) {
+          toast.success("Registeration Successful")
+        } else {
+          toast.error("Registeration failed");
+        }
+      } catch (error) {
+        toast.error("Email already registered");
       }
     }
   };

@@ -16,28 +16,13 @@ function CheckoutPage() {
 
   const userId = sessionStorage.getItem('id'); // Replace with actual user ID
 
-  const [activeComponent, setActiveComponent] = useState("Home");
+  
   const cartItems = useSelector(state => state.cart);
   const grandTotal = useSelector(state => state.grandTotal);
   
   console.log({cartItems, grandTotal});
   
-  const navigate = useNavigate();
-  const handleNavigation = (path) => {
-    navigate(path);
-  };
-
-  const navigateToAboutUs = () => {
-    navigate("/AboutUs");
-  };
-
-  // const payMethod = {
-  //    UPI,
-  //     CREDIT_CARD,
-  //     DEBIT_CARD,
-  //     INTERNET_BANKING
-  // }
-
+ 
   const [addresses, setAddresses] = useState([]);
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   useEffect(() => {
@@ -66,32 +51,10 @@ function CheckoutPage() {
   };
 
 
-  const renderComponent = () => {
-    switch (activeComponent) {
-      case "Home":
-        return <MainPage />;
-      case "Edit-Profile":
-        return <Edit_Profile />;
-      case "Add-Address":
-        return <AddAddress />;
-      case "My-WishList":
-        return navigate('/WishList');
-      case "My-Cart":
-        return navigate('/Cart');
-      case "View-Orders":
-        return navigate("/Orders");
-    }
-  };
   return (
     <div>
       {/* <!-- Navbar --> */}
-      <Navbar
-        onBecomeSeller={() => handleNavigation("/Seller-Register")}
-        onUserLogin={() => handleNavigation("/User-Login")}
-        onNavigateToAboutUs={() => handleNavigation("/AboutUs")}
-        setActiveComponent={setActiveComponent}
-      />
-
+      <Navbar />
       <br />
       {/* Main Content */}
       <div className="container">

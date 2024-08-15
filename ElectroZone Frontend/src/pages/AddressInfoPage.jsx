@@ -7,26 +7,28 @@ import Edit_Profile from "../componants/Edit_Profile";
 import AddAddress from "../componants/Add-Address";
 import WishList from "../componants/WishList";
 import Cart from "../componants/Cart";
-import ProductDetails from "../componants/ProductDetails";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../componants/Navbar";
 import Footer from "../componants/Footer";
+import Navbar from "../componants/Navbar";
 
 initMDB({ Dropdown, Collapse });
-function ProductDetailsPage() {
-  
+function AddressInfoPage() {
+
   return (
     <div>
       {/* <!-- Navbar --> */}
-      <Navbar />
-      <CategoryList />
-      <br />
-      <ProductDetails />
 
+      <Navbar />
+   
+      <CategoryList />
+      {/* <MainPage /> */}
+      <AddAddress/>
+
+      <br />
       {/* Footer */}
       <Footer/>
     </div>
   );
 }
 
-export default ProductDetailsPage;
+export default AddressInfoPage;

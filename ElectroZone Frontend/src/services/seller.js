@@ -1,13 +1,17 @@
 import axios from "axios";
 
 export const register = async (name,email,phoneNo,password) => {
-    const body = {
+    try {
+      const body = {
         name,email,password,phoneNo
     }
 
     const response = await axios.post(`http://localhost:8080/api/sellers/register`,body);
 
     return response
+    } catch (error) {
+      throw error
+    }
 }
 
 export const login = async (email,password) => {
