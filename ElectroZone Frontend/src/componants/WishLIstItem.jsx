@@ -4,7 +4,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { addProductToCart } from '../services/cart';
 import { useNavigate } from 'react-router-dom';
-import { FaTrash, FaShoppingCart, FaCartPlus } from 'react-icons/fa'; // Import the trash icon
+import { FaTrash, FaShoppingCart, FaCartPlus } from 'react-icons/fa';
 const API_BASE_URL = 'http://localhost:8080';
 
 function WishlistItem({ item, onRemove }) {
@@ -73,18 +73,19 @@ function WishlistItem({ item, onRemove }) {
 
   return (
     <div className="col-md-4 mb-4">
-      <div className="card">
+      <div className="card product-card">
         <img
           src={imageSrc}
           className="card-img-top"
           alt={item.title}
-          style={{ height: '200px', objectFit: 'cover' }}
+          style={{ height: '300px', objectFit: 'cover' }}
         />
         <div className="card-body">
-          <h4 className="card-title">{item.name}</h4>
-          <hr />
-          <p className="card-text">{item.description}</p>
-          <p className="card-text font-weight-bold">${price.toFixed(2)}</p>
+          <h5 className="card-title text-truncate" title={item.name}>{item.name}</h5>
+          <div className="card-text-container">
+            <p className="card-text">{item.description}</p>
+          </div>
+          <p className="card-text font-weight-bold">₹{price.toFixed(2)}</p>
           <div className="d-flex justify-content-between align-items-center">
             {isInCart ? (
               <button
@@ -95,7 +96,7 @@ function WishlistItem({ item, onRemove }) {
               </button>
             ) : (
               <button
-                  className="btn btn-outline-success"
+                className="btn btn-outline-success"
                 onClick={addToCart}
               >
                 <FaCartPlus />
@@ -105,11 +106,50 @@ function WishlistItem({ item, onRemove }) {
               onClick={removeFromWishlist}
               className="btn btn-danger"
             >
-              <FaTrash /> {/* Use trash icon */}
+              <FaTrash />
             </button>
           </div>
         </div>
       </div>
+      {/* Add custom CSS */}
+      <style jsx>{`
+        .product-card {
+          height: 500px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+
+        .card-body {
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+
+        .card-title {
+          font-size: 1.1rem;
+          margin-bottom: 0.5rem;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .card-text-container {
+          max-height: 4.5rem; /* Roughly 3 lines of text */
+          overflow-y: auto;
+        }
+
+        .card-text {
+          margin-bottom: 0.5rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .card-text.font-weight-bold {
+          margin-top: auto;
+        }
+      `}</style>
     </div>
   );
 }

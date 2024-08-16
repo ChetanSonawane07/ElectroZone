@@ -22,53 +22,39 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 	
 	
-	
-	//dep : custom jwt auth filter
-	@Autowired
-	private JwtAuthenticationFilter jwtFilter;
-	//dep : custom auth entry point
-	@Autowired
-	private CustomAuthenticationEntryPoint authEntry;
-	
-  @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-	
-	
-	@Bean
-	public SecurityFilterChain authorizeRequests(HttpSecurity http) throws Exception
-	{
-		//URL based authorization rules
-		http.cors()
-		.and().
-		//disable CSRF token generation n verification
-		csrf()	.disable()
-		.exceptionHandling().authenticationEntryPoint(authEntry).
-		and().
-		authorizeRequests()
-		.antMatchers("/products/**","/cart/**","/wishlist/**","/brands/**","/api/users/login","/api/sellers/login","/categories/**","/api/users/**","/users/signin",
-				"/v*/api-doc*/**","/swagger-ui/**","/api/**","/admin/login","/user/address/**","/**").permitAll()
-		// only required for JS clnts (react / angular) : for the pre flight requests
-		.antMatchers(HttpMethod.OPTIONS).permitAll()
-		.antMatchers("/tickets/**","/order/**").hasAnyRole("USER")
-		.antMatchers("/products/seller/**","/tickets/**").hasAnyRole("ADMIN","SELLER")
-		.anyRequest().authenticated()
-		.and()
-		//to tell spring sec : not to use HttpSession to store user's auth details
-		.sessionManagement()
-		.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and()
-		//inserting jwt filter before sec filter
-		.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-	
-		return http.build();
-	}
-	//configure AuthMgr as a spring bean
-	@Bean
-	public AuthenticationManager authenticationManager
-	(AuthenticationConfiguration config) throws Exception
-	{
-		return config.getAuthenticationManager();
-	}
+	 @Autowired
+	    private JwtAuthenticationFilter jwtFilter;
+	    
+	    @Autowired
+	    private CustomAuthenticationEntryPoint authEntry;
+	    
+	    @Bean
+	    public PasswordEncoder passwordEncoder() {
+	        return new BCryptPasswordEncoder();
+	    }
+	    
+	    @Bean
+	    public SecurityFilterChain authorizeRequests(HttpSecurity http) throws Exception {
+	        http.cors().and()
+	            .csrf().disable()
+	            .exceptionHandling().authenticationEntryPoint(authEntry)
+	            .and()
+	            .authorizeRequests()
+	            .antMatchers("/products/**",  "/wishlist/**", "/brands/**", "/api/users/login", "/api/sellers/login", "/categories/**", "/api/users/**", "/users/signin", "/v*/api-doc*/**", "/swagger-ui/**", "/api/**", "/admin/login", "/user/address/**", "/**").permitAll()
+	            .antMatchers(HttpMethod.OPTIONS).permitAll()
+	            .antMatchers("/tickets/**", "/cart/**","/order/**").hasAnyAuthority("USER")
+	            .antMatchers("/products/seller/**", "/tickets/**").hasAnyAuthority("ADMIN", "SELLER")
+	            .anyRequest().authenticated()
+	            .and()
+	            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+	            .and()
+	            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+	        
+	        return http.build();
+	    }
+	    
+	    @Bean
+	    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+	        return config.getAuthenticationManager();
+	    }
 }
